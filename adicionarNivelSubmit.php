@@ -1,5 +1,6 @@
 <?php
 include 'assets/classes/niveis.class.php';
+session_start(); // Inicia a sessão para capturar o id_administrador
 $nivel = new Niveis();
 
 if (!empty($_POST['levelName'])) {

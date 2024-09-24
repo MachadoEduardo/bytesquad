@@ -24,11 +24,21 @@ class Niveis {
     }
 
     public function adicionar($nome_nivel, $tempo_nivel, $dificuldade, $questoes, $respostas) {
+        // Inicia a sessão para capturar o id_administrador
+        session_start();
+        
+        // Captura o id_administrador da sessão
+        if (!isset($_SESSION['id_administrador'])) {
+            return 'ERRO: Administrador não logado.';
+        }
+
+        $id_administrador = $_SESSION['id_administrador'];
+
         if (!$this->existeNivel($nome_nivel)) { // Verifica se o nivel não existe
             try {
                 $sql = $this->con->conectar()->prepare(
-                    "INSERT INTO nivel (nome_nivel, tempo_nivel, dificuldade, perguntas, respostas) 
-                     VALUES (:nome, :tempo, :dificuldade, :perguntas, :respostas)"
+                    "INSERT INTO nivel (nome_nivel, tempo_nivel, dificuldade, perguntas, respostas, id_administrador) 
+                     VALUES (:nome, :tempo, :dificuldade, :perguntas, :respostas, :id_administrador)"
                 );
 
                 $sql->bindParam(':nome', $nome_nivel, PDO::PARAM_STR);
@@ -36,6 +46,7 @@ class Niveis {
                 $sql->bindParam(':dificuldade', $dificuldade, PDO::PARAM_STR);
                 $sql->bindParam(':perguntas', $questoes, PDO::PARAM_STR);
                 $sql->bindParam(':respostas', $respostas, PDO::PARAM_STR);
+                $sql->bindParam(':id_administrador', $id_administrador, PDO::PARAM_INT); // Adiciona o id_administrador automaticamente
 
                 $sql->execute(); // Executa a consulta
                 return true; // Retorna verdadeiro se a inserção for bem-sucedida
@@ -43,7 +54,7 @@ class Niveis {
                 return 'ERRO: ' . $ex->getMessage();
             }
         } else {
-            return false; // Retorna falso se o email já existir
+            return false; // Retorna falso se o nivel já existir
         }
     }
 

@@ -21,6 +21,7 @@ $nivel = new Niveis();
                      <th>Dificuldade</th>
                      <th>Perguntas</th>
                      <th>Respostas</th>
+                     <th>Administrador</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +38,7 @@ $nivel = new Niveis();
                     <td><?php echo $item['dificuldade']?></td>
                     <td><?php echo $item['questoes']?></td>
                     <td><?php echo $item['respostas']?></td>
+                    <td><?php echo $item['id_administrador']?></td>
                     <td>
                         <a href="#" class="btn btn-sm btn-primary">Editar</a>
                         <a href="#" class="btn btn-sm btn-danger">Excluir</a>
