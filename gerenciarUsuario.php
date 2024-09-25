@@ -72,6 +72,8 @@ $usuario = new Usuarios();
     </div>
 </main>
 
+<?php include 'assets/inc/footer.inc.php'; ?>
+
 <!-- Inclua os scripts necessários para o Bootstrap 5.x -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -31,9 +31,9 @@
                     </li>
                     <li><a class="dropdown-item" href="index.php">Home</a></li>
                     <li><a class="dropdown-item" href="gerenciarUsuario.php">Usuários</a></li>
-                    <li><a class="dropdown-item" href="gerenciarAdministrador.php">Adminstradores</a></li>
-                    <li><a class="dropdown-item" href="gerenciarNivel.php">Perguntas e respostas</a></li>
-                    <li><a class="dropdown-item" href="#">Níveis de dificuldade</a></li>
+                    <li><a class="dropdown-item" href="gerenciarAdministrador.php">Administradores</a></li>
+                    <li><a class="dropdown-item" href="gerenciarNivel.php">Níveis</a></li>
+                    <li><a class="dropdown-item" href="telaLogin.php">Login</a></li>
                 </ul>
             </div>
             <div class="dropdown me-2">

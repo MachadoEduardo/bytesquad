@@ -13,38 +13,7 @@
 
 <body class="bg-light">
 
-    <!-- Header -->
-    <div class="header-bg"></div>
-    <header class="container bg-dark mt-4 rounded d-flex justify-content-between align-items-center py-2">
-        <div class="d-flex align-items-center">
-            <p class="text-white fs-3 fw-bold mb-0">ByteSquad</p>
-        </div>
-        <div class="d-flex align-items-center">
-            <div class="dropdown me-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Serviços
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li>
-                        <h6 class="dropdown-header">Gerenciar</h6>
-                    </li>
-                    <li><a class="dropdown-item" href="gerenciarUsuario.php">Usuários</a></li>
-                    <li><a class="dropdown-item" href="gerenciarAdministrador.php">Administradores</a></li>
-                    <li><a class="dropdown-item" href="gerenciarNivel.php">Perguntas e respostas</a></li>
-                    <li><a class="dropdown-item" href="#">Níveis de dificuldade</a></li>
-                </ul>
-            </div>
-            <div class="dropdown me-2">
-                <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Sair
-                </button>
-            </div>
-
-
-        </div>
-    </header>
+<?php include 'assets/inc/header.inc.php'; ?>
 
     <!-- Conteúdo Principal -->
     <main class="container mt-5">
@@ -64,10 +33,28 @@
                     <a class="nav-link link-blue fs-3" href="gerenciarAdministrador.php">• Gerenciar administradores</a>
                     <p>Aba para criar, editar e/ou excluir os administradores do sistema.</p>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link link-blue fs-3" href="">• Gerenciar compras</a>
+                    <p>Aba para criar, editar e/ou excluir as configurações de compra de sistema.</p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-blue fs-3" href="">• Gerenciar configurações</a>
+                    <p>Aba para criar, editar e/ou excluir a aba de configurações do sistema.</p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-blue fs-3" href="">• Gerenciar dicas</a>
+                    <p>Aba para criar, editar e/ou excluir os pacotes de dicas do sistema.</p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-blue fs-3" href="">• Gerenciar energia</a>
+                    <p>Aba para criar, editar e/ou excluir os pacotes de energia do sistema.</p>
+                </li>
             </ul>
         </div>
 
     </main>
+
+    <?php include 'assets/inc/footer.inc.php'; ?>
 
     <!-- Inclua os scripts necessários para o Bootstrap 5.x -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
