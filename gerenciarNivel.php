@@ -52,53 +52,79 @@ $nivel = new Niveis();
         </table>
     </div>
 
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Adicionar/Editar Nível</h5>
-        </div>
-        <div class="card-body">
-            <form action="adicionarNivelSubmit.php" method="POST">
-                <div class="mb-3">
-                    <label for="nome_nivel" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="nome_nivel" name="nome_nivel" required>
-                </div>
-                <div class="mb-3">
-                    <label for="tempo_nivel" class="form-label">Tempo</label>
-                    <input type="text" class="form-control" id="tempo_nivel" name="tempo_nivel" required>
-                </div>
-                <div class="mb-3">
-                    <label for="dificuldade" class="form-label">Dificuldade</label>
-                    <input type="text" class="form-control" id="dificuldade" name="dificuldade" required>
-                </div>
-                <div class="mb-3">
-                    <label for="questoes" class="form-label">Perguntas</label>
-                    <input type="text" class="form-control" id="questoes" name="questoes" required>
-                </div>
-                <div class="mb-3">
-                    <label for="respostas" class="form-label">Respostas</label>
-                    <input type="text" class="form-control" id="respostas" name="respostas" required>
-                </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Adicionar Usuário
+    </button>
 
-                <?php
-                $lista = $nivel->listar();
-                foreach ($lista as $item):
-                    ?>
-                    <div class="form-floating">
-                        <select id="select1" class="form-select">
-                            <option>lalaland</option>
-                            <option>biscuti</option>
-                            <!-- <option><?php echo $item['nome_nivel'] ?></option>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Usuário</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Adicionar/Editar Nível</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="adicionarNivelSubmit.php" method="POST">
+                                <div class="mb-3">
+                                    <label for="nome_nivel" class="form-label">Título</label>
+                                    <input type="text" class="form-control" id="nome_nivel" name="nome_nivel" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tempo_nivel" class="form-label">Tempo</label>
+                                    <input type="text" class="form-control" id="tempo_nivel" name="tempo_nivel"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dificuldade" class="form-label">Dificuldade</label>
+                                    <input type="text" class="form-control" id="dificuldade" name="dificuldade"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="questoes" class="form-label">Perguntas</label>
+                                    <input type="text" class="form-control" id="questoes" name="questoes" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="respostas" class="form-label">Respostas</label>
+                                    <input type="text" class="form-control" id="respostas" name="respostas" required>
+                                </div>
+
+                                <?php
+                                $lista = $nivel->listar();
+                                foreach ($lista as $item):
+                                    ?>
+                                    <div class="form-floating">
+                                        <select id="select1" class="form-select">
+                                            <option>lalaland</option>
+                                            <option>biscuti</option>
+                                            <!-- <option><?php echo $item['nome_nivel'] ?></option>
                             <option><?php echo $item['id_administrador'] ?></option> -->
-                        </select>
-                        <label for="select1">Escolbha um</label>
-                    </div>
-                <?php endforeach; ?>
+                                        </select>
+                                        <label for="select1">Escolbha um</label>
+                                    </div>
+                                <?php endforeach; ?>
 
-                <input type="submit" class="btn btn-success" name="btCadastrar" value="Salvar" />
-                <button type="reset" class="btn btn-secondary">Limpar</button>
-            </form>
+                                <input type="submit" class="btn btn-success" name="btCadastrar" value="Salvar" />
+                                <button type="reset" class="btn btn-secondary">Limpar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
         </div>
     </div>
+
+
 </main>
 
 <?php include 'assets/inc/footer.inc.php'; ?>

@@ -37,7 +37,7 @@ $admin = new Administrador();
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id_administrativo']; ?>">
-                                Editar Usuário
+                                Editar Administrador
                             </button>
                             <a href="deletarAdministrador.php?id=<?php echo $item['id_administrativo']; ?>"
                                 class="btn btn-sm btn-danger"
@@ -50,8 +50,8 @@ $admin = new Administrador();
             </tbody>
         </table>
 
-        <!-- Criando um modal dentro de um foreach, para que dessa forma, exista um modal para cada um dos usuários da tabela. Assim, ao clicar no modal automaticamente as informações do 
-         usuário serão exibidas dentro do formulário -->
+        <!-- Criando um modal dentro de um foreach, para que dessa forma, exista um modal para cada um dos administradores da tabela. Assim, ao clicar no modal automaticamente
+        as informações do usuário serão exibidas dentro do formulário -->
         <?php foreach ($lista as $item): ?>
             <!-- Modal de Edição -->
             <div class="modal fade" id="editarModal<?php echo $item['id_administrativo']; ?>" tabindex="-1" role="dialog"
@@ -60,7 +60,7 @@ $admin = new Administrador();
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="editarModalLabel<?php echo $item['id_administrativo']; ?>">Editar
-                                Usuário</h5>
+                                Administrador</h5>
                         </div>
                         <!-- Corpo do modal, nesse caso, o formulário -->
                         <div class="modal-body">
@@ -97,7 +97,7 @@ $admin = new Administrador();
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Adicionar Usuário
+        Adicionar Administrador
     </button>
 
     <!-- Modal -->
@@ -106,7 +106,7 @@ $admin = new Administrador();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Usuário</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Administrador</h5>
                 </div>
 
                 <div class="modal-body">

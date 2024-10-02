@@ -49,8 +49,8 @@ $usuario = new Usuarios();
             </tbody>
         </table>
 
-        <!-- Criando um modal dentro de um foreach, para que dessa forma, exista um modal para cada um dos usuários da tabela. Assim, ao clicar no modal automaticamente as informações do 
-         usuário serão exibidas dentro do formulário -->
+        <!-- Criando um modal (de edição) dentro de um foreach, para que dessa forma, exista um modal para cada um dos usuários da tabela. Assim, ao clicar no modal automaticamente 
+        as informações do usuário serão exibidas dentro do formulário -->
         <?php foreach ($lista as $item): ?>
             <!-- Modal de Edição -->
             <div class="modal fade" id="editarModal<?php echo $item['id']; ?>" tabindex="-1" role="dialog"
