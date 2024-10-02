@@ -88,7 +88,7 @@ class Administrador {
         try {
             $senha_criptografada = password_hash($senha, PASSWORD_DEFAULT); // Criptografando a senha
             $sql = $this->con->conectar()->prepare(
-                "UPDATE administrativo SET nome = :nome, senha_admin = :senha, permissoes_admin = :permissoes WHERE id_administrativo = :id"
+                "UPDATE administrativo SET usuario = :nome, senha_admin = :senha, permissoes_admin = :permissoes WHERE id_administrativo = :id"
             );
             $sql->bindParam(':id', $id, PDO::PARAM_INT);
             $sql->bindParam(':nome', $usuario, PDO::PARAM_STR);

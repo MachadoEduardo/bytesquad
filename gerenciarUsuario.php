@@ -60,6 +60,7 @@ $usuario = new Usuarios();
                         <div class="modal-header">
                             <h5 class="modal-title" id="editarModalLabel<?php echo $item['id']; ?>">Editar Usuário</h5>
                         </div>
+                        <!-- Corpo do modal, nesse caso, o formulário -->
                         <div class="modal-body">
                             <div class="card-body">
                                 <!-- editarUsuarioSubmit -->
@@ -84,7 +85,7 @@ $usuario = new Usuarios();
                                 </form>
                             </div>
                         </div>
-
+                        <!-- Footer do modal, nesse caso, o botão de fechar -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         </div>
@@ -93,9 +94,10 @@ $usuario = new Usuarios();
             </div>
         <?php endforeach; ?>
     </div>
+
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Adicionar/Editar Usuário
+        Adicionar Usuário
     </button>
 
     <!-- Modal -->
@@ -104,7 +106,7 @@ $usuario = new Usuarios();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Adicionar/Editar Usuário</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Usuário</h5>
                 </div>
                 <div class="modal-body">
                     <div class="card-body">

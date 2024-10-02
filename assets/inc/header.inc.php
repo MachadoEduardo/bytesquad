@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../agenda/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>ByteSquad</title>
     <style>
@@ -15,7 +15,7 @@
             position: relative;
             margin: 0;
             min-height: 100%;
-            padding-bottom: 6.75rem;
+            padding-bottom: 7.85rem;
         }
         footer{
             position: absolute;
