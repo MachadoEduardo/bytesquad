@@ -8,6 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>ByteSquad</title>
     <style>
+        html{
+            height: 100%;
+        }
+        body{
+            position: relative;
+            margin: 0;
+            min-height: 100%;
+            padding-bottom: 6.75rem;
+        }
+        footer{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
     </style>
 </head>
 
