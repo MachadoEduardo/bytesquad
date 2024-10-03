@@ -23,6 +23,7 @@ $nivel = new Niveis();
                     <th>Perguntas</th>
                     <th>Respostas</th>
                     <th>Administrador</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,13 +34,13 @@ $nivel = new Niveis();
                     ?>
                     <!-- Exemplo de linha de usuário -->
                     <tr>
-                        <td><?php echo $item['id'] ?></td>
+                        <td><?php echo $item['id_nivel'] ?></td>
                         <td><?php echo $item['nome_nivel'] ?></td>
                         <td><?php echo $item['tempo_nivel'] ?></td>
                         <td><?php echo $item['dificuldade'] ?></td>
                         <td><?php echo $item['questoes'] ?></td>
                         <td><?php echo $item['respostas'] ?></td>
-                        <td><?php echo $item['id_administrador'] ?></td>
+                        <td><?php echo $item['usuario']; ?></td> <!-- Exibindo o nome do administrador -->
                         <td>
                             <a href="#" class="btn btn-sm btn-primary">Editar</a>
                             <a href="#" class="btn btn-sm btn-danger">Excluir</a>
@@ -95,33 +96,36 @@ $nivel = new Niveis();
                                     <input type="text" class="form-control" id="respostas" name="respostas" required>
                                 </div>
 
-                                <?php
-                                $lista = $nivel->listar();
-                                foreach ($lista as $item):
-                                    ?>
-                                    <div class="form-floating">
-                                        <select id="select1" class="form-select">
-                                            <option>lalaland</option>
-                                            <option>biscuti</option>
-                                            <!-- <option><?php echo $item['nome_nivel'] ?></option>
-                            <option><?php echo $item['id_administrador'] ?></option> -->
-                                        </select>
-                                        <label for="select1">Escolbha um</label>
-                                    </div>
-                                <?php endforeach; ?>
+                                <div class="form-group">
+                                    <label for="id_administrativo">Administrador:</label>
+                                    <select name="id_administrativo" id="id_administrativo" class="form-control" type="text">
+                                        <?php
+                                        $lista = $nivel->listarAdministrador();
+                                        foreach ($lista as $item):
+                                            ?>
+                                            <option value=""><?php echo $item['id_administrativo']; ?> </option>
+                                            <?php
+                                        endforeach;
+                                        ?>
 
-                                <input type="submit" class="btn btn-success" name="btCadastrar" value="Salvar" />
-                                <button type="reset" class="btn btn-secondary">Limpar</button>
-                            </form>
+                                    </select>
+
+                                </div>
+
                         </div>
+
+                        <input type="submit" class="btn btn-success my-2" name="btCadastrar" value="Salvar" />
+                        <button type="reset" class="btn btn-secondary">Limpar</button>
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
+    </div>
     </div>
 
 
