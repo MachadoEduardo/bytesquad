@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/10/2024 às 00:51
+-- Tempo de geração: 04/10/2024 às 03:29
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -40,7 +40,8 @@ CREATE TABLE `administrativo` (
 
 INSERT INTO `administrativo` (`id_administrativo`, `usuario`, `senha_admin`, `permissoes_admin`) VALUES
 (1, 'Eduardo Henrique Cioli Machado', '$2y$10$PdpcQaPKBp1XNZfmlNZmmuyRQ.whYnWHo5Jf0ebIeXk6D2zrfn6.6', 'Criar, editar, listar e excluir usuários.'),
-(2, 'Eduardo Machado', '$2y$10$IBL39vlFi.lYkyQptnOes.f/.EZvLuTmcLIt5it3wGHWghnZfIPnW', 'Criar e editar usuários.');
+(2, 'Eduardo Machado', '$2y$10$IBL39vlFi.lYkyQptnOes.f/.EZvLuTmcLIt5it3wGHWghnZfIPnW', 'Criar e editar usuários.'),
+(3, 'Luis Camargo', '$2y$10$i2H7r/wtQk92zDVDt6zQeuuDUAMRW1l6RcJL37tFBIOPqcbtuBit6', 'Listar usuários.');
 
 -- --------------------------------------------------------
 
@@ -128,6 +129,15 @@ CREATE TABLE `nivel` (
   `id_administrativo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `nivel`
+--
+
+INSERT INTO `nivel` (`id_nivel`, `nome_nivel`, `tempo_nivel`, `dificuldade`, `questoes`, `respostas`, `id_administrativo`) VALUES
+(1, 'Nivel 1', 210, 'Fácil', 'Qual seu nome?', 'Indiferente', 2),
+(2, 'Nivel 2', 60, 'Dificil', 'Qual seu nome?', 'Indiferente', 0),
+(3, 'Nivel 3', 60, 'Dificil', 'Qual a maior palavra do mundo?', 'Indiferente', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -186,9 +196,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome_usuario`, `email_usuario`, `senha_usuario`) VALUES
-(9, 'Alysson', 'alyscranio@gmail.com', '$2y$10$uev2HHanrry7VSpiaq5HiuPCaMAYKuVVss5GyOKPjXPjQ329z9Y0O'),
 (10, 'djnegev', 'ig4m@gmail.com', '$2y$10$rbClDbrHV7setdbdMZii5O9Vd7NDSMUroaF83PpjJqY1yReFju0JW'),
-(11, 'Machado Eduardo', 'machado@gmail.com', '$2y$10$Yuvn0MFn6s4nzxa8XnZrwOOS4ksOrdJvfQpkzqVh13tXtMrT9tRiu');
+(11, 'Machado Eduardo', 'machado@gmail.com', '$2y$10$Yuvn0MFn6s4nzxa8XnZrwOOS4ksOrdJvfQpkzqVh13tXtMrT9tRiu'),
+(12, 'Fabio', 'fabio2023@gmail.com', '$2y$10$K9MMakm9olGj8DwphUUnK.1HBUJikPqnnU4NkJXx3oRQL6JxpD.Zi');
 
 --
 -- Índices para tabelas despejadas
@@ -268,7 +278,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `administrativo`
 --
 ALTER TABLE `administrativo`
-  MODIFY `id_administrativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_administrativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `compra`
@@ -304,7 +314,7 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT de tabela `nivel`
 --
 ALTER TABLE `nivel`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `outros_usuario`
@@ -328,7 +338,7 @@ ALTER TABLE `tabelapontuacao`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
