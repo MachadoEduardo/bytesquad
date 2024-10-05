@@ -48,6 +48,7 @@
                     <li><a class="dropdown-item" href="gerenciarUsuario.php">Usuários</a></li>
                     <li><a class="dropdown-item" href="gerenciarAdministrador.php">Administradores</a></li>
                     <li><a class="dropdown-item" href="gerenciarNivel.php">Níveis</a></li>
+                    <li><a class="dropdown-item" href="gerenciarRedeSocial.php">Rede Social</a></li>
                     <li><a class="dropdown-item" href="telaLogin.php">Login</a></li>
                 </ul>
             </div>
