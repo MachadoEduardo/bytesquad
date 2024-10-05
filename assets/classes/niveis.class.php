@@ -52,9 +52,9 @@ class Niveis {
     public function listar() {
         try {
             $sql = $this->con->conectar()->prepare("
-                SELECT nivel.*, administrativo.usuario 
+                SELECT nivel.*
                 FROM nivel 
-                JOIN administrativo ON nivel.id_administrativo = administrativo.id_administrativo
+                
             ");
             $sql->execute();
             return $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -66,14 +66,63 @@ class Niveis {
     public function listarAdministrador() {
         try {
             $sql = $this->con->conectar()->prepare("
-                SELECT administrativo.id_administrativo 
-                FROM nivel 
-                RIGHT JOIN administrativo ON nivel.id_administrativo = administrativo.id_administrativo
+                SELECT administrativo.id_administrativo, administrativo.usuario
+FROM administrativo
+LEFT JOIN nivel ON nivel.id_administrativo = administrativo.id_administrativo
+GROUP BY administrativo.id_administrativo, administrativo.usuario;
             ");
             $sql->execute();
             return $sql->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $ex) {
             echo "ERRO: " . $ex->getMessage();
+        }
+    }
+
+    public function deletar() {
+        if (isset($_GET['id_nivel'])) {
+            $id_nivel = intval($_GET['id_nivel']);
+            
+            try {
+                $sql = $this->con->conectar()->prepare("DELETE FROM nivel WHERE id_nivel = :id_nivel");
+                $sql->bindParam(':id_nivel', $id_nivel, PDO::PARAM_INT);
+                $sql->execute();
+        
+                header('Location: gerenciarNivel.php');
+            } catch (PDOException $ex) {
+                echo 'ERRO: ' . $ex->getMessage();
+            }
+        }
+    } 
+    
+    public function buscarNivel($id_nivel) {
+        try {
+            $sql = $this->con->conectar()->prepare("SELECT * FROM nivel WHERE id_nivel = :id_nivel");
+            $sql->bindParam(':id_nivel', $id_nivel, PDO::PARAM_INT);
+            $sql->execute();
+            return $sql->fetch(PDO::FETCH_ASSOC); // Retorna os dados do usuário como array associativo
+        } catch (PDOException $ex) {
+            echo "ERRO: " . $ex->getMessage();
+        }
+    }
+
+    public function editar($id_nivel, $nome_nivel, $tempo_nivel, $dificuldade, $questoes, $respostas, $id_administrativo) {
+        try {
+            $sql = $this->con->conectar()->prepare(
+                "UPDATE nivel SET nome_nivel = :nome_nivel, tempo_nivel = :tempo_nivel, dificuldade = :dificuldade,  questoes = :questoes, respostas = :respostas, id_administrativo = :id_administrativo
+                WHERE id_nivel = :id_nivel"
+            );
+            $sql->bindParam(':id_nivel', $id_nivel, PDO::PARAM_INT);
+            $sql->bindParam(':nome_nivel', $nome_nivel, PDO::PARAM_STR);
+            $sql->bindParam(':tempo_nivel', $tempo_nivel, PDO::PARAM_INT);
+            $sql->bindParam(':dificuldade', $dificuldade, PDO::PARAM_STR);
+            $sql->bindParam(':questoes', $questoes, PDO::PARAM_STR);
+            $sql->bindParam(':respostas', $respostas, PDO::PARAM_STR);
+            $sql->bindParam(':id_administrativo', $id_administrativo, PDO::PARAM_INT);
+    
+            $sql->execute();
+            header('Location: gerenciarNivel.php');
+        } catch (PDOException $ex) {
+            echo 'ERRO: ' . $ex->getMessage();
         }
     }
 }

@@ -11,4 +11,4 @@ if (!empty($_POST['id']) && !empty($_POST['nome']) && !empty($_POST['email']) &&
 
     $usuario->editar($id, $nome, $email, $senha); // Chama o método de editar
 }
-?>
+
