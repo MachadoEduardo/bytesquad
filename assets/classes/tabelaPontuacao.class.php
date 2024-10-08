@@ -26,6 +26,21 @@ class TabelaPontuacao {
             echo "ERRO: " . $ex->getMessage();
         }
     }
+
+    public function deletar() {
+        if (isset($_GET['id_tabelapontuacao'])) {
+            $id_tabelapontuacao = intval($_GET['id_tabelapontuacao']);
+            
+            try {
+                $sql = $this->con->conectar()->prepare("DELETE FROM tabelapontuacao WHERE id_tabelapontuacao = :id_tabelapontuacao");
+                $sql->bindParam(':id_tabelapontuacao', $id_tabelapontuacao, PDO::PARAM_INT);
+                $sql->execute();
+        
+                header('Location: gerenciarTabelaPontuacao.php');
+            } catch (PDOException $ex) {
+                echo 'ERRO: ' . $ex->getMessage();
+            }
+        }
+    }
 }   
-?>
 

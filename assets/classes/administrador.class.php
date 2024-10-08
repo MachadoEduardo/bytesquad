@@ -13,7 +13,7 @@ class Administrador {
         $this->con = new Conexao();
     }
 
-    // Verifica se o nome de usuário já existe
+    // Verifica se o administrador já existe pelo nome do usuário
     private function existeAdministrador($usuario) {
         $sql = $this->con->conectar()->prepare("SELECT id_administrativo FROM administrativo WHERE usuario = :usuario");
         $sql->bindParam(':usuario', $usuario, PDO::PARAM_STR);
@@ -23,10 +23,10 @@ class Administrador {
     }
 
     public function adicionar($usuario, $senha, $permissoes) {
-        // Verifica se o administrador com esse nome de usuário não existe
+        // Chama a função que verifica se o administrador com esse nome de usuário não existe
         if (!$this->existeAdministrador($usuario)) {
             try {
-                $senha_criptografada = password_hash($senha, PASSWORD_DEFAULT); // Criptografando a senha
+                $senha_criptografada = password_hash($senha, PASSWORD_DEFAULT); // Criptografando a senha (pode usar MD5 também inclusive acho que vou mudar depois tmj)
                 $sql = $this->con->conectar()->prepare(
                     "INSERT INTO administrativo (usuario, senha_admin, permissoes_admin) 
                      VALUES (:nome, :senha, :permissoes)"
@@ -46,7 +46,7 @@ class Administrador {
         }
     }
 
-
+    // Método básico pra listar do banco não vou explica é muito simples
     public function listar() {
         try {
             $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo");
@@ -57,6 +57,7 @@ class Administrador {
         }
     }
 
+    // Parte dois do comentário anterior!!
     public function deletar() {
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
@@ -73,6 +74,7 @@ class Administrador {
         }
     }    
 
+    // Função para encontrar o administrador dono do ID especifico, para poder trazer as informações dele no editar
     public function buscarAdministrador($id) {
         try {
             $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE id_administrativo = :id");

@@ -7,10 +7,10 @@ $redeSocial = new RedeSocial();
 <main class="container mt-5">
     <div class="header-content mb-4">
         <h1>Gerenciar Rede Social</h1>
-        <p>Secção dedicada à criação, edição, leitura e exclusão de níveis.</p>
+        <p>Secção dedicada à leitura e exclusão de credencias de rede social.</p>
     </div>
 
-    <!-- Tabela de níveis -->
+    <!-- Tabela de credencias da rede social -->
     <div class="table-responsive mb-4">
         <table class="table table-bordered table-hover">
             <thead class="thead-light">
@@ -22,12 +22,12 @@ $redeSocial = new RedeSocial();
                 </tr>
             </thead>
             <tbody>
-                <!-- Adicionar mais níveis usando foreach -->
+                <!-- Adicionar mais registros de credencias usando foreach -->
                 <?php
                 $lista = $redeSocial->listar();
                 foreach ($lista as $item):
                     ?>
-                    <!-- Exemplo de linha de Nível -->
+                    <!-- Exemplo de linha de credencias -->
                     <tr>
                         <td><?php echo $item['id_redesocial'] ?></td>
                         <td><?php echo $item['credenciais_redesocial'] ?></td>

@@ -3,7 +3,7 @@ include 'assets/classes/administrador.class.php';
 $admin = new Administrador();
 
 if (!empty($_POST['usuario']) && !empty($_POST['senha_admin']) && !empty($_POST['permissoes_admin'])) { 
-    // Captura do formulário
+    // Captura do formulário e atribui esse valor nas variáveis
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha_admin'];
     $permissoes = $_POST['permissoes_admin'];
@@ -19,4 +19,4 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha_admin']) && !empty($_POST[
 } else {
     echo '<script type="text/javascript">alert("Preencha todos os campos!");</script>';
 }
-?>
+

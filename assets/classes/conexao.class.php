@@ -9,6 +9,7 @@ class Conexao{
     private static $pdo;
 
     public function __construct(){
+        // Atribui os valores para conectar com o seu servidor
         $this->servidor = "localhost";
         $this->banco = "bytesquad";
         $this->senha = "";
@@ -16,6 +17,7 @@ class Conexao{
     }
     public function conectar(){
         try{
+            // Faz a conexão
             if(is_null(self::$pdo)){
                 self::$pdo = new PDO("mysql:host=".$this->servidor."; dbname=".$this->banco, $this->usuario, $this->senha);
             }

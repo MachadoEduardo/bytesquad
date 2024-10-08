@@ -40,7 +40,7 @@ $nivel = new Niveis();
                         <td><?php echo $item['dificuldade'] ?></td>
                         <td><?php echo $item['questoes'] ?></td>
                         <td><?php echo $item['respostas'] ?></td>
-                        <td><?php echo $item['id_administrativo']; ?></td> <!-- Exibindo o nome do administrador -->
+                        <td><?php echo $item['id_administrativo']; ?></td> <!-- Exibindo o id do administrador -->
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id_nivel']; ?>">
@@ -57,7 +57,7 @@ $nivel = new Niveis();
             </tbody>
         </table>
 
-        <!-- Criando um modal (de edição) dentro de um foreach, para que dessa forma, exista um modal para cada um dos nniveis da tabela. Assim, ao clicar no modal automaticamente 
+        <!-- Criando um modal (de edição) dentro de um foreach, para que dessa forma, exista um modal para cada um dos niveis da tabela. Assim, ao clicar no modal automaticamente 
         as informações do niveis serão exibidas dentro do formulário -->
         <?php foreach ($lista as $item): ?>
             <!-- Modal de Edição -->
@@ -66,7 +66,7 @@ $nivel = new Niveis();
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editarModalLabel<?php echo $item['id_nivel']; ?>">Editar Usuário
+                            <h5 class="modal-title" id="editarModalLabel<?php echo $item['id_nivel']; ?>">Editar Nível
                             </h5>
                         </div>
                         <!-- Corpo do modal, nesse caso, o formulário -->

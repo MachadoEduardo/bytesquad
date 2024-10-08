@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/10/2024 às 03:29
+-- Tempo de geração: 08/10/2024 às 22:50
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -40,8 +40,10 @@ CREATE TABLE `administrativo` (
 
 INSERT INTO `administrativo` (`id_administrativo`, `usuario`, `senha_admin`, `permissoes_admin`) VALUES
 (1, 'Eduardo Henrique Cioli Machado', '$2y$10$PdpcQaPKBp1XNZfmlNZmmuyRQ.whYnWHo5Jf0ebIeXk6D2zrfn6.6', 'Criar, editar, listar e excluir usuários.'),
-(2, 'Eduardo Machado', '$2y$10$IBL39vlFi.lYkyQptnOes.f/.EZvLuTmcLIt5it3wGHWghnZfIPnW', 'Criar e editar usuários.'),
-(3, 'Luis Camargo', '$2y$10$i2H7r/wtQk92zDVDt6zQeuuDUAMRW1l6RcJL37tFBIOPqcbtuBit6', 'Listar usuários.');
+(3, 'Luis Camargo', '$2y$10$i2H7r/wtQk92zDVDt6zQeuuDUAMRW1l6RcJL37tFBIOPqcbtuBit6', 'Listar usuários.'),
+(4, 'Vinicios Vaz', '$2y$10$qXo4FMMdcjnLmPnaCblcsulbXAgvfAZ8YetmvypEqQTHBnkV6a4Gy', 'Listar usuários.'),
+(5, 'Alysson Gabriel', '$2y$10$6FgqTeZM6fYDcGz4q8xrHeh4NQWYIAQoKdtFCYirdMZ2DNbgM0zOq', 'Criar usuários.'),
+(6, 'Luiz Cezar', '$2y$10$rpzMf4VH1tqhudBDiFhL6uAPA8WRTZ.F8caTNtch14Rq4ABacZOeW', 'Editar usuários.');
 
 -- --------------------------------------------------------
 
@@ -80,11 +82,22 @@ CREATE TABLE `configuracao` (
 
 CREATE TABLE `dicas` (
   `id_dicas` int(11) NOT NULL,
-  `pacote_dicas` int(11) NOT NULL,
-  `preco_dicas` int(11) NOT NULL,
+  `pacote_dicas` varchar(100) NOT NULL,
+  `preco_dicas` float NOT NULL,
   `quantidade_dicas` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `dicas`
+--
+
+INSERT INTO `dicas` (`id_dicas`, `pacote_dicas`, `preco_dicas`, `quantidade_dicas`, `id`) VALUES
+(1, 'Pacote SUPER', 29.99, 40, 14),
+(3, 'Pacote MINI', 5.99, 5, 14),
+(4, 'Pacote STANDART', 17.9, 18, 12),
+(5, 'Pacote POOR', 2, 2, 10),
+(6, 'Pacote ELON MUSK', 99, 130, 11);
 
 -- --------------------------------------------------------
 
@@ -134,9 +147,11 @@ CREATE TABLE `nivel` (
 --
 
 INSERT INTO `nivel` (`id_nivel`, `nome_nivel`, `tempo_nivel`, `dificuldade`, `questoes`, `respostas`, `id_administrativo`) VALUES
-(1, 'Nivel 1', 210, 'Fácil', 'Qual seu nome?', 'Indiferente', 2),
-(2, 'Nivel 2', 60, 'Dificil', 'Qual seu nome?', 'Indiferente', 0),
-(3, 'Nivel 3', 60, 'Dificil', 'Qual a maior palavra do mundo?', 'Indiferente', 0);
+(1, 'Nivel 1', 10, 'Fácil', 'Quantas horas tem um dia?', '24', 1),
+(2, 'Nivel 2', 20, 'Médio', 'De quem é a famosa frase “Penso, logo existo”?', 'Descartes', 6),
+(3, 'Nivel 3', 30, 'Dificil', 'Atualmente, quantos elementos químicos a tabela periódica possui?', '118', 4),
+(4, 'Nível 4', 20, 'Média', 'O que a palavra legend significa em português?', 'Lenda', 5),
+(5, 'Nível 5', 45, 'Extrema', 'Quem foi a mulher negra que se recusou a ceder o lugar num ônibus para um homem branco e marcou a luta pelos direitos civis dos negros dos Estados Unidos em 1955?', 'Rosa Parks', 3);
 
 -- --------------------------------------------------------
 
@@ -165,6 +180,17 @@ CREATE TABLE `redesocial` (
   `credenciais_redesocial` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `redesocial`
+--
+
+INSERT INTO `redesocial` (`id_redesocial`, `credenciais_redesocial`) VALUES
+(1, '{\r\n 	\"id\": 1,\r\n    \"user\": \"Morpheush\",\r\n    \"email\": \"anyuser@gmail.com\",\r\n    \"password\": \"4jh43gvf9g722lhbd2otd\",\r\n    \"createdAt\": \"2020-02-20T11:00:28.107Z\"\r\n}'),
+(2, '{\r\n 	\"id\": 2,\r\n    \"user\": \"Chris\",\r\n    \"email\": \"otheruser@gmail.com\",\r\n    \"password\": \"no32o83vrub87r73g9\",\r\n    \"createdAt\": \"2023-09-10T01:00:58.107Z\"\r\n}'),
+(3, '{ \"id\": 3, \"user\": \"Bob\", \"email\": \"bob@example.com\", \"password\": \"securepass\", \"createdAt\": \"2023-09-15T08:30:00.000Z\" }'),
+(4, '{ \"id\": 4, \"user\": \"Diana\", \"email\": \"diana@example.com\", \"password\": \"mypassword\", \"createdAt\": \"2023-09-20T14:45:00.000Z\" }'),
+(5, '{ \"id\": 5, \"user\": \"Eve\", \"email\": \"eve@example.com\", \"password\": \"eve12345\", \"createdAt\": \"2023-09-25T19:15:00.000Z\" }');
+
 -- --------------------------------------------------------
 
 --
@@ -177,6 +203,17 @@ CREATE TABLE `tabelapontuacao` (
   `id_nivel` int(11) NOT NULL,
   `pontuacao_tabela` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tabelapontuacao`
+--
+
+INSERT INTO `tabelapontuacao` (`id_tabelapontuacao`, `id_usuario`, `id_nivel`, `pontuacao_tabela`) VALUES
+(1, 1, 1, 15000),
+(2, 2, 2, 20000),
+(3, 3, 3, 25650),
+(4, 4, 4, 18000),
+(5, 5, 5, 30000);
 
 -- --------------------------------------------------------
 
@@ -198,7 +235,9 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `nome_usuario`, `email_usuario`, `senha_usuario`) VALUES
 (10, 'djnegev', 'ig4m@gmail.com', '$2y$10$rbClDbrHV7setdbdMZii5O9Vd7NDSMUroaF83PpjJqY1yReFju0JW'),
 (11, 'Machado Eduardo', 'machado@gmail.com', '$2y$10$Yuvn0MFn6s4nzxa8XnZrwOOS4ksOrdJvfQpkzqVh13tXtMrT9tRiu'),
-(12, 'Fabio', 'fabio2023@gmail.com', '$2y$10$K9MMakm9olGj8DwphUUnK.1HBUJikPqnnU4NkJXx3oRQL6JxpD.Zi');
+(12, 'Fabio', 'fabio2023@gmail.com', '$2y$10$K9MMakm9olGj8DwphUUnK.1HBUJikPqnnU4NkJXx3oRQL6JxpD.Zi'),
+(13, 'Usuario 13', 'petista@gmail.com', '$2y$10$vBBybbw5nRZs30yTVpNBYeBeBDgyWorKLmpM1su6GkePeJ29GeE22'),
+(14, 'Last User', 'theultimateofus2001gamer@gmail.com', '$2y$10$uZwH4imowPA8Xem0LgUJ4eODFUZlOgPkqU6OvWZTbAKloAdhgHlRi');
 
 --
 -- Índices para tabelas despejadas
@@ -278,7 +317,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `administrativo`
 --
 ALTER TABLE `administrativo`
-  MODIFY `id_administrativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_administrativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `compra`
@@ -296,7 +335,7 @@ ALTER TABLE `configuracao`
 -- AUTO_INCREMENT de tabela `dicas`
 --
 ALTER TABLE `dicas`
-  MODIFY `id_dicas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dicas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `energia`
@@ -314,7 +353,7 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT de tabela `nivel`
 --
 ALTER TABLE `nivel`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `outros_usuario`
@@ -326,19 +365,19 @@ ALTER TABLE `outros_usuario`
 -- AUTO_INCREMENT de tabela `redesocial`
 --
 ALTER TABLE `redesocial`
-  MODIFY `id_redesocial` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_redesocial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `tabelapontuacao`
 --
 ALTER TABLE `tabelapontuacao`
-  MODIFY `id_tabelapontuacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tabelapontuacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
