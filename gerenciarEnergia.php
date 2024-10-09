@@ -1,13 +1,13 @@
 <?php include 'assets/inc/header.inc.php';
-include 'assets/classes/dicas.class.php';
+include 'assets/classes/energia.class.php';
 
-$dicas = new Dicas();
+$energia = new Energia();
 ?>
 
 <main class="container mt-5">
     <div class="header-content mb-4">
-        <h1>Gerenciar Pacotes de Dica</h1>
-        <p>Secção dedicada à criação, edição, leitura e exclusão de pacotes de dica.</p>
+        <h1>Gerenciar Pacotes de Energia</h1>
+        <p>Secção dedicada à criação, edição, leitura e exclusão de pacotes de energia.</p>
     </div>
 
     <!-- Tabela de pacotes -->
@@ -17,34 +17,36 @@ $dicas = new Dicas();
                 <tr>
                     <!-- Criando os cabeçalhos da tabela -->
                     <th>ID</th>
-                    <th>Pacote</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
                     <th>Usuário</th>
+                    <th>Quantidade</th>
+                    <th>Tempo</th>
+                    <th>Preço</th>
+                    <th>Pacote</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Adicionar mais pacotes usando foreach -->
                 <?php
-                $lista = $dicas->listar();
+                $lista = $energia->listar();
                 foreach ($lista as $item):
                     ?>
                     <!-- Exemplo de linha de pacotes -->
                     <tr>
-                        <td><?php echo $item['id_dicas'] ?></td>
-                        <td><?php echo $item['pacote_dicas'] ?></td>
-                        <td><?php echo $item['preco_dicas'] ?></td>
-                        <td><?php echo $item['quantidade_dicas'] ?></td>
+                        <td><?php echo $item['id_energia'] ?></td>
                         <td><?php echo $item['id'] ?></td>
+                        <td><?php echo $item['quantidade_energia'] ?></td>
+                        <td><?php echo $item['tempo_energia'] ?></td>
+                        <td><?php echo $item['preco_energia'] ?></td>
+                        <td><?php echo $item['pacote_energia'] ?></td>
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#editarModal<?php echo $item['id_dicas']; ?>">
+                                data-bs-target="#editarModal<?php echo $item['id_energia']; ?>">
                                 Editar Pacote
                             </button>
-                            <a href="deletarDicas.php?id_dicas=<?php echo $item['id_dicas']; ?>"
+                            <a href="deletarEnergia.php?id_energia=<?php echo $item['id_energia']; ?>"
                                 class="btn btn-sm btn-danger"
-                                onclick="return confirm('Você tem certeza que deseja excluir o Pacote<?php echo $item['id_dicas'] ?>? ')">Excluir</a>
+                                onclick="return confirm('Você tem certeza que deseja excluir o Pacote <?php echo $item['id_energia'] ?>? ')">Excluir</a>
                         </td>
                     </tr>
                     <?php
@@ -57,47 +59,54 @@ $dicas = new Dicas();
         as informações do niveis serão exibidas dentro do formulário -->
         <?php foreach ($lista as $item): ?>
             <!-- Modal de Edição -->
-            <div class="modal fade" id="editarModal<?php echo $item['id_dicas']; ?>" tabindex="-1" role="dialog"
-                aria-labelledby="editarModalLabel<?php echo $item['id_dicas']; ?>" aria-hidden="true">
+            <div class="modal fade" id="editarModal<?php echo $item['id_energia']; ?>" tabindex="-1" role="dialog"
+                aria-labelledby="editarModalLabel<?php echo $item['id_energia']; ?>" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editarModalLabel<?php echo $item['id_dicas']; ?>">Editar Pacote
+                            <h5 class="modal-title" id="editarModalLabel<?php echo $item['id_energia']; ?>">Editar Pacote
                             </h5>
                         </div>
                         <!-- Corpo do modal, nesse caso, o formulário -->
                         <div class="modal-body">
                             <div class="card-body">
-                                <!-- editarDicasSubmit -->
-                                <form action="editarDicasSubmit.php" method="POST">
-                                    <input type="hidden" name="id_dicas" value="<?php echo $item['id_dicas']; ?>">
+                                <!-- editarEnergiaSubmit -->
+                                <form action="editarEnergiaSubmit.php" method="POST">
+                                    <input type="hidden" name="id_energia" value="<?php echo $item['id_energia']; ?>">
                                     <div class="mb-3">
-                                        <label for="pacote_dicas<?php echo $item['id_dicas']; ?>"
-                                            class="form-label">Pacote</label>
-                                        <input type="text" class="form-control"
-                                            id="pacote_dicas<?php echo $item['id_dicas']; ?>" name="pacote_dicas"
-                                            value="<?php echo $item['pacote_dicas']; ?>" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="preco_dicas<?php echo $item['preco_dicas']; ?>"
-                                            class="form-label">Preço</label>
-                                        <input type="text" class="form-control"
-                                            id="preco_dicas<?php echo $item['id_dicas']; ?>" name="preco_dicas"
-                                            value="<?php echo $item['preco_dicas']; ?>" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="quantidade_dicas<?php echo $item['quantidade_dicas']; ?>"
+                                        <label for="quantidade_energia<?php echo $item['id_energia']; ?>"
                                             class="form-label">Quantidade</label>
                                         <input type="text" class="form-control"
-                                            id="quantidade_dicas<?php echo $item['quantidade_dicas']; ?>"
-                                            name="quantidade_dicas" value="<?php echo $item['quantidade_dicas']; ?>"
+                                            id="quantidade_energia<?php echo $item['id_energia']; ?>"
+                                            name="quantidade_energia" value="<?php echo $item['quantidade_energia']; ?>"
                                             required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tempo_energia<?php echo $item['tempo_energia']; ?>"
+                                            class="form-label">Tempo</label>
+                                        <input type="text" class="form-control"
+                                            id="tempo_energia<?php echo $item['id_energia']; ?>" name="tempo_energia"
+                                            value="<?php echo $item['tempo_energia']; ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="preco_energia<?php echo $item['preco_energia']; ?>"
+                                            class="form-label">Preço</label>
+                                        <input type="text" class="form-control"
+                                            id="preco_energia<?php echo $item['preco_energia']; ?>" name="preco_energia"
+                                            value="<?php echo $item['preco_energia']; ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="pacote_energia<?php echo $item['pacote_energia']; ?>"
+                                            class="form-label">Pacote</label>
+                                        <input type="text" class="form-control"
+                                            id="pacote_energia<?php echo $item['pacote_energia']; ?>" name="pacote_energia"
+                                            value="<?php echo $item['pacote_energia']; ?>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="id<?php echo $item['id']; ?>">Usuário:</label>
                                         <select name="id" id="id" class="form-control" type="text">
                                             <?php
-                                            $lista = $dicas->listarUsuario();
+                                            $lista = $energia->listarUsuario();
                                             foreach ($lista as $item):
                                                 ?>
                                                 <option value="<?php echo $item['id']; ?>"><?php echo $item['id']; ?> -
@@ -111,7 +120,7 @@ $dicas = new Dicas();
 
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                                    <button type="submit" class="btn btn-primary mt-4">Salvar alterações</button>
                                 </form>
                             </div>
                         </div>
@@ -140,25 +149,12 @@ $dicas = new Dicas();
                 </div>
                 <div class="modal-body">
                     <div class="card-body">
-                        <form action="adicionarDicaSubmit.php" method="POST">
-                            <div class="mb-3">
-                                <label for="pacote_dicas" class="form-label">Pacote</label>
-                                <input type="text" class="form-control" id="pacote_dicas" name="pacote_dicas" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="preco_dicas" class="form-label">Preço</label>
-                                <input type="text" class="form-control" id="preco_dicas" name="preco_dicas" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="quantidade_dicas" class="form-label">Quantidade</label>
-                                <input type="text" class="form-control" id="quantidade_dicas" name="quantidade_dicas"
-                                    required>
-                            </div>
+                        <form action="adicionarEnergiaSubmit.php" method="POST">
                             <div class="form-group">
                                 <label for="id">Usuário:</label>
                                 <select name="id" id="id" class="form-control" type="text">
                                     <?php
-                                    $lista = $dicas->listarUsuario();
+                                    $lista = $energia->listarUsuario();
                                     foreach ($lista as $item):
                                         ?>
                                         <option value="<?php echo $item['id']; ?>"><?php echo $item['id']; ?> -
@@ -169,8 +165,28 @@ $dicas = new Dicas();
                                     ?>
 
                                 </select>
-
                             </div>
+                            <div class="mb-3">
+                                <label for="quantidade_energia" class="form-label">Quantidade</label>
+                                <input type="text" class="form-control" id="quantidade_energia"
+                                    name="quantidade_energia" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tempo_energia" class="form-label">Tempo</label>
+                                <input type="text" class="form-control" id="tempo_energia" name="tempo_energia"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="preco_energia" class="form-label">Preço</label>
+                                <input type="text" class="form-control" id="preco_energia" name="preco_energia"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pacote_energia" class="form-label">Pacote</label>
+                                <input type="text" class="form-control" id="pacote_energia" name="pacote_energia"
+                                    required>
+                            </div>
+
                             <input type="submit" class="btn btn-success" name="btCadastrar" value="Salvar" />
                             <button type="reset" class="btn btn-secondary">Limpar</button>
                         </form>

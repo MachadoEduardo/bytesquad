@@ -1,20 +1,23 @@
 <?php
 require 'conexao.class.php';
 
-class Dicas {
+class Dicas
+{
     private $id_dicas;
-    private $pacote_dicas;    
-    private $preco_dicas;    
-    private $quantidade_dicas;    
-    private $id ;    
+    private $pacote_dicas;
+    private $preco_dicas;
+    private $quantidade_dicas;
+    private $id;
 
     private $con;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->con = new Conexao();
     }
 
-    public function listar() {
+    public function listar()
+    {
         try {
             $sql = $this->con->conectar()->prepare("
                 SELECT dicas.*
@@ -29,8 +32,9 @@ class Dicas {
     }
 
     // Listar para poder fazer a interligação da tabela usuário com a tabela dicas, assim dá para trazer o ID dos usuários quando for criar um novo registro na tabela
-    // Usei GROUP BY pra no modal trazer em ordem e ficar bonitinho de maloca fashion week fala pra eles kyan (utilizei tambem na classe de Niveis)
-    public function listarUsuario() {
+    // Usei GROUP BY pra no modal trazer em ordem e ficar bonitinho de maloca fashion week fala pra eles kyan (utilizei tambem na classe de Niveis e Energia)
+    public function listarUsuario()
+    {
         try {
             $sql = $this->con->conectar()->prepare("
                 SELECT usuario.id, usuario.nome_usuario
@@ -46,50 +50,53 @@ class Dicas {
         }
     }
 
-    public function deletar() {
+    public function deletar()
+    {
         if (isset($_GET['id_dicas'])) {
             $id_dicas = intval($_GET['id_dicas']);
-            
+
             try {
                 $sql = $this->con->conectar()->prepare("DELETE FROM dicas WHERE id_dicas = :id_dicas");
                 $sql->bindParam(':id_dicas', $id_dicas, PDO::PARAM_INT);
                 $sql->execute();
-        
+
                 header('Location: gerenciarDicas.php');
             } catch (PDOException $ex) {
                 echo 'ERRO: ' . $ex->getMessage();
             }
         }
-    } 
+    }
 
-    private function existePacote($pacote_dicas) {
+    private function existePacote($pacote_dicas)
+    {
         $sql = $this->con->conectar()->prepare("SELECT id_dicas FROM dicas WHERE pacote_dicas = :pacote_dicas");
         $sql->bindParam(':pacote_dicas', $pacote_dicas, PDO::PARAM_STR);
         $sql->execute();
 
-        return $sql->rowCount() > 0; // Retorna verdadeiro se o nivel já existir
+        return $sql->rowCount() > 0; // Retorna verdadeiro se o pacote já existir
     }
 
-    public function adicionar($pacote_dicas, $preco_dicas, $quantidade_dicas, $id) {
-        if (!$this->existePacote($pacote_dicas)) { // Verifica se o nivel não existe
+    public function adicionar($pacote_dicas, $preco_dicas, $quantidade_dicas, $id)
+    {
+        if (!$this->existePacote($pacote_dicas)) { // Verifica se o pacote não existe
             try {
                 $sql = $this->con->conectar()->prepare(
                     "INSERT INTO dicas (pacote_dicas, preco_dicas, quantidade_dicas, id) 
                      VALUES (:pacote_dicas, :preco_dicas, :quantidade_dicas, :id )"
                 );
-    
+
                 $sql->bindValue(':pacote_dicas', $pacote_dicas);
                 $sql->bindValue(':preco_dicas', $preco_dicas);
                 $sql->bindValue(':quantidade_dicas', $quantidade_dicas);
                 $sql->bindValue(':id', $id); // Adiciona o id_usuario enviado pelo form
-    
+
                 $sql->execute(); // Executa a consulta
                 return true; // Retorna verdadeiro se a inserção for bem-sucedida
             } catch (PDOException $ex) {
                 return 'ERRO: ' . $ex->getMessage();
             }
         } else {
-            return false; // Retorna falso se o nivel já existir
+            return false; // Retorna falso se o pacote já existir
         }
     }
 
