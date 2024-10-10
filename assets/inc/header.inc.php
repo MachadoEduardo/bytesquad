@@ -45,14 +45,14 @@
                         <h6 class="dropdown-header">Gerenciar</h6>
                     </li>
                     <li><a class="dropdown-item" href="index.php">Home</a></li>
-                    <li><a class="dropdown-item" href="gerenciarUsuario.php">Usuários</a></li>
                     <li><a class="dropdown-item" href="gerenciarAdministrador.php">Administradores</a></li>
+                    <li><a class="dropdown-item" href="gerenciarUsuario.php">Usuários</a></li>
                     <li><a class="dropdown-item" href="gerenciarNivel.php">Níveis</a></li>
-                    <li><a class="dropdown-item" href="gerenciarRedeSocial.php">Rede Social</a></li>
-                    <li><a class="dropdown-item" href="gerenciarTabelaPontuacao.php">Tabela de pontuação</a></li>
                     <li><a class="dropdown-item" href="gerenciarDicas.php">Dicas</a></li>
                     <li><a class="dropdown-item" href="gerenciarEnergia.php">Energia</a></li>
                     <li><a class="dropdown-item" href="gerenciarCompra.php">Compras</a></li>
+                    <li><a class="dropdown-item" href="gerenciarTabelaPontuacao.php">Tabela de pontuação</a></li>
+                    <li><a class="dropdown-item" href="gerenciarRedeSocial.php">Rede Social</a></li>
                     <li><a class="dropdown-item" href="telaLogin.php">Login</a></li>
                 </ul>
             </div>

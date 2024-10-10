@@ -21,29 +21,37 @@
             <h1>Bem vindo a seção administrativa!</h1>
             <h5>Segmento da aplicação dedicada ao gerenciamento das configurações.</h5>
             <ul class="nav flex-column">
+            <li class="nav-item">
+                    <a class="nav-link link-blue fs-3" href="gerenciarAdministrador.php">• Gerenciar administradores</a>
+                    <p>Aba para criar, listar, editar e/ou excluir os administradores do sistema.</p>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link link-blue fs-3" href="gerenciarUsuario.php">• Gerenciar usuários</a>
-                    <p>Aba para criar, editar e/ou excluir os usuários do sistema.</p>
+                    <p>Aba para criar, listar, editar e/ou excluir os usuários do sistema.</p>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-blue fs-3" href="gerenciarNivel.php">• Gerenciar níveis</a>
-                    <p>Aba para criar, editar e/ou excluir os níveis do sistema.</p>
+                    <p>Aba para criar, listar, editar e/ou excluir os níveis do sistema.</p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-blue fs-3" href="gerenciarAdministrador.php">• Gerenciar administradores</a>
-                    <p>Aba para criar, editar e/ou excluir os administradores do sistema.</p>
+                    <a class="nav-link link-blue fs-3" href="gerenciarDicas.php">• Gerenciar pacotes de dicas</a>
+                    <p>Aba para criar, listar, editar e/ou excluir os pacotes de dicas do sistema.</p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-blue fs-3" href="gerenciarEnergia.php">• Gerenciar pacotes de energia</a>
+                    <p>Aba para criar, listar, editar e/ou excluir os pacotes de energia do sistema.</p>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-blue fs-3" href="gerenciarCompra.php">• Gerenciar compras</a>
-                    <p>Aba para criar, editar e/ou excluir as configurações de compra de sistema.</p>
+                    <p>Aba para criar, listar, editar e/ou excluir as compras do sistema.</p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-blue fs-3" href="gerenciarDicas.php">• Gerenciar dicas</a>
-                    <p>Aba para criar, editar e/ou excluir os pacotes de dicas do sistema.</p>
+                    <a class="nav-link link-blue fs-3" href="gerenciarTabelaPontuacao.php">• Gerenciar tabelas de pontuação</a>
+                    <p>Aba para listar e/ou excluir as configurações de tabelas de pontuação do sistema.</p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-blue fs-3" href="gerenciarEnergia.php">• Gerenciar energia</a>
-                    <p>Aba para criar, editar e/ou excluir os pacotes de energia do sistema.</p>
+                    <a class="nav-link link-blue fs-3" href="gerenciarRedeSocial.php">• Gerenciar credenciais de rede social</a>
+                    <p>Aba para listar e/ou excluir os registros de rede social do sistema.</p>
                 </li>
             </ul>
         </div>
