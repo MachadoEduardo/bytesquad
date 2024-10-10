@@ -52,6 +52,7 @@
                     <li><a class="dropdown-item" href="gerenciarTabelaPontuacao.php">Tabela de pontuação</a></li>
                     <li><a class="dropdown-item" href="gerenciarDicas.php">Dicas</a></li>
                     <li><a class="dropdown-item" href="gerenciarEnergia.php">Energia</a></li>
+                    <li><a class="dropdown-item" href="gerenciarCompra.php">Compras</a></li>
                     <li><a class="dropdown-item" href="telaLogin.php">Login</a></li>
                 </ul>
             </div>

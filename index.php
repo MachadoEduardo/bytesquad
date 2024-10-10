@@ -34,19 +34,15 @@
                     <p>Aba para criar, editar e/ou excluir os administradores do sistema.</p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-blue fs-3" href="">• Gerenciar compras</a>
+                    <a class="nav-link link-blue fs-3" href="gerenciarCompra.php">• Gerenciar compras</a>
                     <p>Aba para criar, editar e/ou excluir as configurações de compra de sistema.</p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-blue fs-3" href="">• Gerenciar configurações</a>
-                    <p>Aba para criar, editar e/ou excluir a aba de configurações do sistema.</p>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link-blue fs-3" href="">• Gerenciar dicas</a>
+                    <a class="nav-link link-blue fs-3" href="gerenciarDicas.php">• Gerenciar dicas</a>
                     <p>Aba para criar, editar e/ou excluir os pacotes de dicas do sistema.</p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-blue fs-3" href="">• Gerenciar energia</a>
+                    <a class="nav-link link-blue fs-3" href="gerenciarEnergia.php">• Gerenciar energia</a>
                     <p>Aba para criar, editar e/ou excluir os pacotes de energia do sistema.</p>
                 </li>
             </ul>
