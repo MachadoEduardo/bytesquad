@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08/10/2024 às 22:50
+-- Tempo de geração: 10/10/2024 às 02:42
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -54,10 +54,20 @@ INSERT INTO `administrativo` (`id_administrativo`, `usuario`, `senha_admin`, `pe
 CREATE TABLE `compra` (
   `id_compra` int(11) NOT NULL,
   `formapagamento` varchar(500) NOT NULL,
-  `preco_compra` int(11) NOT NULL,
-  `historico_compra` text NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `preco_compra` float NOT NULL,
+  `historico_compra` varchar(400) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `compra`
+--
+
+INSERT INTO `compra` (`id_compra`, `formapagamento`, `preco_compra`, `historico_compra`, `id`) VALUES
+(1, 'Boleto', 239, '01/02/2023', 10),
+(2, 'Cartão de débito', 79.9, '23/06/2022', 13),
+(3, 'Cartão de crédito', 14.9, '26/05/2024', 11),
+(4, 'Dinheiro', 32.9, '31/08/2024', 10);
 
 -- --------------------------------------------------------
 
@@ -107,12 +117,23 @@ INSERT INTO `dicas` (`id_dicas`, `pacote_dicas`, `preco_dicas`, `quantidade_dica
 
 CREATE TABLE `energia` (
   `id_energia` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `quantidade_energia` int(11) NOT NULL,
-  `tempo_dica` int(11) NOT NULL,
-  `preco_energia` int(11) NOT NULL,
-  `pacote_energia` int(11) NOT NULL
+  `tempo_energia` int(11) NOT NULL,
+  `preco_energia` float NOT NULL,
+  `pacote_energia` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `energia`
+--
+
+INSERT INTO `energia` (`id_energia`, `id`, `quantidade_energia`, `tempo_energia`, `preco_energia`, `pacote_energia`) VALUES
+(3, 12, 40, 30, 29.9, 'Pacote STANDART'),
+(4, 10, 80, 30, 59.9, 'Pacote SUPER'),
+(5, 10, 20, 30, 14.9, 'Pacote SMALL'),
+(6, 10, 10, 30, 7.9, 'Pacote MINI'),
+(7, 10, 160, 30, 119.9, 'Pacote OMEGA');
 
 -- --------------------------------------------------------
 
@@ -323,7 +344,7 @@ ALTER TABLE `administrativo`
 -- AUTO_INCREMENT de tabela `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `configuracao`
@@ -341,7 +362,7 @@ ALTER TABLE `dicas`
 -- AUTO_INCREMENT de tabela `energia`
 --
 ALTER TABLE `energia`
-  MODIFY `id_energia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_energia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `feedback`
