@@ -1,7 +1,16 @@
-<?php include 'assets/inc/header.inc.php';
+<?php 
+session_start();
+include 'assets/inc/header.inc.php';
 include 'assets/classes/dicas.class.php';
-
 $dicas = new Dicas();
+require_once './assets/classes/administrador.class.php';
+$admin = new Administrador();
+
+// On protected admin pages
+if (!isset($_SESSION['Logado'])) {
+    header("Location: login.php");
+    exit;
+}
 ?>
 
 <main class="container mt-5">

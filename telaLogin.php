@@ -1,3 +1,20 @@
+<?php
+session_start();
+require './assets/classes/administrador.class.php';
+
+if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
+    $usuario = trim($_POST['usuario']);
+    $senha = trim($_POST['senha']);
+
+    $admin = new Administrador();
+    if ($admin->fazerLogin($usuario, $senha)) {
+        header("Location: index.php");
+        exit;
+    } else {
+        echo '<span style="color: red;">Usuário e/ou senha incorreto!</span>';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -15,7 +32,7 @@
         .login-container {
             margin-top: 100px;
             max-width: 400px;
-            background-color: white;
+            background-color: white; 
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -32,7 +49,7 @@
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="login-container">
             <h1 class="text-center">Login</h1>
-            <form action="gerenciarLogin.php" method="POST">
+            <form method="POST">
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Usuário</label>
                     <input type="text" class="form-control" id="usuario" name="usuario" required>

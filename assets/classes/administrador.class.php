@@ -1,5 +1,5 @@
 <?php
-require 'conexao.class.php';
+require_once 'conexao.class.php';
 
 class Administrador {
     private $id;
@@ -98,12 +98,52 @@ class Administrador {
             $sql->bindParam(':permissoes', $permissoes, PDO::PARAM_STR);
     
             $sql->execute();
-            header('Location: gerenciarAdministrador.php');
+            header(header: 'Location: gerenciarAdministrador.php');
         } catch (PDOException $ex) {
             echo 'ERRO: ' . $ex->getMessage();
         }
     }
+    public function fazerLogin($usuario, $senha) {
+        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario");
+        $sql->bindValue(":usuario", $usuario);
+        $sql->execute();
     
+        if ($sql->rowCount() > 0) {
+            $admin = $sql->fetch(PDO::FETCH_ASSOC); // Fetch como array associativo
+            if (password_verify($senha, $admin['senha_admin'])) {
+                $_SESSION['Logado'] = $admin['id_administrativo'];
+                return true; // Login bem-sucedido
+            } else {
+                return false; // Senha incorreta
+            }
+        }
+        return false; // Usuário não encontrado
+    }
+    public function setUsuario($id) {
+        $this->id = $id;
+        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE id_administrativo = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+    
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch(PDO::FETCH_ASSOC);
+            $this->permissoes = explode(',', $sql['permissoes_admin']); // Transforma em array
+        } else {
+            $this->permissoes = []; // Inicializa como um array vazio se não encontrar
+        }
+    }
+    
+    public function getPermissoes()
+    {
+        return $this->permissoes;
+    }
+    public function temPermissoes($p) {
+        // Certifica-se de que $permissoes é um array antes de usar in_array
+        if (is_array($this->permissoes) && in_array($p, $this->permissoes)) {
+            return true;
+        }
+        return false;
+    }
     
 }
 
