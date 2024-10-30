@@ -20,7 +20,7 @@ if (!isset($_SESSION['Logado'])) {
     </div>
 
     <!-- Tabela de Usuários -->
-    <div class="table-responsive mb-4">
+    <div class="table-responsive mb-5">
         <table class="table table-bordered table-hover">
             <thead class="thead-light">
                 <tr>
@@ -29,6 +29,11 @@ if (!isset($_SESSION['Logado'])) {
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Senha</th>
+                    <th>Permissões</th>
+                    <th>Ativo</th>
+                    <th>Foto</th>
+                    <th>Telefone</th>
+                    <th>Rede Social</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -44,6 +49,11 @@ if (!isset($_SESSION['Logado'])) {
                         <td><?php echo $item['nome_usuario'] ?></td>
                         <td><?php echo $item['email_usuario'] ?></td>
                         <td><?php echo $item['senha_usuario'] ?></td>
+                        <td><?php echo $item['permissoes_usuario'] ?></td>
+                        <td><?php echo $item['ativo_usuario'] ?></td>
+                        <td><?php echo $item['url_foto'] ?></td>
+                        <td><?php echo $item['telefone'] ?></td>
+                        <td><?php echo $item['id_redesocial'] ?></td>
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id']; ?>">
@@ -91,6 +101,42 @@ if (!isset($_SESSION['Logado'])) {
                                         <input type="password" class="form-control" id="senha<?php echo $item['id']; ?>"
                                             name="senha" value="********" required>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="permissoes_usuario<?php echo $item['permissoes_usuario']; ?>" class="form-label">Permissões</label>
+                                        <input type="permissoes_usuario" class="form-control" id="permissoes_usuario<?php echo $item['id']; ?>"
+                                            name="permissoes_usuario" value="<?php echo $item['permissoes_usuario']; ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ativo_usuario<?php echo $item['ativo_usuario']; ?>" class="form-label">Ativo</label>
+                                        <input type="ativo_usuario" class="form-control" id="ativo_usuario<?php echo $item['id']; ?>"
+                                            name="ativo_usuario" value="<?php echo $item['ativo_usuario']; ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="url_foto<?php echo $item['url_foto']; ?>" class="form-label">Foto</label>
+                                        <input type="url_foto" class="form-control" id="url_foto<?php echo $item['id']; ?>"
+                                            name="url_foto" value="<?php echo $item['url_foto']; ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="telefone<?php echo $item['telefone']; ?>" class="form-label">Telefone</label>
+                                        <input type="telefone" class="form-control" id="telefone<?php echo $item['id']; ?>"
+                                            name="telefone" value="<?php echo $item['telefone']; ?>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_redesocial<?php echo $item['id_redesocial']; ?>">Rede Social</label>
+                                        <select name="id_redesocial" id="id_redesocial" class="form-control" type="text">
+                                            <?php
+                                            $lista = $usuario->listarRedeSocial();
+                                            foreach ($lista as $item):
+                                                ?>
+                                                <option value="<?php echo $item['id_redesocial']; ?>"><?php echo $item['id_redesocial']; ?>
+                                                </option>
+                                                <?php
+                                            endforeach;
+                                            ?>
+
+                                        </select>
+
+                                    </div>
                                     <button type="submit" class="btn btn-primary">Salvar alterações</button>
                                 </form>
                             </div>
@@ -134,6 +180,38 @@ if (!isset($_SESSION['Logado'])) {
                                 <input type="password" class="form-control" id="userPassword" name="userPassword"
                                     required>
                             </div>
+                            <div class="mb-3">
+                                <label for="permissoes_usuario" class="form-label">Permissões</label>
+                                <input type="text" class="form-control" id="permissoes_usuario" name="permissoes_usuario" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ativo_usuario" class="form-label">Ativo</label>
+                                <input type="text" class="form-control" id="ativo_usuario" name="ativo_usuario" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="url_foto" class="form-label">Foto</label>
+                                <input type="text" class="form-control" id="url_foto" name="url_foto" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefone" class="form-label">Telefone</label>
+                                <input type="tel" class="form-control" id="telefone" name="telefone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_redesocial">Rede Social:</label>
+                                <select name="id_redesocial" id="id_redesocial" class="form-control" type="text">
+                                    <?php
+                                    $lista = $usuario->listarRedeSocial();
+                                    foreach ($lista as $item):
+                                        ?>
+                                        <option value="<?php echo $item['id_redesocial']; ?>"><?php echo $item['id_redesocial']; ?>
+                                        </option>
+                                        <?php
+                                    endforeach;
+                                    ?>
+
+                                </select>
+                            </div>
+
                             <input type="submit" class="btn btn-success" name="btCadastrar" value="Salvar" />
                             <button type="reset" class="btn btn-secondary">Limpar</button>
                         </form>

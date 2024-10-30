@@ -6,6 +6,11 @@ class Usuarios {
     private $nome_usuario;
     private $email_usuario;
     private $senha_usuario;
+    private $permissoes_usuario;
+    private $ativo_usuario;
+    private $url_foto;
+    private $telefone;
+    private $id_redesocial;
 
     private $con;
 
@@ -21,18 +26,23 @@ class Usuarios {
         return $sql->rowCount() > 0; // Retorna verdadeiro se o email já existir
     }
 
-    public function adicionar($email_usuario, $nome_usuario, $senha_usuario) {
+    public function adicionar($email_usuario, $nome_usuario, $senha_usuario, $permissoes_usuario, $ativo_usuario, $url_foto, $telefone, $id_redesocial) {
         if (!$this->existeEmail($email_usuario)) { // Verifica se o email não existe
             try {
                 $senha_criptografada = password_hash($senha_usuario, PASSWORD_DEFAULT); // Criptografando a senha
                 $sql = $this->con->conectar()->prepare(
-                    "INSERT INTO usuario (nome_usuario, email_usuario, senha_usuario) 
-                     VALUES (:nome, :email, :senha)"
+                    "INSERT INTO usuario (nome_usuario, email_usuario, senha_usuario, permissoes_usuario, ativo_usuario, url_foto, telefone, id_redesocial) 
+                     VALUES (:nome, :email, :senha, :permissoes_usuario, :ativo_usuario, :url_foto, :telefone, :id_redesocial)"
                 );
 
-                $sql->bindParam(':nome', $nome_usuario, PDO::PARAM_STR);
-                $sql->bindParam(':email', $email_usuario, PDO::PARAM_STR);
-                $sql->bindParam(':senha', $senha_criptografada, PDO::PARAM_STR);
+                $sql->bindValue(':nome', $nome_usuario);
+                $sql->bindValue(':email', $email_usuario);
+                $sql->bindValue(':senha', $senha_criptografada);
+                $sql->bindValue(':permissoes_usuario', $permissoes_usuario);
+                $sql->bindValue(':ativo_usuario', $ativo_usuario);
+                $sql->bindValue(':url_foto', $url_foto);
+                $sql->bindValue(':telefone', $telefone);
+                $sql->bindValue(':id_redesocial', $id_redesocial);
 
                 $sql->execute(); // Executa a consulta
                 return true; // Retorna verdadeiro se a inserção for bem-sucedida
@@ -47,6 +57,16 @@ class Usuarios {
     public function listar() {
         try {
             $sql = $this->con->conectar()->prepare("SELECT * FROM usuario");
+            $sql->execute();
+            return $sql->fetchAll();
+        } catch (PDOException $ex) {
+            echo "ERRO: " . $ex->getMessage();
+        }
+    }
+
+    public function listarRedeSocial() {
+        try {
+            $sql = $this->con->conectar()->prepare("SELECT redesocial.id_redesocial FROM usuario JOIN redesocial ON usuario.id = redesocial.id");
             $sql->execute();
             return $sql->fetchAll();
         } catch (PDOException $ex) {
@@ -81,16 +101,22 @@ class Usuarios {
         }
     }
 
-    public function editar($id, $nome_usuario, $email_usuario, $senha_usuario) {
+    public function editar($id, $nome_usuario, $email_usuario, $senha_usuario, $permissoes_usuario, $ativo_usuario, $url_foto, $telefone, $id_redesocial) {
         try {
             $senha_criptografada = password_hash($senha_usuario, PASSWORD_DEFAULT); // Criptografando a senha
             $sql = $this->con->conectar()->prepare(
-                "UPDATE usuario SET nome_usuario = :nome, email_usuario = :email, senha_usuario = :senha WHERE id = :id"
+                "UPDATE usuario SET nome_usuario = :nome, email_usuario = :email, senha_usuario = :senha, permissoes_usuario = :permissoes_usuario, 
+                ativo_usuario = :ativo_usuario, url_foto = :url_foto, telefone = :telefone, id_redesocial = :id_redesocial WHERE id = :id"
             );
-            $sql->bindParam(':id', $id, PDO::PARAM_INT);
-            $sql->bindParam(':nome', $nome_usuario, PDO::PARAM_STR);
-            $sql->bindParam(':email', $email_usuario, PDO::PARAM_STR);
-            $sql->bindParam(':senha', $senha_criptografada, PDO::PARAM_STR);
+            $sql->bindValue(':id', $id);
+            $sql->bindValue(':nome', $nome_usuario);
+            $sql->bindValue(':email', $email_usuario);
+            $sql->bindValue(':senha', $senha_criptografada);
+            $sql->bindValue(':permissoes_usuario', $permissoes_usuario);
+            $sql->bindValue(':ativo_usuario', $ativo_usuario);
+            $sql->bindValue(':url_foto', $url_foto);
+            $sql->bindValue(':telefone', $telefone);
+            $sql->bindValue(':id_redesocial', $id_redesocial);
     
             $sql->execute();
             header('Location: gerenciarUsuario.php');
