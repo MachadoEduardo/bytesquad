@@ -8,16 +8,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>ByteSquad</title>
     <style>
-        html{
+        html {
             height: 100%;
         }
-        body{
+
+        body {
             position: relative;
             margin: 0;
             min-height: 100%;
             padding-bottom: 7.85rem;
         }
-        footer{
+
+        footer {
             position: absolute;
             bottom: 0;
             right: 0;
@@ -59,10 +61,8 @@
             <div class="dropdown me-2">
                 <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    Sair
+                    <a href="sair.php" class="text-white text-decoration-none">Sair</a>
                 </button>
             </div>
-
-
         </div>
     </header>
