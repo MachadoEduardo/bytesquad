@@ -3,12 +3,6 @@ session_start();
 include 'assets/inc/header.inc.php';
 require_once './assets/classes/administrador.class.php';
 $admin = new Administrador();
-
-// On protected admin pages
-if (!isset($_SESSION['Logado'])) {
-    header("Location: login.php");
-    exit;
-}
 ?>
 
 <main class="container mt-5">
@@ -57,8 +51,6 @@ if (!isset($_SESSION['Logado'])) {
                 ?>
             </tbody>
         </table>
-
-        <?php if($admin->temPermissoes("ADD")): ?>
         <!-- Criando um modal dentro de um foreach, para que dessa forma, exista um modal para cada um dos administradores da tabela. Assim, ao clicar no modal automaticamente
         as informações do usuário serão exibidas dentro do formulário -->
         <?php foreach ($lista as $item): ?>
@@ -102,7 +94,6 @@ if (!isset($_SESSION['Logado'])) {
                 </div>
             </div>
         <?php endforeach; ?>
-        <?php endif; ?>
     </div>
 
     <!-- Button trigger modal -->

@@ -23,19 +23,18 @@ class Administrador {
     }
 
     public function adicionar($usuario, $senha, $permissoes) {
-        // Chama a função que verifica se o administrador com esse nome de usuário não existe
         if (!$this->existeAdministrador($usuario)) {
             try {
-                $senha_criptografada = password_hash($senha, PASSWORD_DEFAULT); // Criptografando a senha (pode usar MD5 também inclusive acho que vou mudar depois tmj)
+                $senha_criptografada = password_hash($senha, PASSWORD_DEFAULT); // Criptografa a senha de forma segura
                 $sql = $this->con->conectar()->prepare(
                     "INSERT INTO administrativo (usuario, senha_admin, permissoes_admin) 
                      VALUES (:nome, :senha, :permissoes)"
                 );
-
+    
                 $sql->bindParam(':nome', $usuario, PDO::PARAM_STR);
                 $sql->bindParam(':senha', $senha_criptografada, PDO::PARAM_STR);
                 $sql->bindParam(':permissoes', $permissoes, PDO::PARAM_STR);
-
+    
                 $sql->execute(); // Executa a consulta
                 return true; // Retorna verdadeiro se a inserção for bem-sucedida
             } catch (PDOException $ex) {
@@ -44,7 +43,7 @@ class Administrador {
         } else {
             return false; // Retorna falso se o administrador já existir
         }
-    }
+    }    
 
     // Método básico pra listar do banco não vou explica é muito simples
     public function listar() {
@@ -104,15 +103,17 @@ class Administrador {
         }
     }
     public function fazerLogin($usuario, $senha){
-        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario AND senha_admin = :senha");
+        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario");
         $sql->bindValue(":usuario", $usuario);
-        $sql->bindValue(":senha", $senha);
         $sql->execute();
-
-        if($sql->rowCount() > 0){
+    
+        if ($sql->rowCount() > 0) {
             $sql = $sql->fetch();
-            $_SESSION['Logado'] = $sql['id'];
-            return TRUE;
+            // Verificando se a senha informada bate com a senha criptografada no banco
+            if (password_verify($senha, $sql['senha_admin'])) {
+                $_SESSION['Logado'] = $sql['id_administrativo'];
+                return TRUE;
+            }
         }
         return FALSE;
     }
