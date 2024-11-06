@@ -53,11 +53,7 @@ if (!isset($_SESSION['Logado'])) {
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-blue fs-3" href="gerenciarCompra.php">• Gerenciar compras</a>
-<<<<<<< HEAD
-                    <p>Aba para criar, editar e/ou excluir as configurações de compra do sistema.</p>
-=======
                     <p>Aba para criar, listar, editar e/ou excluir as compras do sistema.</p>
->>>>>>> 534872400bcc369c2dadbf18ffcb0a54370460f4
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-blue fs-3" href="gerenciarTabelaPontuacao.php">• Gerenciar tabelas de pontuação</a>
