@@ -55,6 +55,7 @@ if (!isset($_SESSION['Logado'])) {
                         <td><?php echo $item['telefone'] ?></td>
                         <td><?php echo $item['id_redesocial'] ?></td>
                         <td>
+                        <?php if($admin->temPermissoes('EDIT'));?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id']; ?>">
                                 Editar Usuário

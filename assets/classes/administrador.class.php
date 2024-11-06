@@ -103,21 +103,18 @@ class Administrador {
             echo 'ERRO: ' . $ex->getMessage();
         }
     }
-    public function fazerLogin($usuario, $senha) {
-        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario");
+    public function fazerLogin($usuario, $senha){
+        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario AND senha = :senha");
         $sql->bindValue(":usuario", $usuario);
+        $sql->bindValue(":senha", $senha);
         $sql->execute();
-    
-        if ($sql->rowCount() > 0) {
-            $admin = $sql->fetch(PDO::FETCH_ASSOC); // Fetch como array associativo
-            if (password_verify($senha, $admin['senha_admin'])) {
-                $_SESSION['Logado'] = $admin['id_administrativo'];
-                return true; // Login bem-sucedido
-            } else {
-                return false; // Senha incorreta
-            }
+
+        if($sql->rowCount() > 0){
+            $sql = $sql->fetch();
+            $_SESSION['Logado'] = $sql['id'];
+            return TRUE;
         }
-        return false; // Usuário não encontrado
+        return FALSE;
     }
     public function setUsuario($id) {
         $this->id = $id;
@@ -125,11 +122,9 @@ class Administrador {
         $sql->bindValue(":id", $id);
         $sql->execute();
     
-        if ($sql->rowCount() > 0) {
-            $sql = $sql->fetch(PDO::FETCH_ASSOC);
-            $this->permissoes = explode(',', $sql['permissoes_admin']); // Transforma em array
-        } else {
-            $this->permissoes = []; // Inicializa como um array vazio se não encontrar
+        if($sql->rowCount() > 0){
+            $sql = $sql->fetch();
+            $this->permissoes = explode(',', $sql['permissoes']); // Transforma em array
         }
     }
     
@@ -137,12 +132,12 @@ class Administrador {
     {
         return $this->permissoes;
     }
-    public function temPermissoes($p) {
-        // Certifica-se de que $permissoes é um array antes de usar in_array
-        if (is_array($this->permissoes) && in_array($p, $this->permissoes)) {
-            return true;
+    public function temPermissoes($p){
+        if(in_array($p, $this->permissoes)){
+            return TRUE;
+        } else {
+            return FALSE;
         }
-        return false;
     }
     
 }
