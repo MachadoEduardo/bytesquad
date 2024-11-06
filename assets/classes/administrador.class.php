@@ -104,7 +104,7 @@ class Administrador {
         }
     }
     public function fazerLogin($usuario, $senha){
-        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario AND senha = :senha");
+        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario AND senha_admin = :senha");
         $sql->bindValue(":usuario", $usuario);
         $sql->bindValue(":senha", $senha);
         $sql->execute();

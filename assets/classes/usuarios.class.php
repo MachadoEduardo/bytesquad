@@ -31,8 +31,7 @@ class Usuarios {
             try {
                 $senha_criptografada = password_hash($senha_usuario, PASSWORD_DEFAULT); // Criptografando a senha
                 $sql = $this->con->conectar()->prepare(
-                    "INSERT INTO usuario (nome_usuario, email_usuario, senha_usuario, permissoes_usuario, ativo_usuario, url_foto, telefone, id_redesocial) 
-                     VALUES (:nome, :email, :senha, :permissoes_usuario, :ativo_usuario, :url_foto, :telefone, :id_redesocial)"
+                    "CALL InserirUsuario (:nome, :email, :senha, :permissoes_usuario, :ativo_usuario, :url_foto, :telefone, :id_redesocial)"
                 );
 
                 $sql->bindValue(':nome', $nome_usuario);
@@ -56,7 +55,7 @@ class Usuarios {
 
     public function listar() {
         try {
-            $sql = $this->con->conectar()->prepare("SELECT * FROM usuario");
+            $sql = $this->con->conectar()->prepare("CALL ListarUsuario()");
             $sql->execute();
             return $sql->fetchAll();
         } catch (PDOException $ex) {
@@ -66,7 +65,7 @@ class Usuarios {
 
     public function listarRedeSocial() {
         try {
-            $sql = $this->con->conectar()->prepare("SELECT redesocial.id_redesocial FROM usuario JOIN redesocial ON usuario.id = redesocial.id");
+            $sql = $this->con->conectar()->prepare("CALL ListarJoinRedeSocial()");
             $sql->execute();
             return $sql->fetchAll();
         } catch (PDOException $ex) {
@@ -79,7 +78,7 @@ class Usuarios {
             $id = intval($_GET['id']);
             
             try {
-                $sql = $this->con->conectar()->prepare("DELETE FROM usuario WHERE id = :id");
+                $sql = $this->con->conectar()->prepare("CALL ExcluirUsuario(:id)");
                 $sql->bindParam(':id', $id, PDO::PARAM_INT);
                 $sql->execute();
         
@@ -92,7 +91,7 @@ class Usuarios {
 
     public function buscarUsuario($id) {
         try {
-            $sql = $this->con->conectar()->prepare("SELECT * FROM usuario WHERE id = :id");
+            $sql = $this->con->conectar()->prepare("CALL BuscarUsuario()");
             $sql->bindParam(':id', $id, PDO::PARAM_INT);
             $sql->execute();
             return $sql->fetch(PDO::FETCH_ASSOC); // Retorna os dados do usuário como array associativo
@@ -105,19 +104,19 @@ class Usuarios {
         try {
             $senha_criptografada = password_hash($senha_usuario, PASSWORD_DEFAULT); // Criptografando a senha
             $sql = $this->con->conectar()->prepare(
-                "UPDATE usuario SET nome_usuario = :nome, email_usuario = :email, senha_usuario = :senha, permissoes_usuario = :permissoes_usuario, 
-                ativo_usuario = :ativo_usuario, url_foto = :url_foto, telefone = :telefone, id_redesocial = :id_redesocial WHERE id = :id"
+                "CALL AtualizarUsuario(:id, :nome, :email, :senha, :permissoes_usuario, :ativo_usuario, :url_foto, :telefone, :id_redesocial)"
             );
+            
             $sql->bindValue(':id', $id);
             $sql->bindValue(':nome', $nome_usuario);
             $sql->bindValue(':email', $email_usuario);
-            $sql->bindValue(':senha', $senha_criptografada);
+            $sql->bindValue(':senha', $senha_usuario);
             $sql->bindValue(':permissoes_usuario', $permissoes_usuario);
             $sql->bindValue(':ativo_usuario', $ativo_usuario);
             $sql->bindValue(':url_foto', $url_foto);
             $sql->bindValue(':telefone', $telefone);
             $sql->bindValue(':id_redesocial', $id_redesocial);
-    
+            
             $sql->execute();
             header('Location: gerenciarUsuario.php');
         } catch (PDOException $ex) {
