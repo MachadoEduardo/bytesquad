@@ -133,13 +133,15 @@ class Administrador {
     {
         return $this->permissoes;
     }
-    public function temPermissoes($p){
-        if(in_array($p, $this->permissoes)){
+    public function temPermissoes($p) {
+        // Verifique se a propriedade $this->permissoes não é NULL ou se é um array
+        if (is_array($this->permissoes) && in_array($p, $this->permissoes)) {
             return TRUE;
         } else {
             return FALSE;
         }
     }
+    
     
 }
 
