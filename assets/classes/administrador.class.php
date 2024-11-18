@@ -87,6 +87,7 @@ class Administrador {
 
     public function editar($id, $usuario, $senha, $permissoes) {
         try {
+            // Usando password_hash para criptografar a senha de maneira segura
             $senha_criptografada = password_hash($senha, PASSWORD_DEFAULT); // Criptografando a senha
             $sql = $this->con->conectar()->prepare(
                 "UPDATE administrativo SET usuario = :nome, senha_admin = :senha, permissoes_admin = :permissoes WHERE id_administrativo = :id"
@@ -97,19 +98,20 @@ class Administrador {
             $sql->bindParam(':permissoes', $permissoes, PDO::PARAM_STR);
     
             $sql->execute();
-            header(header: 'Location: gerenciarAdministrador.php');
+            header('Location: gerenciarAdministrador.php');
         } catch (PDOException $ex) {
             echo 'ERRO: ' . $ex->getMessage();
         }
     }
-    public function fazerLogin($usuario, $senha){
+
+    public function fazerLogin($usuario, $senha) {
         $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario");
         $sql->bindValue(":usuario", $usuario);
         $sql->execute();
     
         if ($sql->rowCount() > 0) {
             $sql = $sql->fetch();
-            // Verificando se a senha informada bate com a senha criptografada no banco
+            // Aqui você usa password_verify para comparar a senha fornecida com a senha criptografada
             if (password_verify($senha, $sql['senha_admin'])) {
                 $_SESSION['Logado'] = $sql['id_administrativo'];
                 return TRUE;
@@ -117,6 +119,7 @@ class Administrador {
         }
         return FALSE;
     }
+
     public function setUsuario($id) {
         $this->id = $id;
         $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE id_administrativo = :id");
@@ -125,7 +128,7 @@ class Administrador {
     
         if($sql->rowCount() > 0){
             $sql = $sql->fetch();
-            $this->permissoes = explode(',', $sql['permissoes']); // Transforma em array
+            $this->permissoes = explode(',', $sql['permissoes_admin']); // Transforma em array
         }
     }
     
@@ -133,14 +136,17 @@ class Administrador {
     {
         return $this->permissoes;
     }
-    public function temPermissoes($p) {
-        // Verifique se a propriedade $this->permissoes não é NULL ou se é um array
-        if (is_array($this->permissoes) && in_array($p, $this->permissoes)) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+    public function temPermissoes($permissao) {
+    // Verifique se o usuário está logado e se as permissões estão definidas
+    if (isset($_SESSION['Logado'])) {
+        $id = $_SESSION['Logado'];
+        $this->setUsuario($id);  // Carrega as permissões do usuário
+
+        // Verifique se a permissão está presente na lista de permissões do usuário
+        return in_array($permissao, $this->permissoes);
     }
+    return false;
+}
     
     
 }
