@@ -58,11 +58,10 @@
                     <li><a class="dropdown-item" href="telaLogin.php">Login</a></li>
                 </ul>
             </div>
-            <div class="dropdown me-2">
-                <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <a href="sair.php" class="text-white text-decoration-none">Sair</a>
-                </button>
-            </div>
+            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" 
+                aria-expanded="false">
+                <a href="sair.php" class="text-white text-decoration-none">SAIR</a>
+            </button>
+
         </div>
     </header>

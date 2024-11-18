@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 if (!isset($_SESSION['Logado'])) {
     header("Location: telaLogin.php");
@@ -40,7 +40,7 @@ $admin = new Administrador();
                 <?php
                 $lista = $usuario->listar();
                 foreach ($lista as $item):
-                    ?>
+                ?>
                     <!-- Exemplo de linha de usuário -->
                     <tr>
                         <td><?php echo $item['id'] ?></td>
@@ -53,16 +53,20 @@ $admin = new Administrador();
                         <td><?php echo $item['telefone'] ?></td>
                         <td><?php echo $item['id_redesocial'] ?></td>
                         <td>
-                        <?php if($admin->temPermissoes('EDIT'));?>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#editarModal<?php echo $item['id']; ?>">
-                                Editar Usuário
-                            </button>
-                            <a href="deletarUsuario.php?id=<?php echo $item['id']; ?>"
-                                class="btn btn-sm btn-danger" onclick="return confirm('Você tem certeza que deseja excluir <?php echo $item['nome_usuario']?>? ')">Excluir</a>
+                            <?php if ($admin->temPermissoes('EDIT')): ?>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editarModal<?php echo $item['id']; ?>">
+                                    Editar Usuário
+                                </button>
+                            <?php endif; ?>
+
+                            <?php if ($admin->temPermissoes('DELETE')): ?>
+                                <a href="deletarUsuario.php?id=<?php echo $item['id']; ?>"
+                                    class="btn btn-sm btn-danger" onclick="return confirm('Você tem certeza que deseja excluir <?php echo $item['nome_usuario'] ?>? ')">Excluir</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
-                    <?php
+                <?php
                 endforeach
                 ?>
             </tbody>
@@ -126,10 +130,10 @@ $admin = new Administrador();
                                             <?php
                                             $lista = $usuario->listarRedeSocial();
                                             foreach ($lista as $item):
-                                                ?>
+                                            ?>
                                                 <option value="<?php echo $item['id_redesocial']; ?>"><?php echo $item['id_redesocial']; ?>
                                                 </option>
-                                                <?php
+                                            <?php
                                             endforeach;
                                             ?>
 
@@ -151,9 +155,11 @@ $admin = new Administrador();
     </div>
 
     <!-- Button trigger modal -->
+    <?php if ($admin->temPermissoes('ADD')): ?>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Adicionar Usuário
     </button>
+    <?php endif; ?>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -201,10 +207,10 @@ $admin = new Administrador();
                                     <?php
                                     $lista = $usuario->listarRedeSocial();
                                     foreach ($lista as $item):
-                                        ?>
+                                    ?>
                                         <option value="<?php echo $item['id_redesocial']; ?>"><?php echo $item['id_redesocial']; ?>
                                         </option>
-                                        <?php
+                                    <?php
                                     endforeach;
                                     ?>
 

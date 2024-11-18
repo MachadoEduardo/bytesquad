@@ -7,7 +7,7 @@ if (!empty($_POST['userEmail'])) {
     $nome = $_POST['userName'];
     $email = $_POST['userEmail'];
     $senha = $_POST['userPassword'];
-    $permissoes_usuario = $_POST['permissoes_usuario'];
+    $permissoes_usuario = isset($_POST['permissoes_usuario']) ? implode(', ', $_POST['permissoes_usuario']) : '';  // Se não houver permissões selecionadas, o campo será vazio
     $ativo_usuario = $_POST['ativo_usuario'];
     $url_foto = $_POST['url_foto'];
     $telefone = $_POST['telefone'];

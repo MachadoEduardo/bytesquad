@@ -8,7 +8,7 @@ if (!empty($_POST['id_administrativo']) && !empty($_POST['usuario']) && !empty($
     // Atribuindo os valores para as variáveis
     $id = intval($_POST['id_administrativo']);
     $usuario = $_POST['usuario'];
-    $senha_admin = $_POST['senha_admin'];
+    $senha_admin = md5($_POST['senha_admin']);
     $permissoes_admin = $_POST['permissoes_admin'];
 
     $admin->editar($id, $usuario, $senha_admin, $permissoes_admin); // Chama o método de editar

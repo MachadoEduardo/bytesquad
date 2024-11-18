@@ -6,7 +6,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha_admin']) && !empty($_POST[
     // Captura do formulário e atribui esse valor nas variáveis
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha_admin'];
-    $permissoes = $_POST['permissoes_admin'];
+    $permissoes_admin = isset($_POST['permissoes_admin']) ? implode(', ', $_POST['permissoes_admin']) : '';  // Se não houver permissões selecionadas, o campo será vazio
 
     // Insere no banco de dados
     if ($admin->adicionar($usuario, $senha, $permissoes)) { 
