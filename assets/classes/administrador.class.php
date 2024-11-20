@@ -118,36 +118,31 @@ class Administrador {
             }
         }
         return FALSE;
-    }
-
+    }   
     public function setUsuario($id) {
         $this->id = $id;
         $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE id_administrativo = :id");
         $sql->bindValue(":id", $id);
         $sql->execute();
     
-        if($sql->rowCount() > 0){
+        if ($sql->rowCount() > 0) {
             $sql = $sql->fetch();
-            $this->permissoes = explode(',', $sql['permissoes_admin']); // Transforma em array
+            $this->permissoes = explode(', ', $sql['permissoes_admin']); // Transforma em array
         }
-    }
-    
+    }      
     public function getPermissoes()
     {
         return $this->permissoes;
     }
     public function temPermissoes($permissao) {
-    // Verifique se o usuário está logado e se as permissões estão definidas
-    if (isset($_SESSION['Logado'])) {
-        $id = $_SESSION['Logado'];
-        $this->setUsuario($id);  // Carrega as permissões do usuário
-
-        // Verifique se a permissão está presente na lista de permissões do usuário
-        return in_array($permissao, $this->permissoes);
-    }
-    return false;
-}
+        if (isset($_SESSION['Logado'])) {
+            $id = $_SESSION['Logado'];
+            $this->setUsuario($id);  // Carrega as permissões do usuário
     
-    
+            // Verifique se a permissão está presente na lista de permissões do usuário
+            return in_array($permissao, $this->permissoes);
+        }
+        return false;
+    }       
 }
 

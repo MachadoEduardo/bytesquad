@@ -12,7 +12,6 @@ if (!isset($_SESSION['Logado'])) {
     exit;
 }
 ?>
-
 <main class="container mt-5">
     <div class="header-content mb-4">
         <h1>Gerenciar Níveis</h1>
@@ -51,13 +50,17 @@ if (!isset($_SESSION['Logado'])) {
                         <td><?php echo $item['respostas'] ?></td>
                         <td><?php echo $item['id_administrativo']; ?></td> <!-- Exibindo o id do administrador -->
                         <td>
+                        <?php if ($admin->temPermissoes('EDIT')): ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id_nivel']; ?>">
                                 Editar Nível
                             </button>
+                        <?php endif; ?>
+                        <?php if ($admin->temPermissoes('DELETE')): ?>
                             <a href="deletarNivel.php?id_nivel=<?php echo $item['id_nivel']; ?>"
                                 class="btn btn-sm btn-danger"
                                 onclick="return confirm('Você tem certeza que deseja excluir <?php echo $item['nome_nivel'] ?>? ')">Excluir</a>
+                        <?php endif; ?>
                         </td>
                     </tr>
                     <?php
@@ -151,10 +154,12 @@ if (!isset($_SESSION['Logado'])) {
         <?php endforeach; ?>
     </div>
 
+    <?php if ($admin->temPermissoes('ADD')): ?>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Adicionar Nível
     </button>
+    <?php endif; ?>
 
     <!-- Modal para adicionar nível -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

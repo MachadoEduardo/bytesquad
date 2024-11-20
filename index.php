@@ -1,15 +1,12 @@
 <?php
 session_start();
-require_once './assets/classes/administrador.class.php';
-$admin = new Administrador();
-
-// On protected admin pages
 if (!isset($_SESSION['Logado'])) {
-    header("Location: login.php");
+    header("Location: telaLogin.php");
     exit;
 }
+require_once './assets/classes/administrador.class.php';
+$admin = new Administrador();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -31,10 +28,12 @@ if (!isset($_SESSION['Logado'])) {
             <h1>Bem-vindo à seção administrativa!</h1>
             <h5>Segmento da aplicação dedicado ao gerenciamento das configurações.</h5>
             <ul class="nav flex-column">
-            <li class="nav-item">
+            <?php if ($admin->temPermissoes('SUPER')): ?>
+                <li class="nav-item">
                     <a class="nav-link link-blue fs-3" href="gerenciarAdministrador.php">• Gerenciar administradores</a>
                     <p>Aba para criar, listar, editar e/ou excluir os administradores do sistema.</p>
                 </li>
+            <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link link-blue fs-3" href="gerenciarUsuario.php">• Gerenciar usuários</a>
                     <p>Aba para criar, listar, editar e/ou excluir os usuários do sistema.</p>

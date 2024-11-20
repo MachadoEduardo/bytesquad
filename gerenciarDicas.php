@@ -47,13 +47,17 @@ if (!isset($_SESSION['Logado'])) {
                         <td><?php echo $item['quantidade_dicas'] ?></td>
                         <td><?php echo $item['id'] ?></td>
                         <td>
+                        <?php if ($admin->temPermissoes('EDIT')): ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id_dicas']; ?>">
                                 Editar Pacote
-                            </button>
+                        </button>
+                        <?php endif; ?>
+                        <?php if ($admin->temPermissoes('DELETE')): ?>
                             <a href="deletarDicas.php?id_dicas=<?php echo $item['id_dicas']; ?>"
                                 class="btn btn-sm btn-danger"
                                 onclick="return confirm('Você tem certeza que deseja excluir o Pacote<?php echo $item['id_dicas'] ?>? ')">Excluir</a>
+                        <?php endif; ?>
                         </td>
                     </tr>
                     <?php
@@ -134,10 +138,12 @@ if (!isset($_SESSION['Logado'])) {
         <?php endforeach; ?>
     </div>
 
+    <?php if ($admin->temPermissoes('ADD')): ?>
     <!-- Button trigger modal (botão o qual vai acionar o modal) -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Adicionar Pacote
     </button>
+    <?php endif; ?>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

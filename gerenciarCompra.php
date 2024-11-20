@@ -47,13 +47,17 @@ if (!isset($_SESSION['Logado'])) {
                         <td><?php echo $item['historico_compra'] ?></td>
                         <td><?php echo $item['id'] ?></td>
                         <td>
+                        <?php if ($admin->temPermissoes('EDIT')): ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id_compra']; ?>">
                                 Editar Compra
                             </button>
+                        <?php endif; ?>
+                            <?php if ($admin->temPermissoes('DELETE')): ?>
                             <a href="deletarCompra.php?id_compra=<?php echo $item['id_compra']; ?>"
                                 class="btn btn-sm btn-danger"
                                 onclick="return confirm('Você tem certeza que deseja excluir a Compra <?php echo $item['id_compra'] ?>? ')">Excluir</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <?php
@@ -134,10 +138,12 @@ if (!isset($_SESSION['Logado'])) {
         <?php endforeach; ?>
     </div>
 
-        <!-- Button trigger modal (botão o qual vai acionar o modal) -->
+    <?php if ($admin->temPermissoes('ADD')): ?>
+    <!-- Button trigger modal (botão o qual vai acionar o modal) -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Adicionar Compra
     </button>
+    <?php endif; ?>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

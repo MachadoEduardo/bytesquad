@@ -40,11 +40,13 @@ if (!isset($_SESSION['Logado'])) {
                     <tr>
                         <td><?php echo $item['id_redesocial'] ?></td>
                         <td><?php echo $item['credenciais_redesocial'] ?></td>
+                        <?php if ($admin->temPermissoes('DELETE')): ?>
                         <td>
                             <a href="deletarRedeSocial.php?id_redesocial=<?php echo $item['id_redesocial']; ?>"
                                 class="btn btn-sm btn-danger"
                                 onclick="return confirm('Você tem certeza que deseja excluir <?php echo $item['id_redesocial'] ?>? ')">Excluir</a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                     <?php
                 endforeach
