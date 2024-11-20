@@ -44,11 +44,13 @@ if (!isset($_SESSION['Logado'])) {
                         <td><?php echo $item['id_usuario'] ?></td>
                         <td><?php echo $item['id_nivel'] ?></td>
                         <td><?php echo $item['pontuacao_tabela'] ?></td>
+                        <?php if ($admin->temPermissoes('DELETE')): ?>
                         <td>
                             <a href="deletarTabelaPontuacao.php?id_tabelapontuacao=<?php echo $item['id_tabelapontuacao']; ?>"
                                 class="btn btn-sm btn-danger"
                                 onclick="return confirm('Você tem certeza que deseja excluir a Tabela <?php echo $item['id_tabelapontuacao'] ?>? ')">Excluir</a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                     <?php
                 endforeach

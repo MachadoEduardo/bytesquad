@@ -102,7 +102,7 @@ $admin = new Administrador();
                                     <div class="mb-3">
                                         <label for="senha<?php echo $item['id']; ?>" class="form-label">Senha</label>
                                         <input type="password" class="form-control" id="senha<?php echo $item['id']; ?>"
-                                            name="senha" value="********" required>
+                                            name="senha" value="" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="permissoes_usuario<?php echo $item['permissoes_usuario']; ?>" class="form-label">Permissões</label>

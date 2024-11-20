@@ -49,13 +49,17 @@ if (!isset($_SESSION['Logado'])) {
                         <td><?php echo $item['preco_energia'] ?></td>
                         <td><?php echo $item['pacote_energia'] ?></td>
                         <td>
+                        <?php if ($admin->temPermissoes('EDIT')): ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id_energia']; ?>">
                                 Editar Pacote
                             </button>
+                        <?php endif; ?>
+                        <?php if ($admin->temPermissoes('DELETE')): ?>
                             <a href="deletarEnergia.php?id_energia=<?php echo $item['id_energia']; ?>"
                                 class="btn btn-sm btn-danger"
                                 onclick="return confirm('Você tem certeza que deseja excluir o Pacote <?php echo $item['id_energia'] ?>? ')">Excluir</a>
+                        <?php endif; ?>
                         </td>
                     </tr>
                     <?php
@@ -143,10 +147,12 @@ if (!isset($_SESSION['Logado'])) {
         <?php endforeach; ?>
     </div>
 
+    <?php if ($admin->temPermissoes('ADD')): ?>
     <!-- Button trigger modal (botão o qual vai acionar o modal) -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Adicionar Pacote
     </button>
+    <?php endif; ?>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

@@ -1,5 +1,9 @@
-<?php 
+<?php
 session_start();
+if (!isset($_SESSION['Logado'])) {
+    header("Location: telaLogin.php");
+    exit;
+}
 include 'assets/inc/header.inc.php';
 require_once './assets/classes/administrador.class.php';
 $admin = new Administrador();
@@ -37,6 +41,7 @@ $admin = new Administrador();
                         <td><?php echo $item['senha_admin'] ?></td>
                         <td><?php echo $item['permissoes_admin'] ?></td>
                         <td>
+                        <?php if ($admin->temPermissoes('SUPER')): ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#editarModal<?php echo $item['id_administrativo']; ?>">
                                 Editar Administrador
@@ -44,6 +49,7 @@ $admin = new Administrador();
                             <a href="deletarAdministrador.php?id=<?php echo $item['id_administrativo']; ?>"
                                 class="btn btn-sm btn-danger"
                                 onclick="return confirm('Você tem certeza que deseja excluir <?php echo $item['usuario'] ?>? ')">Excluir</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <?php
@@ -76,7 +82,7 @@ $admin = new Administrador();
                                 <div class="mb-3">
                                     <label for="senha_admin" class="form-label">Senha</label>
                                     <input type="password" class="form-control" id="senha_admin" name="senha_admin"
-                                        value="<?php echo '**********'; ?>" required>
+                                        value="<?php echo ''; ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="permissoes_admin" class="form-label">Permissões</label>
@@ -96,10 +102,12 @@ $admin = new Administrador();
         <?php endforeach; ?>
     </div>
 
+    <?php if ($admin->temPermissoes('SUPER')): ?>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Adicionar Administrador
     </button>
+    <?php endif; ?>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

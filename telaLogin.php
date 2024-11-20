@@ -4,7 +4,7 @@ require './assets/classes/administrador.class.php';
 
 if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
     $usuario = trim($_POST['usuario']);
-    $senha = md5($_POST['senha']); // Não criptografe a senha aqui ainda
+    $senha = md5($_POST['senha']); // Não criptografe a senha aqui
 
     $admin = new Administrador();
     if ($admin->fazerLogin($usuario, $senha)) {
