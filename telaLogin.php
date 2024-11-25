@@ -4,7 +4,7 @@ require './assets/classes/administrador.class.php';
 
 if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
     $usuario = trim($_POST['usuario']);
-    $senha = md5($_POST['senha']); // Não criptografe a senha aqui
+    $senha = $_POST['senha']; // Agora usamos a senha diretamente, sem md5.
 
     $admin = new Administrador();
     if ($admin->fazerLogin($usuario, $senha)) {
@@ -32,7 +32,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
         .login-container {
             margin-top: 100px;
             max-width: 400px;
-            background-color: white; 
+            background-color: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -60,6 +60,10 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
                 </div>
                 <button type="submit" name="login" class="btn btn-primary w-100">Entrar</button>
             </form>
+            <p class="text-center">
+                <a href="esqueceuSenha.php">Esqueceu a senha?</a>
+            </p>
+
             <p class="text-center text-muted mt-3">© 2024 ByteSquad</p>
         </div>
     </div>
