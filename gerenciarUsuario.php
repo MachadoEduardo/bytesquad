@@ -49,7 +49,13 @@ $admin = new Administrador();
                         <td><?php echo $item['senha_usuario'] ?></td>
                         <td><?php echo $item['permissoes_usuario'] ?></td>
                         <td><?php echo $item['ativo_usuario'] ?></td>
-                        <td><?php echo $item['url_foto'] ?></td>
+                        <td>
+                            <?php if (!empty($item['url_foto'])): ?>
+                                <img src="<?php echo $item['url_foto']; ?>" alt="Foto de <?php echo $item['nome_usuario']; ?>" style="width:50px; height:50px; object-fit:cover;">
+                            <?php else: ?>
+                                Sem foto
+                            <?php endif; ?>
+                        </td>
                         <td><?php echo $item['telefone'] ?></td>
                         <td><?php echo $item['id_redesocial'] ?></td>
                         <td>
@@ -114,11 +120,12 @@ $admin = new Administrador();
                                         <input type="ativo_usuario" class="form-control" id="ativo_usuario<?php echo $item['id']; ?>"
                                             name="ativo_usuario" value="<?php echo $item['ativo_usuario']; ?>" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="url_foto<?php echo $item['url_foto']; ?>" class="form-label">Foto</label>
-                                        <input type="url_foto" class="form-control" id="url_foto<?php echo $item['id']; ?>"
-                                            name="url_foto" value="<?php echo $item['url_foto']; ?>" required>
-                                    </div>
+                                    <form action="adicionarUsuarioSubmit.php" method="POST" enctype="multipart/form-data">
+                                        <label for="url_foto" class="form-label">Foto</label>
+                                        <input type="file" class="form-control" id="url_foto" name="url_foto">
+                                    </form>
+                                    <a href="excluirFotoUsuario.php?id=<?php echo $item['id']; ?>" class="btn btn-warning" onclick="return confirm('Deseja realmente remover a foto deste usuário?');">Excluir Foto</a>
+
                                     <div class="mb-3">
                                         <label for="telefone<?php echo $item['telefone']; ?>" class="form-label">Telefone</label>
                                         <input type="telefone" class="form-control" id="telefone<?php echo $item['id']; ?>"
@@ -156,9 +163,9 @@ $admin = new Administrador();
 
     <!-- Button trigger modal -->
     <?php if ($admin->temPermissoes('ADD')): ?>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Adicionar Usuário
-    </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Adicionar Usuário
+        </button>
     <?php endif; ?>
 
     <!-- Modal -->
