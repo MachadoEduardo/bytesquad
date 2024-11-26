@@ -123,4 +123,16 @@ class Usuarios {
             echo 'ERRO: ' . $ex->getMessage();
         }
     }  
+
+    public function excluirFoto($id) {
+        try {
+            $sql = $this->con->conectar()->prepare("UPDATE usuario SET url_foto = NULL WHERE id = :id");
+            $sql->bindParam(':id', $id, PDO::PARAM_INT);
+            $sql->execute();
+            return true; // Retorna verdadeiro se a exclusão for bem-sucedida
+        } catch (PDOException $ex) {
+            echo 'ERRO: ' . $ex->getMessage();
+            return false;
+        }
+    }
 }
