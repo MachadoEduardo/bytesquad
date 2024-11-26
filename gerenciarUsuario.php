@@ -162,9 +162,9 @@ $admin = new Administrador();
 
     <!-- Button trigger modal -->
     <?php if ($admin->temPermissoes('ADD')): ?>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Adicionar Usuário
-        </button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Adicionar Usuário
+    </button>
     <?php endif; ?>
 
     <!-- Modal -->
