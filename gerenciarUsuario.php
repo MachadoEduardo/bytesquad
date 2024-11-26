@@ -51,7 +51,7 @@ $admin = new Administrador();
                         <td><?php echo $item['ativo_usuario'] ?></td>
                         <td>
                             <?php if (!empty($item['url_foto'])): ?>
-                                <img src="<?php echo $item['url_foto']; ?>" alt="Foto de <?php echo $item['nome_usuario']; ?>" style="width:50px; height:50px; object-fit:cover;">
+                                <img src="<?php echo $item['url_foto']; ?>" alt="Foto de <?php echo $item['nome_usuario']; ?>" style="width:100px; height:100px; object-fit:cover;">
                             <?php else: ?>
                                 Sem foto
                             <?php endif; ?>
@@ -78,7 +78,7 @@ $admin = new Administrador();
             </tbody>
         </table>
 
-        <!-- Criando um modal (de edição) dentro de um foreach, para que dessa forma, exista um modal para cada um dos usuários da tabela. Assim, ao clicar no modal automaticamente 
+         <!-- Criando um modal (de edição) dentro de um foreach, para que dessa forma, exista um modal para cada um dos usuários da tabela. Assim, ao clicar no modal automaticamente 
         as informações do usuário serão exibidas dentro do formulário -->
         <?php foreach ($lista as $item): ?>
             <!-- Modal de Edição -->
@@ -120,12 +120,11 @@ $admin = new Administrador();
                                         <input type="ativo_usuario" class="form-control" id="ativo_usuario<?php echo $item['id']; ?>"
                                             name="ativo_usuario" value="<?php echo $item['ativo_usuario']; ?>" required>
                                     </div>
-                                    <form action="adicionarUsuarioSubmit.php" method="POST" enctype="multipart/form-data">
-                                        <label for="url_foto" class="form-label">Foto</label>
-                                        <input type="file" class="form-control" id="url_foto" name="url_foto">
-                                    </form>
-                                    <a href="excluirFotoUsuario.php?id=<?php echo $item['id']; ?>" class="btn btn-warning" onclick="return confirm('Deseja realmente remover a foto deste usuário?');">Excluir Foto</a>
-
+                                    <div class="mb-3">
+                                        <label for="url_foto<?php echo $item['url_foto']; ?>" class="form-label">Foto</label>
+                                        <input type="url_foto" class="form-control" id="url_foto<?php echo $item['id']; ?>"
+                                            name="url_foto" value="<?php echo $item['url_foto']; ?>" required>
+                                    </div>
                                     <div class="mb-3">
                                         <label for="telefone<?php echo $item['telefone']; ?>" class="form-label">Telefone</label>
                                         <input type="telefone" class="form-control" id="telefone<?php echo $item['id']; ?>"
