@@ -19,4 +19,3 @@ if (!empty($_POST['id']) && !empty($_POST['nome']) && !empty($_POST['email']) &&
 
     $usuario->editar($id, $nome, $email, $senha, $permissoes_usuario, $ativo_usuario, $url_foto, $telefone, $id_redesocial); // Chama o método de editar
 }
-
