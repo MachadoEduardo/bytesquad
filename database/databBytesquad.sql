@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/10/2024 às 22:03
+-- Tempo de geração: 27/11/2024 às 02:07
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,71 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `bytesquad`
 --
+
+DELIMITER $$
+--
+-- Procedimentos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AtualizarUsuario` (IN `p_id` INT, IN `p_nome` VARCHAR(255), IN `p_email` VARCHAR(255), IN `p_senha` VARCHAR(255), IN `p_permissoes_usuario` VARCHAR(50), IN `p_ativo_usuario` TINYINT, IN `p_url_foto` VARCHAR(255), IN `p_telefone` VARCHAR(20), IN `p_id_redesocial` INT)   BEGIN
+    -- Atualiza os dados do usuário na tabela
+    UPDATE usuario
+    SET 
+        nome_usuario = p_nome,
+        email_usuario = p_email,
+        senha_usuario = p_senha,
+        permissoes_usuario = p_permissoes_usuario,
+        ativo_usuario = p_ativo_usuario,
+        url_foto = p_url_foto,
+        telefone = p_telefone,
+        id_redesocial = p_id_redesocial
+    WHERE id = p_id;
+    
+    -- Opcionalmente, você pode adicionar algum tipo de verificação ou mensagem
+    -- Caso você queira garantir que o usuário foi atualizado corretamente
+    -- Por exemplo, verificando se a atualização afetou alguma linha:
+    
+    IF ROW_COUNT() = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erro: Nenhum usuário encontrado com o ID fornecido';
+    END IF;
+    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscarUsuario` (IN `p_id` INT)   BEGIN
+    SELECT * FROM usuario WHERE id = p_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ExcluirUsuario` (IN `p_id` INT)   BEGIN
+    DELETE FROM usuario WHERE id = p_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InserirUsuario` (IN `p_nome_usuario` VARCHAR(255), IN `p_email_usuario` VARCHAR(255), IN `p_senha_usuario` VARCHAR(255), IN `p_permissoes_usuario` VARCHAR(255), IN `p_ativo_usuario` TINYINT, IN `p_url_foto` VARCHAR(255), IN `p_telefone` VARCHAR(20), IN `p_id_redesocial` INT)   BEGIN
+    INSERT INTO usuario (
+        nome_usuario, 
+        email_usuario, 
+        senha_usuario, 
+        permissoes_usuario, 
+        ativo_usuario, 
+        url_foto, 
+        telefone, 
+        id_redesocial
+    )
+    VALUES (
+        p_nome_usuario, 
+        p_email_usuario, 
+        p_senha_usuario, 
+        p_permissoes_usuario, 
+        p_ativo_usuario, 
+        p_url_foto, 
+        p_telefone, 
+        p_id_redesocial
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarJoinRedeSocial` ()   SELECT redesocial.id_redesocial FROM usuario JOIN redesocial ON usuario.id = redesocial.id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarUsuario` ()   SELECT * FROM usuario$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -39,11 +104,11 @@ CREATE TABLE `administrativo` (
 --
 
 INSERT INTO `administrativo` (`id_administrativo`, `usuario`, `senha_admin`, `permissoes_admin`) VALUES
-(1, 'Eduardo Henrique Cioli Machado', '$2y$10$PdpcQaPKBp1XNZfmlNZmmuyRQ.whYnWHo5Jf0ebIeXk6D2zrfn6.6', 'Criar, editar, listar e excluir usuários.'),
-(3, 'Luis Camargo', '$2y$10$i2H7r/wtQk92zDVDt6zQeuuDUAMRW1l6RcJL37tFBIOPqcbtuBit6', 'Listar usuários.'),
-(4, 'Vinicios Vaz', '$2y$10$qXo4FMMdcjnLmPnaCblcsulbXAgvfAZ8YetmvypEqQTHBnkV6a4Gy', 'Listar usuários.'),
-(5, 'Alysson Gabriel', '$2y$10$6FgqTeZM6fYDcGz4q8xrHeh4NQWYIAQoKdtFCYirdMZ2DNbgM0zOq', 'Criar usuários.'),
-(6, 'Luiz Cezar', '$2y$10$rpzMf4VH1tqhudBDiFhL6uAPA8WRTZ.F8caTNtch14Rq4ABacZOeW', 'Editar usuários.');
+(1, 'Machado', '$2y$10$5SvBBfvEvkDgGcFarnzFk.5KQOaA8iHCaSV71UTPM8pA3tJ89ZM6i', 'ADD, EDIT, DELETE, READ, SUPER'),
+(3, 'Luis Camargo', '$2y$10$Rspu9.SWBU5klEdzzgTHAeVuSdMTX5131JJB1hsTQdeD9pY6dZG9O', 'SUPER, READ'),
+(4, 'Vinicios Vaz', '$2y$10$KCFUGxqVOtUzlFwwbZ2ESOJXDeUhKeb7Leguog.0XTA4wUyxZRnAW', 'DELETE'),
+(5, 'Alysson Gabriel', '$2y$10$qn1MGxPvWNhUyNM8RRPts.ZSWnoMbI.UZ.rXCgPPrzIMquOA.CQyi', 'CREATE'),
+(6, 'Luiz Cezar', '$2y$10$XKxwvMm0dKpPxeIReqegv.HM/EYGHjTZsV.PB0OHnfkZNPnmjDAeq', 'ADD, EDIT');
 
 -- --------------------------------------------------------
 
@@ -245,12 +310,13 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome_usuario`, `email_usuario`, `senha_usuario`, `permissoes_usuario`, `ativo_usuario`, `url_foto`, `telefone`, `id_redesocial`) VALUES
-(1, 'Yuri Brita', 'yuri22@gmail.com', '$2y$10$F6Zwz1VtlRUiBLj7HCPGIOwSX7ujMEeEkTf9bN0XWN.OIdbHYSoSy', 'ALTERAR TUDO', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(42) 42104-2411', 3),
-(2, 'Alan Ferreira', 'scardior@gmail.com', '$2y$10$fMKE3SWNQNYCPaa2ePtoleOW/dc1JFi4BZNQLDP/YQ3mOaK26ou.e', 'ALTERAR QUASE TUDO', 0, 'https://encrypted-tbn0.gstatic.com/imagesS?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(11) 93285-2431', 1),
-(3, 'Casimiro Miguel', 'nhenhetadocase@gmail.com', '$2y$10$MnL14k4dGy.nm1jR6EPoL.L0SJuiN7kcgYkqkDMUhIYuCuL1rzlTq', 'ALTERAR UM POUCO DE TUDO', 1, 'https://encrypted-tbn0.gstatic.com/imagesS?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(41) 99913-0193', 1),
-(4, 'Felipe Hayashi', 'kekefefe@gmail.com', '$2y$10$/939581iTCZwTJOAbFrqLO/rM9RBwUM7F8E4aAUcWXO76TZ7w3Gwy', 'ALTERAR QUASE NADA', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(41) 91453-0190', 4),
-(5, 'Darren Jason', 'ishowmeat@gmail.com', '$2y$10$yzDRIHQsDYT1w/dtFomWwODKjf5adCZL7Cu/gJwhAL9NswZ32e0BS', 'ALTERAR NADA', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(00) 99999-9999', 1),
-(15, 'Alexandre Moraes', 'xandaottwtv@gmail.com', '$2y$10$G8QXJ.7HgmgK0bwEp8OoPuNT9fmh8yTdPeLGXSFMthnHve67595KG', 'ALTERAR', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(42) 42919-1293', 1);
+(1, 'Yuri Brita', 'yuri22@gmail.com', '13213', 'EDIT, READ', 0, 'rwewreewrwerwe', '(57) 91291-3112', 1),
+(2, 'Alan Ferreira', 'scardior@gmail.com', '13423', 'EDIT, READ', 0, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7J8JxBrOo56MG1Aoz0ZW_dO782sGYtfO39w&s', '(11) 93285-2431', 1),
+(3, 'Casimiro Miguel', 'docase@gmail.com', '32213', 'EDIT, READ', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9jQrqZLS9U0UI9HSHUo4HItFpqZXXFgKBqQ&s', '(41) 99913-0193', 1),
+(4, 'Felipe Hayashi', 'kekefefe@gmail.com', '321421', 'EDIT, READ', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(41) 91453-0190', 1),
+(5, 'Darren Jason', 'ishowmeat@gmail.com', '123', 'EDIT, READ', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxnQDYNCDEiKODD95rm0ynBFO4kCaUBegSJA&s', '(00) 99999-9999', 1),
+(15, 'Machado', 'xandaottwtv@gmail.com', '123', 'EDIT, READ', 1, 'avatar', '(42) 42919-1293', 1),
+(18, 'Naruto', 'uzumaki@gmail.com', '123', 'EDIT, READ', 0, 'LA', '(42) 99229-1293', 1);
 
 --
 -- Índices para tabelas despejadas
@@ -378,7 +444,7 @@ ALTER TABLE `tabelapontuacao`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
