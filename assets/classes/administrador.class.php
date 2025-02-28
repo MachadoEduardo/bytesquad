@@ -113,21 +113,21 @@ class Administrador
     }
 
     public function fazerLogin($usuario, $senha)
-{
-    $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario");
-    $sql->bindValue(":usuario", $usuario);
-    $sql->execute();
+    {
+        $sql = $this->con->conectar()->prepare("SELECT * FROM administrativo WHERE usuario = :usuario");
+        $sql->bindValue(":usuario", $usuario);
+        $sql->execute();
 
-    if ($sql->rowCount() > 0) {
-        $sql = $sql->fetch();
-        // Verificando a senha com password_verify
-        if (password_verify($senha, $sql['senha_admin'])) {
-            $_SESSION['Logado'] = $sql['id_administrativo'];
-            return true;
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+            // Verificando a senha com password_verify
+            if (password_verify($senha, $sql['senha_admin'])) {
+                $_SESSION['Logado'] = $sql['id_administrativo'];
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
 
 
     public function setUsuario($id)

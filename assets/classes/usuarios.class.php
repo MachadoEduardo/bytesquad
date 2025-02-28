@@ -104,13 +104,14 @@ class Usuarios {
         try {
             $senha_criptografada = password_hash($senha_usuario, PASSWORD_DEFAULT); // Criptografando a senha
             $sql = $this->con->conectar()->prepare(
-                "CALL AtualizarUsuario(:id, :nome, :email, :senha, :permissoes_usuario, :ativo_usuario, :url_foto, :telefone, :id_redesocial)"
+                "UPDATE usuario SET nome_usuario = :nome, email_usuario = :email, senha_usuario = :senha, permissoes_usuario = :permissoes_usuario, ativo_usuario = :ativo_usuario,
+                url_foto = :url_foto, telefone = :telefone, id_redesocial = :id_redesocial WHERE id = :id"
             );
             
             $sql->bindValue(':id', $id);
             $sql->bindValue(':nome', $nome_usuario);
             $sql->bindValue(':email', $email_usuario);
-            $sql->bindValue(':senha', $senha_usuario);
+            $sql->bindValue(':senha', $senha_criptografada);
             $sql->bindValue(':permissoes_usuario', $permissoes_usuario);
             $sql->bindValue(':ativo_usuario', $ativo_usuario);
             $sql->bindValue(':url_foto', $url_foto);
@@ -123,4 +124,21 @@ class Usuarios {
             echo 'ERRO: ' . $ex->getMessage();
         }
     }  
+
+    public function fazerLogin($nome_usuario, $senha_usuario)
+    {
+        $sql = $this->con->conectar()->prepare("SELECT * FROM usuario WHERE nome_usuario = :nome_usuario");
+        $sql->bindValue(":nome_usuario", $nome_usuario);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+            // Verificando a senha com password_verify
+            if (password_verify($senha_usuario, $sql['senha_usuario'])) {
+                $_SESSION['Logado'] = $sql['id'];
+                return true;
+            }
+        }
+        return false;
+    }
 }
