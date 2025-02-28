@@ -1,14 +1,19 @@
 <?php
 session_start();
 require './assets/classes/administrador.class.php';
+require './assets/classes/usuarios.class.php';
 
 if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
     $usuario = trim($_POST['usuario']);
     $senha = $_POST['senha']; // Agora usamos a senha diretamente, sem md5.
 
     $admin = new Administrador();
+    $usuarioClass = new Usuarios();
     if ($admin->fazerLogin($usuario, $senha)) {
         header("Location: index.php");
+        exit;
+    } else if ($usuarioClass->fazerLogin($usuario, $senha)){
+        header("Location: home.php");
         exit;
     } else {
         echo '<span style="color: red;">Usuário e/ou senha incorreto!</span>';
