@@ -1,12 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['Logado'])) {
-    header("Location: telaLogin.php");
-    exit;
-}
-require_once './assets/classes/usuarios.class.php';
-$usuario = new Usuarios();
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -39,14 +30,15 @@ $usuario = new Usuarios();
         #cloud {
             position: absolute;
             z-index: -1;
-            background-color: rgb(241, 241,241);
+            background-color: rgb(241, 241, 241);
             height: 800px;
             width: 100%;
             top: 100%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        #mini-cloud{
+
+        #mini-cloud {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -57,7 +49,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-1{
+
+        #mini-cloud-1 {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -68,7 +61,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-2{
+
+        #mini-cloud-2 {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -79,7 +73,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-3{
+
+        #mini-cloud-3 {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -90,7 +85,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-4{
+
+        #mini-cloud-4 {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -101,7 +97,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-5{
+
+        #mini-cloud-5 {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -112,7 +109,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-6{
+
+        #mini-cloud-6 {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -123,7 +121,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-7{
+
+        #mini-cloud-7 {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -134,7 +133,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-8{
+
+        #mini-cloud-8 {
             position: absolute;
             z-index: -1;
             background-color: white;
@@ -145,7 +145,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray{
+
+        #mini-cloud-gray {
             position: absolute;
             z-index: 0;
             background-color: rgb(241, 241, 241);
@@ -156,7 +157,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray-1{
+
+        #mini-cloud-gray-1 {
             position: absolute;
             z-index: 0;
             background-color: rgb(241, 241, 241);
@@ -167,7 +169,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray-2{
+
+        #mini-cloud-gray-2 {
             position: absolute;
             z-index: 0;
             background-color: rgb(241, 241, 241);
@@ -178,7 +181,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray-3{
+
+        #mini-cloud-gray-3 {
             position: absolute;
             z-index: -1;
             background-color: rgb(241, 241, 241);
@@ -189,7 +193,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray-4{
+
+        #mini-cloud-gray-4 {
             position: absolute;
             z-index: -1;
             background-color: rgb(241, 241, 241);
@@ -200,7 +205,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray-5{
+
+        #mini-cloud-gray-5 {
             position: absolute;
             z-index: -0;
             background-color: rgb(241, 241, 241);
@@ -211,7 +217,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray-6{
+
+        #mini-cloud-gray-6 {
             position: absolute;
             z-index: 0;
             background-color: rgb(241, 241, 241);
@@ -222,7 +229,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray-7{
+
+        #mini-cloud-gray-7 {
             position: absolute;
             z-index: -1;
             background-color: rgb(241, 241, 241);
@@ -233,7 +241,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #mini-cloud-gray-8{
+
+        #mini-cloud-gray-8 {
             position: absolute;
             z-index: -1;
             background-color: rgb(241, 241, 241);
@@ -244,10 +253,12 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 80%;
         }
-        #title{
+
+        #title {
             z-index: 1;
         }
-        #button_bg{
+
+        #button_bg {
             position: absolute;
             z-index: -1;
             background-color: rgb(3, 110, 93);
@@ -258,7 +269,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 40px;
         }
-        #button_bg_1{
+
+        #button_bg_1 {
             position: absolute;
             z-index: -1;
             background-color: rgb(3, 110, 93);
@@ -269,7 +281,8 @@ $usuario = new Usuarios();
             transform: translate(-50%, -50%);
             border-radius: 40px;
         }
-        #button_bg_2{
+
+        #button_bg_2 {
             position: absolute;
             z-index: -1;
             background-color: rgb(3, 110, 93);
@@ -310,13 +323,13 @@ $usuario = new Usuarios();
 
         <div class="flex flex-col min-h-screen justify-center items-center gap-6">
             <div id="title">
-            <img src="assets/img/logo.png">
+                <img src="assets/img/logo.png">
             </div>
-            <button class="bg-[#42D1C9] text-white rounded-full font-bold text-3xl h-20 w-60">Cadastrar</button>
+            <button class="bg-[#42D1C9] text-white rounded-full font-bold text-3xl h-20 w-60 hover:bg-[#0bb0b5]">Cadastrar</button>
             <div id="button_bg"></div>
-            <a href="telaLogin.php"><button class="bg-[#42D1C9] text-white rounded-full font-bold text-3xl h-20 w-60">Logar</button></a>
+            <a href="telaLogin.php"><button class="bg-[#42D1C9] text-white rounded-full font-bold text-3xl h-20 w-60 hover:bg-[#0bb0b5]">Logar</button></a>
             <div id="button_bg_1"></div>
-            <button class="bg-[#42D1C9] text-white rounded-full font-bold text-3xl h-20 w-60">Sobre</button>
+            <button class="bg-[#42D1C9] text-white rounded-full font-bold text-3xl h-20 w-60 hover:bg-[#0bb0b5]">Sobre</button>
             <div id="button_bg_2"></div>
         </div>
     </main>
