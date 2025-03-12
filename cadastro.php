@@ -45,9 +45,11 @@
         }
 
         label {
-            -webkit-text-stroke: 0.3px black;
-            font-size: larger;
-            font-family: 'Potta One', cursive;
+            text-shadow: -1px -1px 0 #0E716B,
+            1px -1px 0 black,
+            -1px 1px 0 black,
+            1px 1px 0 black ;
+            font-family: 'Potta One';
         }
 
         div button {
@@ -59,7 +61,7 @@
 
 <body>
     <main>
-        <a href=""><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
+        <a href=".php"><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
 
         <div class="container d-flex justify-content-center align-items-center vh-100">
             <div class="login-container">
@@ -70,22 +72,22 @@
                 <br>
                 <form action="adicionarUsuarioSubmit.php" method="POST">
                     <div class="mb-3">
-                        <label for="userName" class="form-label font-extrabold text-[#5DFDF3] text-2xl">Nome de Usuário</label>
+                        <label for="userName" class="form-label text-[#5DFDF3] text-2xl">Nome de Usuário</label>
                         <input type="text" placeholder="Nome de usuário" class="form-control border-2 border-black z-10" id="userName" name="userName" required>
                     </div>
                     <div class="mb-3">
-                        <label for="userEmail" class="form-label font-bold text-[#5DFDF3] text-2xl">E-mail</label>
+                        <label for="userEmail" class="form-label text-[#5DFDF3] text-2xl">E-mail</label>
                         <input type="email" placeholder="E-mail" class="form-control border-2 border-black z-10" id="userEmail" name="userEmail" required>
                     </div>
                     <div class="mb-3">
-                        <label for="userPassword" class="form-label font-bold text-[#5DFDF3] text-2xl">Senha</label>
+                        <label for="userPassword" class="form-label text-[#5DFDF3] text-2xl">Senha</label>
                         <input type="password" placeholder="Senha" class="form-control border-2 border-black z-1" id="userPassword" name="userPassword" required>
                     </div>
                     <div class="mb-3">
-                        <label for="confirmPassword" class="form-label font-bold text-[#5DFDF3] text-2xl">Confirme a senha</label>
+                        <label for="confirmPassword" class="form-label text-[#5DFDF3] text-2xl">Confirme a senha</label>
                         <input type="password" placeholder="Confirme sua senha" class="form-control border-2 border-black z-1" id="confirmPassword" name="confirmPassword" required>
                     </div>
-                    <input type="checkbox"> Eu aceito os <a href="">Termos e Condições.</a>
+                    <input type="checkbox"> Eu aceito os <a href="" class="text-blue-500">Termos e Condições.</a>
                     <br>
                     <br>
                     <div class="hover:-translate-y-2 flex justify-center">
@@ -97,7 +99,7 @@
                 <br>
                 <p class="text-center">
                     Já possui uma conta?
-                    <a href="telaLogin.php">Faça login</a>
+                    <a href="telaLogin.php" class="text-blue-500">Faça login</a>
                 </p>
 
                 <p class="text-center text-muted mt-3">© 2024 ByteSquad</p>

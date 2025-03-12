@@ -73,6 +73,10 @@
             width: 20vh;
             display: flex;
             justify-content: center;
+            text-shadow: -1px -1px 0 #0E716B,
+            1px -1px 0 #0E716B,
+            -1px 1px 0 #0E716B,
+            1px 1px 0 #0E716B ;
         }
     </style>
     <title>Home</title>
@@ -80,7 +84,7 @@
 
 <body>
     <main>
-        <a href=""><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
+        <a href=".php"><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
 
         <div class="flex flex-col min-h-screen justify-center items-center gap-6">
             <div id="title">
