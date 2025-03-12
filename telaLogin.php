@@ -67,9 +67,11 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
         }
 
         label {
-            -webkit-text-stroke: 0.3px black;
-            font-size: larger;
-            font-family: 'Potta One', cursive;
+            text-shadow: -1px -1px 0 black,
+            1px -1px 0 black,
+            -1px 1px 0 black,
+            1px 1px 0 black ;
+            font-family: 'Potta One';
         }
 
         div button {
@@ -81,7 +83,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
 
 <body>
     <main>
-        <a href=""><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
+        <a href=".php"><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
 
         <div class="container d-flex justify-content-center align-items-center vh-100">
             <div class="login-container">
@@ -92,11 +94,11 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
                 <br>
                 <form method="POST">
                     <div class="mb-3">
-                        <label for="usuario" class="form-label font-bold text-[#5DFDF3] text-2xl">Usuário</label>
+                        <label for="usuario" class="form-label text-[#5DFDF3] text-2xl">Nome de usuário</label>
                         <input type="text" placeholder="Nome de usuário" class="form-control border-2 border-black z-10" id="usuario" name="usuario" required>
                     </div>
                     <div class="mb-3">
-                        <label for="senha" class="form-label font-bold text-[#5DFDF3] text-2xl">Senha</label>
+                        <label for="senha" class="form-label text-[#5DFDF3] text-2xl">Senha</label>
                         <input type="password" placeholder="Senha" class="form-control border-2 border-black z-1" id="senha" name="senha" required>
                     </div>
                     <p class="text-right">

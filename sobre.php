@@ -18,119 +18,158 @@
             justify-content: center;
         }
 
-        main {
+        div {
             font-family: 'Poppins';
             font-weight: bold;
-            border: 2px solid;
-            width: 80vh;
-            height: 80vh;
+            width: 90vh;
+            height: 90vh;
             text-align: center;
         }
 
-        header {
-            border: 1px solid white;
-            justify-items: center;
-            margin: 20px;
-            font-size: 45px;
-        }
-
-        main p {
+        div p {
             font-size: 30px;
             text-align: center;
+            padding: 0 20px;
         }
 
-        main button {
+        div button {
             color: white;
             font-size: 30px;
             width: 20vh;
             margin-top: 5vh;
+            padding-bottom: 2px;
+            margin-bottom: 12px;
+        }
+
+        header {
+            margin: 20px;
+            font-size: 45px;
+            position: relative;
+            height: 40vh;
+            
         }
 
         header h1 {
             cursor: pointer;
-            transition: all 0.3s ease;
+            color: white;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 10px;
             margin: 10px;
+            text-shadow: 
+                -1px -1px 0 black,
+                1px -1px 0 black,
+                -1px 1px 0 black,
+                1px 1px 0 black;
+            position: absolute;
         }
 
         header h1:hover {
-            transform: scale(1.05);
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* main{
+            background-color:rgb(223, 223, 223);
+            border-radius: 50px;
+            box-shadow: 2px black;
+        } */ 
+
+        .active-title {
+            color: #5DFDF3 !important;
+            text-shadow: 
+                -1px -1px 0 black,
+                1px -1px 0 black,
+                -1px 1px 0 black,
+                1px 1px 0 black;
+        }
+
+        /* Novas posições */
+        .top-left {
+            left: 0;
+            top: 0;
+        }
+
+        .top-right {
+            right: 0;
+            top: 0;
+        }
+
+        .bottom-center {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #logo{
+            position: absolute;
+            right: 80vh;
+            bottom: 37rem;
         }
     </style>
 </head>
 <body>
-    <main>
+    <div>
         <header>
-            <h1 data-section="vision" class="">Visão</h1>
-            <h1 data-section="values">Valores</h1>
-            <h1 data-section="mission">Missão</h1>
+            <h1 data-section="vision" class="top-right">Visão</h1>
+            <h1 data-section="values" class="top-left">Valores</h1>  
+            <h1 data-section="mission" class="bottom-center active-title">Missão</h1>   
         </header>
+        <img src="./assets/img/logoSobre.png" alt="" id="logo"> 
 
+        <main>
         <p>Ser a plataforma líder globalmente em aprendizado interativo de informática e tecnologia, oferecendo desafios estimulantes e conteúdo relevante para todos os níveis de habilidade.</p>
-        <a href="">
+        <a href="home.php">
             <button class="cursor-pointer transition-all bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-b-[8px] border-r-[2px] border-l-[2px] border-t-[1px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
                 Voltar
             </button>
         </a>
-    </main>
+        </main>
+        
+    </div>
 
-    <!-- Script corrigido -->
     <script>
         const contents = {
             vision: {
                 text: "Ser a plataforma líder globalmente em aprendizado interativo de informática e tecnologia, oferecendo desafios estimulantes e conteúdo relevante para todos os níveis de habilidade.",
-                order: ["vision", "values", "mission"]
             },
             values: {
                 text: "Excelência, Inovação e Comunidade. Estamos comprometidos em proporcionar a mais alta qualidade em educação tecnológica, impulsionados pela constante busca por novas ideias e pela construção de uma comunidade inclusiva e colaborativa.",
-                order: ["values", "vision", "mission"]
             },
             mission: {
                 text: "Capacitar indivíduos a explorar e aprimorar seus conhecimentos em informática e tecnologia por meio de uma experiência educativa e envolvente, promovendo o aprendizado contínuo e a diversão.",
-                order: ["mission", "values", "vision"]
             }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.querySelector('header');
-            const paragraph = document.querySelector('main p');
+            const paragraph = document.querySelector('div p');
 
-            // Função para tratar cliques nos títulos
             function handleTitleClick(event) {
-                const title = event.target;
-                if (title.tagName === 'H1') {
-                    const section = title.dataset.section;
-                    updateContent(section);
-                    reorderTitles(section);
-                }
-            }
+                const clickedTitle = event.target;
+                if (!clickedTitle.matches('h1') || clickedTitle.classList.contains('bottom-center')) return;
 
-            // Event delegation no header
-            header.addEventListener('click', handleTitleClick);
-
-            function updateContent(section) {
-                paragraph.textContent = contents[section].text;
-            }
-
-            function reorderTitles(activeSection) {
-                const newOrder = contents[activeSection].order;
-                const newElements = newOrder.map(section => 
-                    Array.from(header.children).find(child => 
-                        child.dataset.section === section
-                    )
-                );
+                const currentBottom = header.querySelector('.bottom-center');
                 
-                // Remove todos os elementos
-                while (header.firstChild) {
-                    header.removeChild(header.firstChild);
-                }
-                
-                // Adiciona na nova ordem
-                newElements.forEach(element => {
-                    header.appendChild(element);
+                // Remove classes ativas
+                header.querySelectorAll('h1').forEach(title => {
+                    title.classList.remove('active-title');
                 });
+
+                // Troca as posições
+                const clickedPositionClass = Array.from(clickedTitle.classList).find(c => c.startsWith('top-'));
+                const bottomPositionClass = 'bottom-center';
+
+                // Atualiza as classes
+                clickedTitle.classList.remove(clickedPositionClass);
+                clickedTitle.classList.add(bottomPositionClass);
+                currentBottom.classList.remove(bottomPositionClass);
+                currentBottom.classList.add(clickedPositionClass);
+
+                // Atualiza conteúdo e estilo
+                clickedTitle.classList.add('active-title');
+                paragraph.textContent = contents[clickedTitle.dataset.section].text;
             }
+
+            header.addEventListener('click', handleTitleClick);
         });
     </script>
 </body>
