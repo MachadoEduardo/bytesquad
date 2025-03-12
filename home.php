@@ -30,42 +30,6 @@
             z-index: 1;
         }
 
-        #button_bg {
-            position: absolute;
-            z-index: -1;
-            background-color: rgb(3, 110, 93);
-            height: 80px;
-            width: 242px;
-            top: 62%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 40px;
-        }
-
-        #button_bg_1 {
-            position: absolute;
-            z-index: -1;
-            background-color: rgb(3, 110, 93);
-            height: 80px;
-            width: 242px;
-            top: 73%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 40px;
-        }
-
-        #button_bg_2 {
-            position: absolute;
-            z-index: -1;
-            background-color: rgb(3, 110, 93);
-            height: 80px;
-            width: 242px;
-            top: 84%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 40px;
-        }
-
         main button {
             font-family: 'Poppins';
             font-weight: bold;

@@ -45,25 +45,18 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
             overflow: hidden;
         }
 
-        button {
+        #submit {
             font-family: 'Poppins';
-            font-size: 22px;
+            display: flex;
+            justify-content: center;
+            text-shadow: -1px -1px 0 #0E716B,
+            1px -1px 0 #0E716B,
+            -1px 1px 0 #0E716B,
+            1px 1px 0 #0E716B ;
         }
 
         #title {
             z-index: 1;
-        }
-
-        #button_bg {
-            position: absolute;
-            z-index: -1;
-            background-color: rgb(3, 110, 93);
-            height: 78px;
-            width: 242px;
-            top: 68%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 40px;
         }
 
         label {
@@ -72,10 +65,6 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
             -1px 1px 0 black,
             1px 1px 0 black ;
             font-family: 'Potta One';
-        }
-
-        div button {
-            -webkit-text-stroke: 1.3px #0E716B;
         }
     </style>
     <title>Login</title>
@@ -106,8 +95,8 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
                     </p>
                     <br>
                     <div class="hover:-translate-y-2 flex justify-center">
-                        <button type="submit" name="login" class="bg-[#42D1C9] text-white rounded-full font-black text-4xl h-20 w-60 hover:bg-[#0bb0b5]">Feito!</button>
-                        <div id="button_bg"></div>
+                        <button type="submit" name="login" id="submit" class="cursor-pointer transition-all h-[5rem] w-[12rem] bg-[#42D1C9]  text-white text-[3rem] items-center align-center px-6 py-2 rounded-full 
+                        border-[#0E716B] border-b-[8px] border-r-[2px] border-l-[2px] border-t-[1px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Feito!</button>
                     </div>
 
                 </form>
