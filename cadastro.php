@@ -1,25 +1,3 @@
-<?php
-session_start();
-require './assets/classes/administrador.class.php';
-require './assets/classes/usuarios.class.php';
-
-if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
-    $usuario = trim($_POST['usuario']);
-    $senha = $_POST['senha']; // Agora usamos a senha diretamente, sem md5.
-
-    $admin = new Administrador();
-    $usuarioClass = new Usuarios();
-    if ($admin->fazerLogin($usuario, $senha)) {
-        header("Location: index.php");
-        exit;
-    } else if ($usuarioClass->fazerLogin($usuario, $senha)) {
-        header("Location: home.php");
-        exit;
-    } else {
-        echo '<span style="color: red;">Usuário e/ou senha incorreto!</span>';
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -31,7 +9,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
     <link href='https://fonts.googleapis.com/css?family=Potta One' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Login - ByteSquad</title>
+    <title>Cadastro</title>
     <style>
         h1 {
             font-family: 'Potta One';
@@ -40,7 +18,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
 
         body {
             background-image: url('./assets/img/background.png');
-            background-size: cover;
+            background-size: cover; 
             height: 100vh;
             overflow: hidden;
         }
@@ -60,7 +38,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
             background-color: rgb(3, 110, 93);
             height: 78px;
             width: 242px;
-            top: 68%;
+            top: 80%;
             left: 50%;
             transform: translate(-50%, -50%);
             border-radius: 40px;
@@ -76,7 +54,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
             -webkit-text-stroke: 1.3px #0E716B;
         }
     </style>
-    <title>Login</title>
+    <title>Home</title>
 </head>
 
 <body>
@@ -86,22 +64,29 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
         <div class="container d-flex justify-content-center align-items-center vh-100">
             <div class="login-container">
                 <div id="title">
-                    <img src="assets/img/entrar.png">
+                    <img src="assets/img/logoCadastro.png">
                 </div>
                 <br>
                 <br>
-                <form method="POST">
+                <form action="adicionarUsuarioSubmit.php" method="POST">
                     <div class="mb-3">
-                        <label for="usuario" class="form-label font-bold text-[#5DFDF3] text-2xl">Usuário</label>
-                        <input type="text" placeholder="Nome de usuário" class="form-control border-2 border-black z-10" id="usuario" name="usuario" required>
+                        <label for="userName" class="form-label font-extrabold text-[#5DFDF3] text-2xl">Nome de Usuário</label>
+                        <input type="text" placeholder="Nome de usuário" class="form-control border-2 border-black z-10" id="userName" name="userName" required>
                     </div>
                     <div class="mb-3">
-                        <label for="senha" class="form-label font-bold text-[#5DFDF3] text-2xl">Senha</label>
-                        <input type="password" placeholder="Senha" class="form-control border-2 border-black z-1" id="senha" name="senha" required>
+                        <label for="userEmail" class="form-label font-bold text-[#5DFDF3] text-2xl">E-mail</label>
+                        <input type="email" placeholder="E-mail" class="form-control border-2 border-black z-10" id="userEmail" name="userEmail" required>
                     </div>
-                    <p class="text-right">
-                        <a href="esqueceuSenha.php" class="hover:text-cyan-500">Esqueci a senha</a>
-                    </p>
+                    <div class="mb-3">
+                        <label for="userPassword" class="form-label font-bold text-[#5DFDF3] text-2xl">Senha</label>
+                        <input type="password" placeholder="Senha" class="form-control border-2 border-black z-1" id="userPassword" name="userPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label font-bold text-[#5DFDF3] text-2xl">Confirme a senha</label>
+                        <input type="password" placeholder="Confirme sua senha" class="form-control border-2 border-black z-1" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                    <input type="checkbox"> Eu aceito os <a href="">Termos e Condições.</a>
+                    <br>
                     <br>
                     <div class="hover:-translate-y-2 flex justify-center">
                         <button type="submit" name="login" class="bg-[#42D1C9] text-white rounded-full font-black text-4xl h-20 w-60 hover:bg-[#0bb0b5]">Feito!</button>
@@ -111,8 +96,8 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
                 </form>
                 <br>
                 <p class="text-center">
-                    Não possui uma conta?
-                    <a href="cadastro.php" class="hover:text-cyan-500">Cadastre-se</a>
+                    Já possui uma conta?
+                    <a href="telaLogin.php">Faça login</a>
                 </p>
 
                 <p class="text-center text-muted mt-3">© 2024 ByteSquad</p>
