@@ -18,7 +18,7 @@
 
         body {
             background-image: url('./assets/img/background.png');
-            background-size: cover; 
+            background-size: cover;
             height: 100vh;
             overflow: hidden;
         }
@@ -32,28 +32,22 @@
             z-index: 1;
         }
 
-        #button_bg {
-            position: absolute;
-            z-index: -1;
-            background-color: rgb(3, 110, 93);
-            height: 78px;
-            width: 242px;
-            top: 80%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 40px;
-        }
-
         label {
             text-shadow: -1px -1px 0 #0E716B,
-            1px -1px 0 black,
-            -1px 1px 0 black,
-            1px 1px 0 black ;
+                1px -1px 0 black,
+                -1px 1px 0 black,
+                1px 1px 0 black;
             font-family: 'Potta One';
         }
 
         div button {
-            -webkit-text-stroke: 1.3px #0E716B;
+            font-family: 'Poppins';
+            display: flex;
+            justify-content: center;
+            text-shadow: -1px -1px 0 #0E716B,
+                1px -1px 0 #0E716B,
+                -1px 1px 0 #0E716B,
+                1px 1px 0 #0E716B;
         }
     </style>
     <title>Home</title>
@@ -70,6 +64,27 @@
                 </div>
                 <br>
                 <br>
+                <?php
+                session_start();
+                if (isset($_SESSION['erros_cadastro'])): ?>
+                    <div class="alert alert-danger">
+                        <?php
+                        foreach ($_SESSION['erros_cadastro'] as $erro) {
+                            echo "<p>$erro</p>";
+                        }
+                        unset($_SESSION['erris_cadastro']);
+                        ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['sucesso_cadastro'])): ?>
+                    <div class="alert alert-success">
+                        <?php
+                        echo $_SESSION['sucesso_cadastro'];
+                        unset($_SESSION['sucesso_cadastro']);
+                        ?>
+                    </div>
+                <?php endif; ?>
                 <form action="adicionarUsuarioSubmit.php" method="POST">
                     <div class="mb-3">
                         <label for="userName" class="form-label text-[#5DFDF3] text-2xl">Nome de Usuário</label>
@@ -87,12 +102,14 @@
                         <label for="confirmPassword" class="form-label text-[#5DFDF3] text-2xl">Confirme a senha</label>
                         <input type="password" placeholder="Confirme sua senha" class="form-control border-2 border-black z-1" id="confirmPassword" name="confirmPassword" required>
                     </div>
-                    <input type="checkbox"> Eu aceito os <a href="" class="text-blue-500">Termos e Condições.</a>
+                    <input type="checkbox" name="termos"> Eu aceito os <a href="" class="text-blue-500">Termos e Condições.</a>
                     <br>
                     <br>
                     <div class="hover:-translate-y-2 flex justify-center">
-                        <button type="submit" name="login" class="bg-[#42D1C9] text-white rounded-full font-black text-4xl h-20 w-60 hover:bg-[#0bb0b5]">Feito!</button>
-                        <div id="button_bg"></div>
+                        <a href="sobre.php">
+                        <button type="submit" name="login" class="cursor-pointer transition-all h-[5rem] w-[12rem] bg-[#42D1C9]  text-white text-[3rem] items-center align-center px-6 py-2 rounded-full 
+                        border-[#0E716B] border-b-[8px] border-r-[2px] border-l-[2px] border-t-[1px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Feito!</button>
+                        </a>
                     </div>
 
                 </form>

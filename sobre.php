@@ -104,6 +104,14 @@
             right: 80vh;
             bottom: 37rem;
         }
+
+        p{
+            color: white;
+            text-shadow: -1px -1px 0 black,
+            1px -1px 0 black,
+            -1px 1px 0 black,
+            1px 1px 0 black ;
+        }
     </style>
 </head>
 <body>
