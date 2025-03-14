@@ -141,4 +141,12 @@ class Usuarios {
         }
         return false;
     }
+
+    public function verificarUsuario($nome_usuario)
+    {
+        $sql = $this->con->conectar()->prepare("SELECT id FROM usuario WHERE nome_usuario = :nome_usuario");
+        $sql->bindValue(":nome_usuario", $nome_usuario);
+        $sql->execute();
+        return $sql->rowCount() > 0; // Verifica se encontrou o usuario
+    }
 }
