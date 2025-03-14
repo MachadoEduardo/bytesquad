@@ -45,8 +45,7 @@
             margin: 20px;
             font-size: 45px;
             position: relative;
-            height: 40vh;
-            
+            height: 40vh;        
         }
 
         header h1 {
