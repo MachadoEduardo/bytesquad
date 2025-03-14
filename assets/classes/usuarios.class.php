@@ -18,7 +18,7 @@ class Usuarios {
         $this->con = new Conexao();
     }
 
-    private function existeEmail($email_usuario) {
+    public function existeEmail($email_usuario) {
         $sql = $this->con->conectar()->prepare("SELECT id FROM usuario WHERE email_usuario = :email_usuario");
         $sql->bindParam(':email_usuario', $email_usuario, PDO::PARAM_STR);
         $sql->execute();
@@ -142,11 +142,13 @@ class Usuarios {
         return false;
     }
 
-    public function verificarUsuario($nome_usuario)
+    // Atualiza a senha no banco
+    public function atualizarSenha($email_usuario, $novaSenha)
     {
-        $sql = $this->con->conectar()->prepare("SELECT id FROM usuario WHERE nome_usuario = :nome_usuario");
-        $sql->bindValue(":nome_usuario", $nome_usuario);
-        $sql->execute();
-        return $sql->rowCount() > 0; // Verifica se encontrou o usuario
+        $sql = $this->con->conectar()->prepare("UPDATE usuario SET senha_usuario = :senha_usuario WHERE email_usuario = :email_usuario");
+        $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT); // Usa o password_hash
+        $sql->bindValue(":senha_usuario", $senhaHash); // Armazena a senha criptografada
+        $sql->bindValue(":email_usuario", $email_usuario);
+        return $sql->execute(); // Executa a atualização
     }
 }

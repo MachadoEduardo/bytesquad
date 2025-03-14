@@ -1,16 +1,19 @@
 <?php
 require '../bytesquad/assets/classes/usuarios.class.php';
 
-if (!empty($_POST['usuario'])) {
-    $nome_usuario = addslashes($_POST['usuario']);
+if (!empty($_POST['email_usuario'])) {
+    $email_usuario = filter_input(INPUT_POST, 'email_usuario', FILTER_SANITIZE_EMAIL);
     $usuario = new Usuarios();
 
-    if ($usuario->verificarUsuario($nome_usuario)) {
-        // Se o usuario existe no banco, redireciona para definir nova senha
-        header("Location: redefinirSenha.php?usuario=" . urlencode($nome_usuario));
-        exit;
-    } else {
-        $erro = "Usuario não encontrado.";
+    try {
+        if ($usuario->existeEmail($email_usuario)) {
+            header("Location: token.php?usuario=" . urlencode($email_usuario));
+            exit;
+        } else {
+            $erro = "Usuário não encontrado.";
+        }
+    } catch (PDOException $e) {
+        $erro = "Erro ao verificar e-mail: " . $e->getMessage();
     }
 }
 ?>
@@ -42,19 +45,19 @@ if (!empty($_POST['usuario'])) {
             font-family: 'Play';
             font-size: 1.2rem;
         }
-        
-        #verify{
+
+        #verify {
             text-shadow: -2px -2px 0 #0E716B,
-            2px -2px 0 #0E716B,
-            -2px 2px 0 #0E716B,
-            2px 2px 0 #0E716B ;
+                2px -2px 0 #0E716B,
+                -2px 2px 0 #0E716B,
+                2px 2px 0 #0E716B;
         }
 
-        #return{
+        #return {
             text-shadow: -1.2px -1.2px 0 black,
-            1.2px -1.2px 0 black,
-            -1.2px 1.2px 0 black,
-            1.2px 1.2px 0 black ;
+                1.2px -1.2px 0 black,
+                -1.2px 1.2px 0 black,
+                1.2px 1.2px 0 black;
         }
     </style>
 </head>
@@ -81,20 +84,26 @@ if (!empty($_POST['usuario'])) {
 
                         <form method="POST" class="p-2 w-100">
                             <div class="mb-3">
-                                <label for="usuario" class="form-label font-[Play] text-[1.2rem]">Digite seu usuario:</label>
-                                <input type="text" name="usuario" id="usuario" class="placeholder:font-[Poppins] form-control rounded-xl border-[2px] border-black" required placeholder="Nome de usuário">
-                                <p id="description" class="font-[Play] my-2">Iremos verificar se o seu usuário existe dentro do nosso banco de dados e se corresponde a uma conta do ByteSquad.</p>
+                                <label for="email_usuario" class="form-label font-[Play] text-[1.2rem]">Digite seu e-mail:</label>
+                                <input type="text" name="email_usuario" id="email_usuario" class="placeholder:font-[Poppins] form-control rounded-xl border-[2px] border-black" required placeholder="E-mail">
+                                <p id="description" class="font-[Play] my-2">Iremos verificar se o seu e-mail existe dentro do nosso banco de dados e se corresponde a uma conta do ByteSquad.</p>
                             </div>
                             <div class="d-flex justify-content-center gap-3">
                                 <button type="submit" id="verify" class="font-[Poppins] text-[2rem] btn-verificar cursor-pointer transition-all font-bold bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-[2px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
                                     Avançar
-                                </button>                         
+                                </button>
                                 <a href="telaLogin.php">
-                                    <button type="button" id="return" class="font-[Poppins] text-[2rem] btn-voltar border-black border-[1px] font-bold cursor-pointer transition-all bg-[#fefefe] text-white px-6 py-2 rounded-full border-[#000000] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+                                <button type="button" id="return" class="font-[Poppins] text-[2rem] btn-voltar border-black border-[1px] font-bold cursor-pointer transition-all bg-[#fefefe] text-white px-6 py-2 rounded-full border-[#000000] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
                                     Voltar
                                 </button>
-                                </a>
+                                </a>                              
                             </div>
-                        </form>            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-require '../bytesquad/assets/classes/administrador.class.php';
+require '../bytesquad/assets/classes/usuarios.class.php';
 
 // Variáveis de erro e sucesso
 $erro = '';
@@ -7,7 +7,8 @@ $sucesso = '';
 
 // Verificando se os campos de senha foram enviados
 if (!empty($_GET['usuario']) && !empty($_POST['nova_senha']) && !empty($_POST['confirmar_senha'])) {
-    $usuario = addslashes($_GET['usuario']);
+    // Recuperando o email do usuário da URL
+    $email_usuario = addslashes($_GET['usuario']);  // Aqui está o email do usuário
     $novaSenha = $_POST['nova_senha'];
     $confirmarSenha = $_POST['confirmar_senha'];
 
@@ -16,8 +17,9 @@ if (!empty($_GET['usuario']) && !empty($_POST['nova_senha']) && !empty($_POST['c
         $erro = "As senhas não coincidem.";
     } else {
         // Usar o método correto de criptografia
-        $administrador = new Administrador();
-        if ($administrador->atualizarSenha($usuario, $novaSenha)) {
+        // Agora passamos o email do usuário
+        $usuarioObj = new Usuarios();
+        if ($usuarioObj->atualizarSenha($email_usuario, $novaSenha)) {
             // Redireciona para a página de login após sucesso
             header("Location: telaLogin.php?mensagem=sucesso");
             exit;
@@ -34,7 +36,7 @@ if (!empty($_GET['usuario']) && !empty($_POST['nova_senha']) && !empty($_POST['c
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redefinir Senha</title>
+    <title>Redefinir Senha - ByteSquad</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Potta One' rel='stylesheet'>

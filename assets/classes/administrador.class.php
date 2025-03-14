@@ -164,15 +164,4 @@ class Administrador
         $sql->execute();
         return $sql->rowCount() > 0; // Verifica se encontrou o usuario
     }
-
-
-    // Atualiza a senha no banco
-    public function atualizarSenha($usuario, $novaSenha)
-    {
-        $sql = $this->con->conectar()->prepare("UPDATE administrativo SET senha_admin = :senha_admin WHERE usuario = :usuario");
-        $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT); // Usa o password_hash
-        $sql->bindValue(":senha_admin", $senhaHash); // Armazena a senha criptografada
-        $sql->bindValue(":usuario", $usuario);
-        return $sql->execute(); // Executa a atualização
-    }
 }
