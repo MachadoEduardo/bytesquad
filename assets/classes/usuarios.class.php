@@ -91,12 +91,13 @@ class Usuarios {
 
     public function buscarUsuario($id) {
         try {
-            $sql = $this->con->conectar()->prepare("CALL BuscarUsuario()");
+            $sql = $this->con->conectar()->prepare("SELECT * FROM usuario WHERE id = :id");
             $sql->bindParam(':id', $id, PDO::PARAM_INT);
             $sql->execute();
-            return $sql->fetch(PDO::FETCH_ASSOC); // Retorna os dados do usuário como array associativo
+            return $sql->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $ex) {
-            echo "ERRO: " . $ex->getMessage();
+            error_log("ERRO: " . $ex->getMessage());
+            return false;
         }
     }
 
@@ -140,15 +141,5 @@ class Usuarios {
             }
         }
         return false;
-    }
-
-    // Atualiza a senha no banco
-    public function atualizarSenha($email_usuario, $novaSenha)
-    {
-        $sql = $this->con->conectar()->prepare("UPDATE usuario SET senha_usuario = :senha_usuario WHERE email_usuario = :email_usuario");
-        $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT); // Usa o password_hash
-        $sql->bindValue(":senha_usuario", $senhaHash); // Armazena a senha criptografada
-        $sql->bindValue(":email_usuario", $email_usuario);
-        return $sql->execute(); // Executa a atualização
     }
 }

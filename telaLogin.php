@@ -13,7 +13,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
         header("Location: index.php");
         exit;
     } else if ($usuarioClass->fazerLogin($usuario, $senha)) {
-        header("Location: home.php");
+        header("Location: listar_niveis.php");
         exit;
     } else {
         echo '<span style="color: red;">Usuário e/ou senha incorreto!</span>';
@@ -50,9 +50,9 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
             display: flex;
             justify-content: center;
             text-shadow: -1px -1px 0 #0E716B,
-            1px -1px 0 #0E716B,
-            -1px 1px 0 #0E716B,
-            1px 1px 0 #0E716B ;
+                1px -1px 0 #0E716B,
+                -1px 1px 0 #0E716B,
+                1px 1px 0 #0E716B;
         }
 
         #title {
@@ -61,9 +61,9 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
 
         label {
             text-shadow: -1px -1px 0 black,
-            1px -1px 0 black,
-            -1px 1px 0 black,
-            1px 1px 0 black ;
+                1px -1px 0 black,
+                -1px 1px 0 black,
+                1px 1px 0 black;
             font-family: 'Potta One';
         }
     </style>
@@ -91,12 +91,11 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
                         <input type="password" placeholder="Senha" class="form-control border-2 border-black z-1" id="senha" name="senha" required>
                     </div>
                     <p class="text-right">
-                        <a href="esqueceuSenha.php" class="hover:text-cyan-500">Esqueci a senha</a>
+                        <a href="esqueceuSenha.php" class="hover:text-cyan-500">ESQUECEU A SENHA?</a>
                     </p>
                     <br>
                     <div class="hover:-translate-y-2 flex justify-center">
-                        <button type="submit" name="login" id="submit" class="cursor-pointer transition-all h-[5rem] w-[12rem] bg-[#42D1C9]  text-white text-[3rem] items-center align-center px-6 py-2 rounded-full 
-                        border-[#0E716B] border-b-[8px] border-r-[2px] border-l-[2px] border-t-[1px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Feito!</button>
+                        <button type="submit" name="login" id="submit" class="font-[Poppins] text-[2rem] btn-verificar cursor-pointer transition-all font-bold bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-[2px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Feito!</button>
                     </div>
 
                 </form>

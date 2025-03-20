@@ -101,15 +101,15 @@ class Niveis
         }
     }
 
-    public function buscarNivel($id_nivel)
-    {
+    public function buscarNivel($id_nivel) {
         try {
-            $sql = $this->con->conectar()->prepare("SELECT * FROM nivel WHERE id_nivel = :id_nivel");
-            $sql->bindParam(':id_nivel', $id_nivel, PDO::PARAM_INT);
+            $sql = $this->con->conectar()->prepare("SELECT * FROM nivel WHERE id_nivel = :id");
+            $sql->bindParam(':id', $id_nivel, PDO::PARAM_INT);
             $sql->execute();
-            return $sql->fetch(PDO::FETCH_ASSOC); // Retorna os dados do usuário como array associativo
+            return $sql->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $ex) {
-            echo "ERRO: " . $ex->getMessage();
+            error_log("ERRO: " . $ex->getMessage());
+            return false;
         }
     }
 
