@@ -91,12 +91,24 @@ class Usuarios {
 
     public function buscarUsuario($id) {
         try {
-            $sql = $this->con->conectar()->prepare("SELECT * FROM usuario WHERE id = :id");
+            // Verifique se a conexão está funcionando
+            $conexao = $this->con->conectar();
+            if (!$conexao) {
+                throw new PDOException("Falha na conexão com o banco de dados");
+            }
+            
+            $sql = $conexao->prepare("SELECT * FROM usuario WHERE id = :id");
             $sql->bindParam(':id', $id, PDO::PARAM_INT);
-            $sql->execute();
+            
+            if (!$sql->execute()) {
+                throw new PDOException("Erro ao executar a consulta");
+            }
+            
             return $sql->fetch(PDO::FETCH_ASSOC);
+            
         } catch (PDOException $ex) {
-            error_log("ERRO: " . $ex->getMessage());
+            // Log detalhado do erro
+            error_log("ERRO NA CONSULTA: " . $ex->getMessage());
             return false;
         }
     }
