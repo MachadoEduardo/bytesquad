@@ -48,7 +48,7 @@
 
 <body>
     <main>
-        <a href=".php"><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
+        <a href="config.php"><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
 
         <div class="flex flex-col min-h-screen justify-center items-center gap-6">
             <div id="title">
