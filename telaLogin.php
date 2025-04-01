@@ -72,7 +72,7 @@ if (!empty($_POST['usuario']) && !empty($_POST['senha'])) {
 
 <body>
     <main>
-        <a href=".php"><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
+        <a href="config.php"><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
 
         <div class="container d-flex justify-content-center align-items-center vh-100">
             <div class="login-container">
