@@ -29,14 +29,13 @@ class Usuarios {
     public function adicionar($email_usuario, $nome_usuario, $senha_usuario, $permissoes_usuario, $ativo_usuario, $url_foto, $telefone, $id_redesocial) {
         if (!$this->existeEmail($email_usuario)) { // Verifica se o email não existe
             try {
-                $senha_criptografada = password_hash($senha_usuario, PASSWORD_DEFAULT); // Criptografando a senha
                 $sql = $this->con->conectar()->prepare(
                     "CALL InserirUsuario (:nome, :email, :senha, :permissoes_usuario, :ativo_usuario, :url_foto, :telefone, :id_redesocial)"
                 );
 
                 $sql->bindValue(':nome', $nome_usuario);
                 $sql->bindValue(':email', $email_usuario);
-                $sql->bindValue(':senha', $senha_criptografada);
+                $sql->bindValue(':senha', $senha_usuario);
                 $sql->bindValue(':permissoes_usuario', $permissoes_usuario);
                 $sql->bindValue(':ativo_usuario', $ativo_usuario);
                 $sql->bindValue(':url_foto', $url_foto);
@@ -138,6 +137,27 @@ class Usuarios {
         }
     }  
 
+    public function editarPerfil($id, $nome_usuario, $email_usuario, $senha_usuario, $url_foto, $telefone) {
+        try {
+            $senha_criptografada = password_hash($senha_usuario, PASSWORD_DEFAULT); // Criptografando a senha
+            $sql = $this->con->conectar()->prepare(
+                "UPDATE usuario SET nome_usuario = :nome, email_usuario = :email, senha_usuario = :senha,
+                url_foto = :url_foto, telefone = :telefone WHERE id = :id"
+            );
+            
+            $sql->bindValue(':id', $id);
+            $sql->bindValue(':nome', $nome_usuario);
+            $sql->bindValue(':email', $email_usuario);
+            $sql->bindValue(':senha', $senha_criptografada);
+            $sql->bindValue(':url_foto', $url_foto);
+            $sql->bindValue(':telefone', $telefone);
+            
+            $sql->execute();
+        } catch (PDOException $ex) {
+            echo 'ERRO: ' . $ex->getMessage();
+        }
+    }  
+
     public function fazerLogin($nome_usuario, $senha_usuario)
     {
         $sql = $this->con->conectar()->prepare("SELECT * FROM usuario WHERE nome_usuario = :nome_usuario");
@@ -154,4 +174,13 @@ class Usuarios {
         }
         return false;
     }
+
+    public function atualizarSenha($email, $novaSenha)
+     {
+         $sql = $this->con->conectar()->prepare("UPDATE usuario SET senha_usuario = :senha_usuario WHERE email_usuario = :email_usuario");
+         $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT); // Usa o password_hash
+         $sql->bindValue(":senha_usuario", $senhaHash); // Armazena a senha criptografada
+         $sql->bindValue(":email_usuario", $email);
+         return $sql->execute(); // Executa a atualização
+     }
 }
