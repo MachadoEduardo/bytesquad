@@ -34,38 +34,50 @@ $dadosUsuario = $usuario->buscarUsuario($_SESSION['Logado']);
     </style>
 </head>
 
-<body>
-    <div class="flex">
+<body class="bg-gray-100 font-[Poppins]">
+    <div class="flex min-h-screen">
         <?php include 'assets/inc/sidebar.inc.php'; ?>
-        <div class="flex-1 p-8 md:ml-64">
-            <div class="max-w-5xl mx-auto">
-                <h1 class="text-4xl font-bold mb-6 text-gray-500">Perfil</h1>
+        <div class="flex-1 p-6 md:ml-64">
+            <div class="max-w-4xl mx-auto mt-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-700 mb-8">Meu Perfil</h1>
 
-                <div class="border flex">
-                <?php
-                if ($dadosUsuario): ?>
-                    <?php if (!empty($dadosUsuario['url_foto'])): ?>
-                        <img src="<?php echo $dadosUsuario['url_foto']; ?>" alt="Foto" style="width:100px; height:100px; object-fit:cover;">
-                    <?php else: ?>
-                        <img src="https://www.iconpacks.net/icons/2/free-icon-user-3296.png" alt="">
-                    <?php endif; ?>
-                    <div class="text-[32px] font-bold">
-                    <?php echo $dadosUsuario['nome_usuario'] ?>
-                    </div>
-                        
-                    <div class="text-[32px] font-bold">
-                    <?php echo $dadosUsuario['email_usuario'] ?>
-                    </div>
+                <?php if ($dadosUsuario): ?>
+                    <div class="bg-white shadow-md rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8">
+                        <div class="flex-shrink-0">
+                            <img src="<?php echo !empty($dadosUsuario['url_foto']) ? $dadosUsuario['url_foto'] : 'https://www.iconpacks.net/icons/2/free-icon-user-3296.png'; ?>"
+                                alt="Foto do usuário"
+                                class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-indigo-500 shadow-lg">
+                        </div>
 
-                    Telefone:
-                    <?php echo $dadosUsuario['telefone'] ?>
+                        <div class="flex-1">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h2 class="text-sm text-gray-500">Nome</h2>
+                                    <p class="text-xl font-semibold text-gray-800"><?php echo $dadosUsuario['nome_usuario']; ?></p>
+                                </div>
+
+                                <div>
+                                    <h2 class="text-sm text-gray-500">Email</h2>
+                                    <p class="text-xl font-semibold text-gray-800"><?php echo $dadosUsuario['email_usuario']; ?></p>
+                                </div>
+
+                                <div>
+                                    <h2 class="text-sm text-gray-500">Telefone</h2>
+                                    <p class="text-xl font-semibold text-gray-800"><?php echo $dadosUsuario['telefone']; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-right">
+                        <a href="editarPerfil.php?id=<?php echo $dadosUsuario['id']; ?>"
+                            class="inline-block px-5 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition">
+                            Editar Perfil
+                        </a>
+                    </div>
                 <?php else: ?>
-                    <p>Usuário não encontrado.</p>
+                    <p class="text-red-600 font-medium">Usuário não encontrado.</p>
                 <?php endif; ?>
-                </div>
-                
             </div>
         </div>
-
     </div>
 </body>
