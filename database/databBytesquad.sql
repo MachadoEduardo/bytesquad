@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/11/2024 às 02:07
+-- Tempo de geração: 15/04/2025 às 23:49
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -96,19 +96,20 @@ CREATE TABLE `administrativo` (
   `id_administrativo` int(11) NOT NULL,
   `usuario` varchar(100) NOT NULL,
   `senha_admin` varchar(500) NOT NULL,
-  `permissoes_admin` text NOT NULL
+  `permissoes_admin` text NOT NULL,
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `administrativo`
 --
 
-INSERT INTO `administrativo` (`id_administrativo`, `usuario`, `senha_admin`, `permissoes_admin`) VALUES
-(1, 'Machado', '$2y$10$5SvBBfvEvkDgGcFarnzFk.5KQOaA8iHCaSV71UTPM8pA3tJ89ZM6i', 'ADD, EDIT, DELETE, READ, SUPER'),
-(3, 'Luis Camargo', '$2y$10$Rspu9.SWBU5klEdzzgTHAeVuSdMTX5131JJB1hsTQdeD9pY6dZG9O', 'SUPER, READ'),
-(4, 'Vinicios Vaz', '$2y$10$KCFUGxqVOtUzlFwwbZ2ESOJXDeUhKeb7Leguog.0XTA4wUyxZRnAW', 'DELETE'),
-(5, 'Alysson Gabriel', '$2y$10$qn1MGxPvWNhUyNM8RRPts.ZSWnoMbI.UZ.rXCgPPrzIMquOA.CQyi', 'CREATE'),
-(6, 'Luiz Cezar', '$2y$10$XKxwvMm0dKpPxeIReqegv.HM/EYGHjTZsV.PB0OHnfkZNPnmjDAeq', 'ADD, EDIT');
+INSERT INTO `administrativo` (`id_administrativo`, `usuario`, `senha_admin`, `permissoes_admin`, `email`) VALUES
+(1, 'Machado', '$2y$10$V18ZXYVHEIIVxNxEJRHC9u1mxgEoRm9kXYwoafZtOT7xpzzDePEmG', 'ADD, EDIT, DELETE, READ, SUPER', NULL),
+(3, 'Luis Camargo', '$2y$10$Rspu9.SWBU5klEdzzgTHAeVuSdMTX5131JJB1hsTQdeD9pY6dZG9O', 'SUPER, READ', NULL),
+(4, 'Vinicios Vaz', '$2y$10$KCFUGxqVOtUzlFwwbZ2ESOJXDeUhKeb7Leguog.0XTA4wUyxZRnAW', 'DELETE', NULL),
+(5, 'Alysson Gabriel', '$2y$10$qn1MGxPvWNhUyNM8RRPts.ZSWnoMbI.UZ.rXCgPPrzIMquOA.CQyi', 'CREATE', NULL),
+(6, 'Luiz Cezar', '$2y$10$XKxwvMm0dKpPxeIReqegv.HM/EYGHjTZsV.PB0OHnfkZNPnmjDAeq', 'ADD, EDIT', NULL);
 
 -- --------------------------------------------------------
 
@@ -226,19 +227,24 @@ CREATE TABLE `nivel` (
   `dificuldade` varchar(30) NOT NULL,
   `questoes` text NOT NULL,
   `respostas` varchar(300) NOT NULL,
-  `id_administrativo` int(11) NOT NULL
+  `id_administrativo` int(11) NOT NULL,
+  `xp_necessario` int(11) DEFAULT NULL,
+  `nivel_requerido` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `nivel`
 --
 
-INSERT INTO `nivel` (`id_nivel`, `nome_nivel`, `tempo_nivel`, `dificuldade`, `questoes`, `respostas`, `id_administrativo`) VALUES
-(1, 'Nivel 1', 10, 'Fácil', 'Quantas horas tem um dia?', '24', 1),
-(2, 'Nivel 2', 20, 'Médio', 'De quem é a famosa frase “Penso, logo existo”?', 'Descartes', 6),
-(3, 'Nivel 3', 30, 'Dificil', 'Atualmente, quantos elementos químicos a tabela periódica possui?', '118', 4),
-(4, 'Nível 4', 20, 'Média', 'O que a palavra legend significa em português?', 'Lenda', 5),
-(5, 'Nível 5', 45, 'Extrema', 'Quem foi a mulher negra que se recusou a ceder o lugar num ônibus para um homem branco e marcou a luta pelos direitos civis dos negros dos Estados Unidos em 1955?', 'Rosa Parks', 3);
+INSERT INTO `nivel` (`id_nivel`, `nome_nivel`, `tempo_nivel`, `dificuldade`, `questoes`, `respostas`, `id_administrativo`, `xp_necessario`, `nivel_requerido`) VALUES
+(1, 'Nivel 1', 10, 'Fácil', 'Quantas horas tem um dia?', '24', 1, NULL, 1),
+(2, 'Nivel 2', 20, 'Médio', 'De quem é a famosa frase “Penso, logo existo”?', 'Descartes', 6, NULL, 1),
+(3, 'Nivel 3', 30, 'Dificil', 'Atualmente, quantos elementos químicos a tabela periódica possui?', '118', 4, NULL, 1),
+(4, 'Nível 4', 20, 'Média', 'O que a palavra legend significa em português?', 'Lenda', 5, NULL, 1),
+(5, 'Nível 5', 45, 'Extrema', 'Quem foi a mulher negra que se recusou a ceder o lugar num ônibus para um homem branco e marcou a luta pelos direitos civis dos negros dos Estados Unidos em 1955?', 'Rosa Parks', 3, NULL, 1),
+(6, 'Introdução', 0, 'iniciante', '', '', 0, 100, 1),
+(7, 'Variáveis', 0, 'iniciante', '', '', 0, 200, 1),
+(8, 'POO Básico', 0, 'intermediario', '', '', 0, 500, 1);
 
 -- --------------------------------------------------------
 
@@ -300,9 +306,9 @@ CREATE TABLE `usuario` (
   `senha_usuario` varchar(150) NOT NULL,
   `permissoes_usuario` text NOT NULL,
   `ativo_usuario` tinyint(1) NOT NULL,
-  `url_foto` varchar(500) NOT NULL,
-  `telefone` varchar(40) NOT NULL,
-  `id_redesocial` int(11) NOT NULL
+  `url_foto` varchar(500) DEFAULT NULL,
+  `telefone` varchar(40) DEFAULT NULL,
+  `id_redesocial` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -310,13 +316,15 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome_usuario`, `email_usuario`, `senha_usuario`, `permissoes_usuario`, `ativo_usuario`, `url_foto`, `telefone`, `id_redesocial`) VALUES
-(1, 'Yuri Brita', 'yuri22@gmail.com', '13213', 'EDIT, READ', 0, 'rwewreewrwerwe', '(57) 91291-3112', 1),
+(1, 'Yuri Brita', 'yuri22@gmail.com', '$2y$10$KsDWrepwO0yIVD7XRsaZwuZI5bw.TOzvp9pdMej5V7OrB1HMNPZ72', 'EDIT, READ', 0, 'rwewreewrwerwe', '(57) 91291-3112', 1),
 (2, 'Alan Ferreira', 'scardior@gmail.com', '13423', 'EDIT, READ', 0, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7J8JxBrOo56MG1Aoz0ZW_dO782sGYtfO39w&s', '(11) 93285-2431', 1),
 (3, 'Casimiro Miguel', 'docase@gmail.com', '32213', 'EDIT, READ', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9jQrqZLS9U0UI9HSHUo4HItFpqZXXFgKBqQ&s', '(41) 99913-0193', 1),
-(4, 'Felipe Hayashi', 'kekefefe@gmail.com', '321421', 'EDIT, READ', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(41) 91453-0190', 1),
-(5, 'Darren Jason', 'ishowmeat@gmail.com', '123', 'EDIT, READ', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxnQDYNCDEiKODD95rm0ynBFO4kCaUBegSJA&s', '(00) 99999-9999', 1),
+(4, 'Felipe Hayashii', 'kekefefe@gmail.com', '$2y$10$/iMXJh7sUS6CXTK0UMvRce95.NRv9uZdIihXdL.ZuyRXIDZ5KyfoK', 'EDIT, READ', 0, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBafgQHYnWMux_75gtV7XVO3mq3xtHw2xJWw&s', '(41) 91453-0190', 1),
+(5, 'Darren Jason', 'ishowmeat@gmail.com', '$2y$10$yBf21DiBwd0BGUwEJT7fQOY2CTSvwR2frA6B37xHaNNJSGuH9M/yi', 'EDIT, READ', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxnQDYNCDEiKODD95rm0ynBFO4kCaUBegSJA&s', '(00) 99999-9999', 1),
 (15, 'Machado', 'xandaottwtv@gmail.com', '123', 'EDIT, READ', 1, 'avatar', '(42) 42919-1293', 1),
-(18, 'Naruto', 'uzumaki@gmail.com', '123', 'EDIT, READ', 0, 'LA', '(42) 99229-1293', 1);
+(18, 'Narutoooo1', 'uzumaki@gmail.com', '$2y$10$IdY8sDJAMIhNYOFCAAQKhebJ6CORksWSQzxtYk/Mki/J7BAuHyRQe', 'EDIT, READ', 0, '', '(42) 99229-1293', 1),
+(20, 'Alyssongamer', 'gamer@gmail.com', '$2y$10$KNFL0/X2EMWRQ7G0i/7gguUg/eLSjusW689UELBSRS36d5CPRO4sy', 'usuario', 1, NULL, NULL, NULL),
+(21, 'aly', 'alysson@gmail.com', '$2y$10$L12TCC.J531Kdy1AMKKrLO34qAAxTSqSmcLz1Y8zBqzRQM2uWgQ0G', 'usuario', 1, NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -326,7 +334,8 @@ INSERT INTO `usuario` (`id`, `nome_usuario`, `email_usuario`, `senha_usuario`, `
 -- Índices de tabela `administrativo`
 --
 ALTER TABLE `administrativo`
-  ADD PRIMARY KEY (`id_administrativo`);
+  ADD PRIMARY KEY (`id_administrativo`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Índices de tabela `compra`
@@ -426,7 +435,7 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT de tabela `nivel`
 --
 ALTER TABLE `nivel`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `redesocial`
@@ -444,7 +453,7 @@ ALTER TABLE `tabelapontuacao`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
