@@ -44,7 +44,7 @@ $dadosUsuario = $usuario->buscarUsuario($_SESSION['Logado']);
                 <?php if ($dadosUsuario): ?>
                     <div class="bg-white shadow-md rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8">
                         <div class="flex-shrink-0">
-                            <img src="<?php echo !empty($dadosUsuario['url_foto']) ? $dadosUsuario['url_foto'] : 'https://www.iconpacks.net/icons/2/free-icon-user-3296.png'; ?>"
+                            <img src="<?php echo !empty($dadosUsuario['url_foto']) ? $dadosUsuario['url_foto'] : 'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png'; ?>"
                                 alt="Foto do usuário"
                                 class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-indigo-500 shadow-lg">
                         </div>

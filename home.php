@@ -17,8 +17,9 @@
         body {
             background-image: url('./assets/img/background.png');
             background-size: cover;
-            height: 100vh;
-            overflow: hidden;
+            background-position: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         button {
@@ -50,21 +51,21 @@
     <main>
         <a href="config.php"><img src="assets/img/settingsIcon.png" class="absolute h-20 p-2 m-2"></a>
 
-        <div class="flex flex-col min-h-screen justify-center items-center gap-6">
+        <div class="flex flex-col min-h-screen justify-center items-center gap-6 w-full max-w-md mx-auto px-4">
             <div id="title">
-                <img src="assets/img/logoByteSquad.png">
+                <img src="assets/img/logoByteSquad.png" class="max-w-[800px] w-full">
             </div>
-            <br>
             <a href="cadastro.php">
-                <button class="font-[Poppins] text-[2rem] btn-verificar cursor-pointer transition-all font-bold bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-[2px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
-                    Cadastrar</button>
+                <button class="w-full max-w-[300px] text-[1.5rem] sm:text-[2rem] btn-verificar cursor-pointer transition-all font-bold bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-[2px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+                    Cadastrar
+                </button>
             </a>
             <a href="telaLogin.php">
-                <button class="font-[Poppins] text-[2rem] btn-verificar cursor-pointer transition-all font-bold bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-[2px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+                <button class="w-full max-w-[300px] text-[1.5rem] sm:text-[2rem] btn-verificar cursor-pointer transition-all font-bold bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-[2px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
                     Logar</button>
             </a>
             <a href="sobre.php">
-                <button class="font-[Poppins] text-[2rem] btn-verificar cursor-pointer transition-all font-bold bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-[2px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+                <button class="w-full max-w-[300px] text-[1.5rem] sm:text-[2rem] btn-verificar cursor-pointer transition-all font-bold bg-[#42D1C9] text-white px-6 py-2 rounded-full border-[#0E716B] border-[2px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
                     Sobre</button>
             </a>
         </div>
