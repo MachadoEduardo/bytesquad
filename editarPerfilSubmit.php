@@ -1,46 +1,76 @@
 <?php
-require 'assets/classes/usuarios.class.php';
+session_start();
+include 'assets/classes/usuarios.class.php';
 
-$usuario = new Usuarios();
-
-if (
-    !empty($_POST['id']) &&
-    !empty($_POST['nome_usuario']) &&
-    !empty($_POST['email_usuario']) &&
-    !empty($_POST['senha_atual'])
-) {
-    $id = intval($_POST['id']);
+// Verificar se o formulário foi enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
     $nome = $_POST['nome_usuario'];
     $email = $_POST['email_usuario'];
-    $senhaAtual = $_POST['senha_atual'];
-    $url_foto = $_POST['url_foto'];
     $telefone = $_POST['telefone'];
-    $novaSenha = $_POST['nova_senha'] ?? '';
-
-    $dadosUsuario = $usuario->buscarUsuario($id);
-
-    if ($dadosUsuario) {
-        // Verifica a senha atual
-        if (password_verify($senhaAtual, $dadosUsuario['senha_usuario'])) {
-            // Se o usuário quiser trocar a senha
-            if (!empty($novaSenha)) {
-                $senhaCriptografada = password_hash($novaSenha, PASSWORD_DEFAULT);
+    $senhaAtual = $_POST['senha_atual'];
+    $novaSenha = $_POST['nova_senha'];
+    $urlFotoAntiga = $_POST['url_foto_antiga'];
+    
+    // Processar upload de foto se houver
+    $url_foto = $urlFotoAntiga; // Manter a foto antiga por padrão
+    
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $pasta_destino = 'uploads/';
+        
+        // Verificar se o diretório existe, se não, criar
+        if (!is_dir($pasta_destino)) {
+            mkdir($pasta_destino, 0755, true);
+        }
+        
+        // Obter informações do arquivo
+        $nome_arquivo = $_FILES['foto']['name'];
+        $nome_temp = $_FILES['foto']['tmp_name'];
+        $extensao = strtolower(pathinfo($nome_arquivo, PATHINFO_EXTENSION));
+        
+        // Verificar se é uma imagem válida
+        $extensoes_permitidas = ['jpg', 'jpeg', 'png', 'gif'];
+        
+        if (in_array($extensao, $extensoes_permitidas)) {
+            // Criar nome único para o arquivo
+            $novo_nome = 'foto_' . uniqid() . '.' . $extensao;
+            $caminho_completo = $pasta_destino . $novo_nome;
+            
+            // Mover o arquivo para o destino
+            if (move_uploaded_file($nome_temp, $caminho_completo)) {
+                // Se houver uma foto antiga e não for a foto padrão, apagar
+                if ($urlFotoAntiga && $urlFotoAntiga != 'assets/img/perfil_padrao.jpg' && file_exists($urlFotoAntiga)) {
+                    unlink($urlFotoAntiga);
+                }
+                
+                $url_foto = $caminho_completo;
             } else {
-                $senhaCriptografada = $dadosUsuario['senha_usuario']; // mantém a senha atual
+                $_SESSION['erro'] = "Erro ao fazer upload da imagem.";
+                header("Location: editarPerfil.php?id=$id");
+                exit;
             }
-
-            $usuario->editarPerfil($id, $nome, $email, $senhaCriptografada, $url_foto, $telefone);
-            header("Location: perfil.php");
-            exit;
         } else {
-            echo "<script>alert('Senha atual incorreta!'); history.back();</script>";
+            $_SESSION['erro'] = "Apenas arquivos JPG, JPEG, PNG e GIF são permitidos.";
+            header("Location: editarPerfil.php?id=$id");
             exit;
         }
-    } else {
-        echo "Usuário não encontrado.";
-        exit;
     }
-} else {
-    echo "Campos obrigatórios ausentes!";
+    
+    // Atualizar dados do usuário
+    $usuario = new Usuarios();
+    $resultado = $usuario->editar($id, $nome, $email, $telefone, $senhaAtual, $novaSenha, $url_foto);
+    
+    if ($resultado) {
+        $_SESSION['sucesso'] = "Perfil atualizado com sucesso!";
+        header("Location: perfil.php?id=$id");
+    } else {
+        $_SESSION['erro'] = "Senha atual incorreta ou erro ao atualizar perfil.";
+        header("Location: editarPerfil.php?id=$id");
+    }
+    exit;
 }
 
+// Se não for POST, redirecionar
+header("Location: index.php");
+exit;
+?>
