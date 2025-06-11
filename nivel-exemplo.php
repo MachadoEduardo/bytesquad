@@ -34,75 +34,7 @@
 
             <div class="p-8">
                 <div id="questionContainer">
-                    <div class="question active-question" data-question="1">
-                        <p class="text-lg font-medium text-gray-800 mb-4">Qual tag HTML é usada para criar um cabeçalho de nível 1?</p>
-                        <div class="space-y-3">
-                            <button data-correct="false" class="answer-btn">&lt;header&gt;</button>
-                            <button data-correct="true" class="answer-btn">&lt;h1&gt;</button>
-                            <button data-correct="false" class="answer-btn">&lt;heading&gt;</button>
-                            <button data-correct="false" class="answer-btn">&lt;title&gt;</button>
-                        </div>
-                    </div>
-
-                    <div class="question" data-question="2">
-                        <p class="text-lg font-medium text-gray-800 mb-4">Qual propriedade CSS define a cor do texto?</p>
-                        <div class="space-y-3">
-                            <button data-correct="true" class="answer-btn">color</button>
-                            <button data-correct="false" class="answer-btn">text-color</button>
-                            <button data-correct="false" class="answer-btn">font-color</button>
-                            <button data-correct="false" class="answer-btn">text-style</button>
-                        </div>
-                    </div>
-
-                    <div class="question" data-question="3">
-                        <p class="text-lg font-medium text-gray-800 mb-4">Qual das seguintes opções é um framework JavaScript?</p>
-                        <div class="space-y-3">
-                            <button data-correct="false" class="answer-btn">Bootstrap</button>
-                            <button data-correct="true" class="answer-btn">React</button>
-                            <button data-correct="false" class="answer-btn">Sass</button>
-                            <button data-correct="false" class="answer-btn">Flask</button>
-                        </div>
-                    </div>
-
-                    <div class="question" data-question="4">
-                        <p class="text-lg font-medium text-gray-800 mb-4">O que significa a sigla API?</p>
-                        <div class="space-y-3">
-                            <button data-correct="false" class="answer-btn">Application Programming Installation</button>
-                            <button data-correct="false" class="answer-btn">Automatic Programming Interface</button>
-                            <button data-correct="true" class="answer-btn">Application Programming Interface</button>
-                            <button data-correct="false" class="answer-btn">Advanced Programming Integration</button>
-                        </div>
-                    </div>
-
-                    <div class="question" data-question="5">
-                        <p class="text-lg font-medium text-gray-800 mb-4">Qual método HTTP é normalmente usado para enviar dados de um formulário?</p>
-                        <div class="space-y-3">
-                            <button data-correct="false" class="answer-btn">GET</button>
-                            <button data-correct="true" class="answer-btn">POST</button>
-                            <button data-correct="false" class="answer-btn">DELETE</button>
-                            <button data-correct="false" class="answer-btn">PUT</button>
-                        </div>
-                    </div>
-
-                    <div class="question" data-question="6">
-                        <p class="text-lg font-medium text-gray-800 mb-4">Qual linguagem é usada para estilizar páginas web?</p>
-                        <div class="space-y-3">
-                            <button data-correct="false" class="answer-btn">JavaScript</button>
-                            <button data-correct="false" class="answer-btn">HTML</button>
-                            <button data-correct="true" class="answer-btn">CSS</button>
-                            <button data-correct="false" class="answer-btn">PHP</button>
-                        </div>
-                    </div>
-
-                    <div class="question" data-question="7">
-                        <p class="text-lg font-medium text-gray-800 mb-4">Qual tag HTML cria um link para outra página?</p>
-                        <div class="space-y-3">
-                            <button data-correct="false" class="answer-btn">&lt;link&gt;</button>
-                            <button data-correct="true" class="answer-btn">&lt;a&gt;</button>
-                            <button data-correct="false" class="answer-btn">&lt;href&gt;</button>
-                            <button data-correct="false" class="answer-btn">&lt;url&gt;</button>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <div id="feedback" class="hidden mt-6 p-4 rounded-lg text-center">
@@ -144,34 +76,57 @@
     </div>
 
     <script>
-        let currentQuestion = 1;
-        const totalQuestions = 7;
+        const nivelId = <?php echo isset($_GET['id_nivel']) ? intval($_GET['id_nivel']) : 1; ?>;
+        let perguntas = [];
+        let currentQuestion = 0;
         let correctAnswers = 0;
+        let totalQuestions = 0;
 
-        const explanations = {
-            1: "A tag &lt;h1&gt; é usada para criar cabeçalhos de primeiro nível, sendo o mais importante da página. Os cabeçalhos vão de &lt;h1&gt; a &lt;h6&gt;.",
-            2: "A propriedade 'color' do CSS define a cor do texto de um elemento. Por exemplo: color: blue;",
-            3: "React é um framework JavaScript para construção de interfaces de usuário, desenvolvido pelo Facebook.",
-            4: "API (Application Programming Interface) é um conjunto de rotinas e padrões que permite a comunicação entre diferentes softwares.",
-            5: "O método POST é usado para enviar dados ao servidor, especialmente útil para formulários, pois os dados não aparecem na URL.",
-            6: "CSS (Cascading Style Sheets) é a linguagem usada para estilizar elementos HTML, controlando layout, cores e fontes.",
-            7: "A tag &lt;a&gt; (anchor) é usada para criar links em HTML. O atributo href especifica o destino do link."
-        };
+        let explicacoes = {};
 
-        document.querySelectorAll('.answer-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                checkAnswer(this);
+        fetch(`api/perguntas_respostas.php?id_nivel=${nivelId}`)
+            .then(res => res.json())
+            .then(data => {
+                perguntas = data;
+                totalQuestions = perguntas.length;
+                perguntas.forEach((q, idx) => {
+                    explicacoes[idx] = q.explicacao || ""; // se quiser adicionar explicação no banco
+                });
+                renderQuestion();
+                updateProgress();
             });
-        });
 
-        document.getElementById('nextButton').addEventListener('click', nextQuestion);
+        function renderQuestion() {
+            if (currentQuestion >= perguntas.length) {
+                showResults();
+                return;
+            }
+            const q = perguntas[currentQuestion];
+            let html = `<div class="question active-question">
+                <p class="text-lg font-medium text-gray-800 mb-4">${q.texto_pergunta}</p>
+                <div class="space-y-3">`;
+            q.respostas.forEach(r => {
+                html += `<button data-correct="${r.correta == 1}" class="answer-btn">${r.texto_resposta}</button>`;
+            });
+            html += `</div></div>`;
+            document.getElementById('questionContainer').innerHTML = html;
+
+            document.querySelectorAll('.answer-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    checkAnswer(this);
+                });
+            });
+
+            // Atualiza contador
+            document.getElementById('questionCounter').textContent = `${currentQuestion + 1}/${totalQuestions}`;
+        }
 
         function checkAnswer(buttonElement) {
             document.querySelectorAll('.answer-btn').forEach(b => {
                 b.disabled = true;
                 b.classList.add('opacity-70');
             });
-            
+
             const isCorrect = buttonElement.getAttribute('data-correct') === 'true';
             const feedback = document.getElementById('feedback');
             const feedbackText = document.getElementById('feedback-text');
@@ -195,58 +150,38 @@
                 });
             }
 
-            feedbackExplanation.innerHTML = explanations[currentQuestion];
-
+            feedbackExplanation.innerHTML = explicacoes[currentQuestion] || "";
             feedback.className = `mt-6 p-4 rounded-lg text-center ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`;
-
             buttonElement.classList.add('pulse-animation');
-
             feedback.classList.remove('hidden');
         }
-        
+
+        document.getElementById('nextButton').addEventListener('click', nextQuestion);
+
         function updateProgress() {
-            const percentage = ((currentQuestion - 1) / totalQuestions) * 100;
+            const percentage = (currentQuestion / totalQuestions) * 100;
             document.getElementById('progressBar').style.width = `${percentage}%`;
-            document.getElementById('questionCounter').textContent = `${currentQuestion}/${totalQuestions}`;
+            document.getElementById('questionCounter').textContent = `${currentQuestion + 1}/${totalQuestions}`;
         }
 
         function nextQuestion() {
-            document.querySelectorAll('.answer-btn').forEach(b => {
-                b.classList.remove('pulse-animation');
-                b.disabled = false;
-                b.classList.remove('opacity-70', 'bg-green-500', 'text-white', 'bg-red-500', 'bg-green-100', 'border-2', 'border-green-500');
-            });
-
-            currentQuestion++;
-
-            updateProgress();
-
             document.getElementById('feedback').classList.add('hidden');
-
-            if(currentQuestion > totalQuestions) {
-                showResults();
-                return;
-            }
-
-            document.querySelectorAll('.question').forEach(q => {
-                q.classList.remove('active-question');
-                if(q.dataset.question == currentQuestion) {
-                    q.classList.add('active-question');
-                }
-            });
+            currentQuestion++;
+            updateProgress();
+            renderQuestion();
         }
-        
+
         function showResults() {
             document.getElementById('questionContainer').classList.add('hidden');
             document.getElementById('feedback').classList.add('hidden');
-          
+
             const resultScreen = document.getElementById('resultScreen');
             resultScreen.classList.remove('hidden');
-            
+
             const scorePercentage = (correctAnswers / totalQuestions) * 100;
             document.getElementById('finalScore').textContent = `${correctAnswers}/${totalQuestions}`;
             document.getElementById('finalProgressBar').style.width = `${scorePercentage}%`;
-            
+
             const scoreMessage = document.getElementById('scoreMessage');
             if(scorePercentage >= 90) {
                 scoreMessage.textContent = 'Excelente! Você domina o assunto!';

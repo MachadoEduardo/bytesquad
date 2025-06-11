@@ -264,7 +264,7 @@ $dadosUsuario = $usuario->buscarUsuario($_SESSION['Logado']);
                             $levelClass .= ' level-trophy';
                         }
                     ?>
-                        <a href="<?= $i <= $completedLevels ? 'nivel-exemplo.php' : 'javascript:void(0)' ?>" 
+                        <a href="<?= $i <= $completedLevels ? 'nivel-exemplo.php?id_nivel=' . $i : 'javascript:void(0)' ?>" 
                            class="level-node <?= $levelClass ?>">
                             <div class="level-circle">
                                 <?php if ($i == $totalLevels): ?>

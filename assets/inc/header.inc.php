@@ -50,6 +50,8 @@
                     <li><a class="dropdown-item" href="gerenciarAdministrador.php">Administradores</a></li>
                     <li><a class="dropdown-item" href="gerenciarUsuario.php">Usuários</a></li>
                     <li><a class="dropdown-item" href="gerenciarNivel.php">Níveis</a></li>
+                    <li><a class="dropdown-item" href="gerenciarPergunta.php">Perguntas</a></li>
+                    <li><a class="dropdown-item" href="gerenciarResposta.php">Respostas</a></li>
                     <li><a class="dropdown-item" href="gerenciarDicas.php">Dicas</a></li>
                     <li><a class="dropdown-item" href="gerenciarEnergia.php">Energia</a></li>
                     <li><a class="dropdown-item" href="gerenciarCompra.php">Compras</a></li>

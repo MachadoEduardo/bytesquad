@@ -7,9 +7,9 @@ class Niveis
     private $nome_nivel;
     private $tempo_nivel;
     private $dificuldade;
-    private $questoes;
-    private $respostas;
     private $id_administrativo;
+    private $xp_necessario;
+    private $nivel_requerido;
 
     private $con;
 
@@ -27,31 +27,31 @@ class Niveis
         return $sql->rowCount() > 0; // Retorna verdadeiro se o nivel já existir
     }
 
-    public function adicionar($nome_nivel, $tempo_nivel, $dificuldade, $questoes, $respostas, $id_administrativo)
-    {
-        if (!$this->existeNivel($nome_nivel)) { // Verifica se o nivel não existe
-            try {
-                $sql = $this->con->conectar()->prepare(
-                    "INSERT INTO nivel (nome_nivel, tempo_nivel, dificuldade, questoes, respostas, id_administrativo) 
-                     VALUES (:nome_nivel, :tempo_nivel, :dificuldade, :questoes, :respostas, :id_administrativo)"
-                );
+    public function adicionar($nome_nivel, $tempo_nivel, $dificuldade, $id_administrativo, $xp_necessario, $nivel_requerido)
+{
+    if (!$this->existeNivel($nome_nivel)) {
+        try {
+            $sql = $this->con->conectar()->prepare(
+                "INSERT INTO nivel (nome_nivel, tempo_nivel, dificuldade, id_administrativo, xp_necessario, nivel_requerido) 
+                 VALUES (:nome_nivel, :tempo_nivel, :dificuldade, :id_administrativo, :xp_necessario, :nivel_requerido)"
+            );
 
-                $sql->bindParam(':nome_nivel', $nome_nivel, PDO::PARAM_STR);
-                $sql->bindParam(':tempo_nivel', $tempo_nivel, PDO::PARAM_INT);
-                $sql->bindParam(':dificuldade', $dificuldade, PDO::PARAM_STR);
-                $sql->bindParam(':questoes', $questoes, PDO::PARAM_STR);
-                $sql->bindParam(':respostas', $respostas, PDO::PARAM_STR);
-                $sql->bindParam(':id_administrativo', $id_administrativo, PDO::PARAM_INT); // Adiciona o id_administrativo enviado pelo form
+            $sql->bindParam(':nome_nivel', $nome_nivel, PDO::PARAM_STR);
+            $sql->bindParam(':tempo_nivel', $tempo_nivel, PDO::PARAM_INT);
+            $sql->bindParam(':dificuldade', $dificuldade, PDO::PARAM_STR);
+            $sql->bindParam(':id_administrativo', $id_administrativo, PDO::PARAM_INT);
+            $sql->bindParam(':xp_necessario', $xp_necessario, PDO::PARAM_INT);
+            $sql->bindParam(':nivel_requerido', $nivel_requerido, PDO::PARAM_INT);
 
-                $sql->execute(); // Executa a consulta
-                return true; // Retorna verdadeiro se a inserção for bem-sucedida
-            } catch (PDOException $ex) {
-                return 'ERRO: ' . $ex->getMessage();
-            }
-        } else {
-            return false; // Retorna falso se o nivel já existir
+            $sql->execute();
+            return true;
+        } catch (PDOException $ex) {
+            return 'ERRO: ' . $ex->getMessage();
         }
+    } else {
+        return false;
     }
+}
 
     public function listar()
     {
@@ -113,25 +113,25 @@ class Niveis
         }
     }
 
-    public function editar($id_nivel, $nome_nivel, $tempo_nivel, $dificuldade, $questoes, $respostas, $id_administrativo)
-    {
-        try {
-            $sql = $this->con->conectar()->prepare(
-                "UPDATE nivel SET nome_nivel = :nome_nivel, tempo_nivel = :tempo_nivel, dificuldade = :dificuldade,  questoes = :questoes, respostas = :respostas, id_administrativo = :id_administrativo
-                WHERE id_nivel = :id_nivel"
-            );
-            $sql->bindParam(':id_nivel', $id_nivel, PDO::PARAM_INT);
-            $sql->bindParam(':nome_nivel', $nome_nivel, PDO::PARAM_STR);
-            $sql->bindParam(':tempo_nivel', $tempo_nivel, PDO::PARAM_INT);
-            $sql->bindParam(':dificuldade', $dificuldade, PDO::PARAM_STR);
-            $sql->bindParam(':questoes', $questoes, PDO::PARAM_STR);
-            $sql->bindParam(':respostas', $respostas, PDO::PARAM_STR);
-            $sql->bindParam(':id_administrativo', $id_administrativo, PDO::PARAM_INT);
+    public function editar($id_nivel, $nome_nivel, $tempo_nivel, $dificuldade, $id_administrativo, $xp_necessario, $nivel_requerido)
+{
+    try {
+        $sql = $this->con->conectar()->prepare(
+            "UPDATE nivel SET nome_nivel = :nome_nivel, tempo_nivel = :tempo_nivel, dificuldade = :dificuldade, id_administrativo = :id_administrativo, xp_necessario = :xp_necessario, nivel_requerido = :nivel_requerido
+            WHERE id_nivel = :id_nivel"
+        );
+        $sql->bindParam(':id_nivel', $id_nivel, PDO::PARAM_INT);
+        $sql->bindParam(':nome_nivel', $nome_nivel, PDO::PARAM_STR);
+        $sql->bindParam(':tempo_nivel', $tempo_nivel, PDO::PARAM_INT);
+        $sql->bindParam(':dificuldade', $dificuldade, PDO::PARAM_STR);
+        $sql->bindParam(':id_administrativo', $id_administrativo, PDO::PARAM_INT);
+        $sql->bindParam(':xp_necessario', $xp_necessario, PDO::PARAM_INT);
+        $sql->bindParam(':nivel_requerido', $nivel_requerido, PDO::PARAM_INT);
 
-            $sql->execute();
-            header('Location: gerenciarNivel.php');
-        } catch (PDOException $ex) {
-            echo 'ERRO: ' . $ex->getMessage();
-        }
+        $sql->execute();
+        header('Location: gerenciarNivel.php');
+    } catch (PDOException $ex) {
+        echo 'ERRO: ' . $ex->getMessage();
     }
+}
 }
