@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/06/2025 às 00:59
+-- Tempo de geração: 11/06/2025 às 03:20
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -242,7 +242,8 @@ INSERT INTO `nivel` (`id_nivel`, `nome_nivel`, `tempo_nivel`, `dificuldade`, `id
 (5, 'Nível 5', 45, 'Extrema', 3, NULL, 1),
 (6, 'Introdução', 0, 'iniciante', NULL, 100, 1),
 (7, 'Variáveis', 0, 'iniciante', NULL, 200, 1),
-(8, 'POO Básico', 0, 'intermediario', NULL, 500, 1);
+(8, 'POO Básico', 0, 'intermediario', NULL, 500, 1),
+(9, 'POO Intermediário', 50, 'intermediario', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -263,11 +264,16 @@ CREATE TABLE `pergunta` (
 --
 
 INSERT INTO `pergunta` (`id_pergunta`, `id_nivel`, `texto_pergunta`, `tipo_pergunta`, `ordem`) VALUES
-(1, 1, 'Quantas horas tem um dia?', 'multipla_escolha', 1),
-(2, 1, 'Qual é a capital do Brasil?', 'multipla_escolha', 2),
-(3, 2, 'De quem é a famosa frase “Penso, logo existo”?', 'multipla_escolha', 1),
-(4, 2, 'Qual o maior planeta do sistema solar?', 'multipla_escolha', 2),
-(5, 3, 'Atualmente, quantos elementos químicos a tabela periódica possui?', 'multipla_escolha', 1);
+(1, 1, 'Qual empresa criou o sistema operacional Windows?', 'multipla_escolha', 1),
+(2, 1, 'O que significa a sigla \"HTML\"?', 'multipla_escolha', 2),
+(3, 2, 'O que é um \"bug\" em programação?', 'multipla_escolha', 1),
+(4, 2, 'Qual destas linguagens é considerada uma linguagem de marcação?', 'multipla_escolha', 2),
+(5, 3, 'O que faz um firewall?', 'multipla_escolha', 1),
+(6, 1, 'Qual linguagem é mais comumente usada para desenvolvimento de apps Android nativos?', 'multipla_escolha', 3),
+(7, 2, 'Quem é conhecido como o \"pai da computação\"?', 'multipla_escolha', 3),
+(8, 3, 'Qual tecnologia é usada para armazenar dados de forma descentralizada?', 'multipla_escolha', 2),
+(9, 3, 'O que é Git?', 'multipla_escolha', 3),
+(10, 3, 'Qual linguagem é frequentemente usada para estilizar páginas web?', 'multipla_escolha', 4);
 
 -- --------------------------------------------------------
 
@@ -311,26 +317,30 @@ CREATE TABLE `resposta` (
 --
 
 INSERT INTO `resposta` (`id_resposta`, `id_pergunta`, `texto_resposta`, `correta`, `ordem`) VALUES
-(1, 1, '24', 1, 1),
-(2, 1, '12', 0, 2),
-(3, 1, '48', 0, 3),
-(4, 1, '36', 0, 4),
-(5, 2, 'Brasília', 1, 1),
-(6, 2, 'Rio de Janeiro', 0, 2),
-(7, 2, 'São Paulo', 0, 3),
-(8, 2, 'Salvador', 0, 4),
-(9, 3, 'Descartes', 1, 1),
-(10, 3, 'Sócrates', 0, 2),
-(11, 3, 'Platão', 0, 3),
-(12, 3, 'Aristóteles', 0, 4),
-(13, 4, 'Júpiter', 1, 1),
-(14, 4, 'Saturno', 0, 2),
-(15, 4, 'Terra', 0, 3),
-(16, 4, 'Marte', 0, 4),
-(17, 5, '118', 1, 1),
-(18, 5, '102', 0, 2),
-(19, 5, '120', 0, 3),
-(20, 5, '110', 0, 4);
+(1, 1, 'Apple', 0, 1),
+(2, 1, 'Microsoft', 1, 2),
+(3, 1, 'Google', 0, 3),
+(4, 1, 'IBM', 0, 4),
+(5, 2, 'Hyperlinks and Text Markup Language', 0, 1),
+(6, 2, 'HyperText Making Language', 0, 2),
+(7, 2, 'HyperText Markup Language', 1, 3),
+(8, 2, 'HighText Machine Language', 0, 4),
+(9, 3, 'Um tipo de banco de dados', 0, 1),
+(10, 3, 'Um erro no código', 1, 2),
+(11, 3, 'Um modelo de rede', 0, 3),
+(12, 3, 'Uma linguagem antiga', 0, 4),
+(13, 4, 'Python', 0, 1),
+(14, 4, 'C++', 0, 2),
+(15, 4, 'Java', 0, 3),
+(16, 4, 'XML', 1, 4),
+(17, 5, 'Aumenta a velocidade da internet', 0, 1),
+(18, 5, 'Protege a rede contra acessos não autorizados', 1, 2),
+(19, 5, 'Armazena dados em nuvem', 0, 3),
+(20, 5, 'Gera senhas aleatórias', 0, 4),
+(21, 6, 'Swift', 0, 1),
+(22, 6, 'Kotlin', 1, 2),
+(23, 6, 'JavaScript', 0, 3),
+(24, 6, 'PHP', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -388,7 +398,8 @@ INSERT INTO `usuario` (`id`, `nome_usuario`, `email_usuario`, `senha_usuario`, `
 (18, 'Narutoooo1', 'uzumaki@gmail.com', '$2y$10$IdY8sDJAMIhNYOFCAAQKhebJ6CORksWSQzxtYk/Mki/J7BAuHyRQe', 'EDIT, READ', 0, '', '(42) 99229-1293', 1),
 (20, 'Alyssongamer', 'gamer@gmail.com', '$2y$10$KNFL0/X2EMWRQ7G0i/7gguUg/eLSjusW689UELBSRS36d5CPRO4sy', 'usuario', 1, NULL, NULL, NULL),
 (21, 'aly', 'alysson@gmail.com', '$2y$10$L12TCC.J531Kdy1AMKKrLO34qAAxTSqSmcLz1Y8zBqzRQM2uWgQ0G', 'usuario', 1, NULL, NULL, NULL),
-(22, 'jogador', 'jogador@gmail.com', '$2y$10$3nbYp0jREqV7sYzv5AfEwuMgnxJkn48sXoo6q.QH4D8DPxa8u.D0u', 'usuario', 1, 'https://media.licdn.com/dms/image/v2/D4D03AQHAwkesFzxCIQ/profile-displayphoto-shrink_800_800/B4DZZf9ZEpGsAc-/0/1745366652448?e=1751500800&v=beta&t=dQpqFFy-yAX7nRrXkUqidbF7SzawIEj_05OIZ4gTeVE', '', NULL);
+(22, 'jogador', 'jogador@gmail.com', '$2y$10$3nbYp0jREqV7sYzv5AfEwuMgnxJkn48sXoo6q.QH4D8DPxa8u.D0u', 'usuario', 1, 'https://media.licdn.com/dms/image/v2/D4D03AQHAwkesFzxCIQ/profile-displayphoto-shrink_800_800/B4DZZf9ZEpGsAc-/0/1745366652448?e=1751500800&v=beta&t=dQpqFFy-yAX7nRrXkUqidbF7SzawIEj_05OIZ4gTeVE', '', NULL),
+(23, 'Lucas$', 'lucas@gmail.com', '$2y$10$4oZI.W6Df.18JwLmhrtFw.YTEB/cV7rwHtCTVxfQIYllUoj2OYek2', 'usuario', 1, 'uploads/foto_6848d64fbe958.png', '', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -514,13 +525,13 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT de tabela `nivel`
 --
 ALTER TABLE `nivel`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `pergunta`
 --
 ALTER TABLE `pergunta`
-  MODIFY `id_pergunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pergunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `redesocial`
@@ -532,7 +543,7 @@ ALTER TABLE `redesocial`
 -- AUTO_INCREMENT de tabela `resposta`
 --
 ALTER TABLE `resposta`
-  MODIFY `id_resposta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_resposta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `tabelapontuacao`
@@ -544,7 +555,7 @@ ALTER TABLE `tabelapontuacao`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restrições para tabelas despejadas
