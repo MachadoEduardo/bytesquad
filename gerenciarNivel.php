@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include 'assets/inc/header.inc.php';
 include 'assets/classes/niveis.class.php';
@@ -28,8 +28,8 @@ if (!isset($_SESSION['Logado'])) {
                     <th>Nome</th>
                     <th>Tempo</th>
                     <th>Dificuldade</th>
-                    <th>Perguntas</th>
-                    <th>Respostas</th>
+                    <th>XP Necessário</th>
+                    <th>Nível Requerido</th>
                     <th>Administrador</th>
                     <th>Ações</th>
                 </tr>
@@ -39,31 +39,31 @@ if (!isset($_SESSION['Logado'])) {
                 <?php
                 $lista = $nivel->listar();
                 foreach ($lista as $item):
-                    ?>
+                ?>
                     <!-- Exemplo de linha de Nível -->
                     <tr>
                         <td><?php echo $item['id_nivel'] ?></td>
                         <td><?php echo $item['nome_nivel'] ?></td>
                         <td><?php echo $item['tempo_nivel'] ?></td>
                         <td><?php echo $item['dificuldade'] ?></td>
-                        <td><?php echo $item['questoes'] ?></td>
-                        <td><?php echo $item['respostas'] ?></td>
+                        <td><?php echo $item['xp_necessario']; ?></td>
+                        <td><?php echo $item['nivel_requerido']; ?></td>
                         <td><?php echo $item['id_administrativo']; ?></td> <!-- Exibindo o id do administrador -->
                         <td>
-                        <?php if ($admin->temPermissoes('EDIT')): ?>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#editarModal<?php echo $item['id_nivel']; ?>">
-                                Editar Nível
-                            </button>
-                        <?php endif; ?>
-                        <?php if ($admin->temPermissoes('DELETE')): ?>
-                            <a href="deletarNivel.php?id_nivel=<?php echo $item['id_nivel']; ?>"
-                                class="btn btn-sm btn-danger"
-                                onclick="return confirm('Você tem certeza que deseja excluir <?php echo $item['nome_nivel'] ?>? ')">Excluir</a>
-                        <?php endif; ?>
+                            <?php if ($admin->temPermissoes('EDIT')): ?>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editarModal<?php echo $item['id_nivel']; ?>">
+                                    Editar Nível
+                                </button>
+                            <?php endif; ?>
+                            <?php if ($admin->temPermissoes('DELETE')): ?>
+                                <a href="deletarNivel.php?id_nivel=<?php echo $item['id_nivel']; ?>"
+                                    class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Você tem certeza que deseja excluir <?php echo $item['nome_nivel'] ?>? ')">Excluir</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
-                    <?php
+                <?php
                 endforeach
                 ?>
             </tbody>
@@ -109,35 +109,28 @@ if (!isset($_SESSION['Logado'])) {
                                             value="<?php echo $item['dificuldade']; ?>" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="questoes<?php echo $item['questoes']; ?>"
-                                            class="form-label">Questões</label>
-                                        <input type="text" class="form-control"
-                                            id="questoes<?php echo $item['questoes']; ?>" name="questoes"
-                                            value="<?php echo $item['questoes']; ?>" required>
+                                        <label for="xp_necessario<?php echo $item['id_nivel']; ?>" class="form-label">XP Necessário</label>
+                                        <input type="number" class="form-control" id="xp_necessario<?php echo $item['id_nivel']; ?>" name="xp_necessario" value="<?php echo $item['xp_necessario']; ?>">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="respostas<?php echo $item['respostas']; ?>"
-                                            class="form-label">Respostas</label>
-                                        <input type="text" class="form-control"
-                                            id="respostas<?php echo $item['respostas']; ?>" name="respostas"
-                                            value="<?php echo $item['respostas']; ?>" required>
+                                        <label for="nivel_requerido<?php echo $item['id_nivel']; ?>" class="form-label">Nível Requerido</label>
+                                        <input type="number" class="form-control" id="nivel_requerido<?php echo $item['id_nivel']; ?>" name="nivel_requerido" value="<?php echo $item['nivel_requerido']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="id_administrativo<?php echo $item['id_administrativo']; ?>">Administrador:</label>
-                                        <select name="id_administrativo" id="id_administrativo" class="form-control"
-                                            type="text">
+                                        <select name="id_administrativo" id="id_administrativo" class="form-control">
                                             <?php
-                                            $lista = $nivel->listarAdministrador();
-                                            foreach ($lista as $item):
-                                                ?>
-                                                <option value="<?php echo $item['id_administrativo']; ?>"><?php echo $item['id_administrativo']; ?> - <?php echo $item['usuario']; ?>
-                                                    </option>
-                                                <?php
+                                            $listaAdmin = $nivel->listarAdministrador();
+                                            foreach ($listaAdmin as $adminItem):
+                                                $selected = ($adminItem['id_administrativo'] == $item['id_administrativo']) ? 'selected' : '';
+                                            ?>
+                                                <option value="<?php echo $adminItem['id_administrativo']; ?>" <?php echo $selected; ?>>
+                                                    <?php echo $adminItem['id_administrativo']; ?> - <?php echo $adminItem['usuario']; ?>
+                                                </option>
+                                            <?php
                                             endforeach;
                                             ?>
-
                                         </select>
-
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Salvar alterações</button>
@@ -155,10 +148,10 @@ if (!isset($_SESSION['Logado'])) {
     </div>
 
     <?php if ($admin->temPermissoes('ADD')): ?>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Adicionar Nível
-    </button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Adicionar Nível
+        </button>
     <?php endif; ?>
 
     <!-- Modal para adicionar nível -->
@@ -191,26 +184,24 @@ if (!isset($_SESSION['Logado'])) {
                                         required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="questoes" class="form-label">Perguntas</label>
-                                    <input type="text" class="form-control" id="questoes" name="questoes" required>
+                                    <label for="xp_necessario" class="form-label">XP Necessário</label>
+                                    <input type="number" class="form-control" id="xp_necessario" name="xp_necessario">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="respostas" class="form-label">Respostas</label>
-                                    <input type="text" class="form-control" id="respostas" name="respostas" required>
+                                    <label for="nivel_requerido" class="form-label">Nível Requerido</label>
+                                    <input type="number" class="form-control" id="nivel_requerido" name="nivel_requerido">
                                 </div>
-
                                 <div class="form-group">
                                     <label for="id_administrativo">Administrador:</label>
-                                    <select name="id_administrativo" id="id_administrativo" class="form-control"
-                                        type="text">
+                                    <select name="id_administrativo" id="id_administrativo" class="form-control">
                                         <?php
                                         $listaNova = $nivel->listarAdministrador();
                                         foreach ($listaNova as $itemNovo):
-                                            ?>
+                                        ?>
                                             <option value="<?php echo $itemNovo['id_administrativo']; ?>">
                                                 <?php echo $itemNovo['id_administrativo']; ?> -
                                                 <?php echo $itemNovo['usuario']; ?> </option>
-                                            <?php
+                                        <?php
                                         endforeach;
                                         ?>
 
