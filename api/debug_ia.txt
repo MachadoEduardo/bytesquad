@@ -1,0 +1,9 @@
+Pergunta: Qual das seguintes tecnologias é essencial para o desenvolvimento de páginas web dinâmicas no lado do cliente?
+
+Alternativas:
+A) PHP
+B) JavaScript
+C) SQL
+D) Python
+
+Correta: B)

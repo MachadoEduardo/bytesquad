@@ -111,4 +111,26 @@ class Perguntas
             return false;
         }
     }
+
+    public function adicionarRetornandoId($id_nivel, $texto_pergunta, $tipo_pergunta = 'multipla_escolha', $ordem = 1)
+    {
+        if (!$this->existePergunta($texto_pergunta, $id_nivel)) {
+            try {
+                $sql = $this->con->conectar()->prepare(
+                    "INSERT INTO pergunta (id_nivel, texto_pergunta, tipo_pergunta, ordem)
+                 VALUES (:id_nivel, :texto_pergunta, :tipo_pergunta, :ordem)"
+                );
+                $sql->bindParam(':id_nivel', $id_nivel, PDO::PARAM_INT);
+                $sql->bindParam(':texto_pergunta', $texto_pergunta, PDO::PARAM_STR);
+                $sql->bindParam(':tipo_pergunta', $tipo_pergunta, PDO::PARAM_STR);
+                $sql->bindParam(':ordem', $ordem, PDO::PARAM_INT);
+                $sql->execute();
+                return $this->con->conectar()->lastInsertId();
+            } catch (PDOException $ex) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
