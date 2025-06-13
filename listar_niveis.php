@@ -69,14 +69,12 @@ $dadosUsuario = $usuario->buscarUsuario($_SESSION['Logado']);
             left: 50%;
             top: 0;
             transform: translateX(-50%);
-            z-index: 1;
             border-radius: 10px;
         }
 
         .level-node {
             position: relative;
             margin-bottom: 20px;
-            z-index: 2;
             display: flex;
             justify-content: center;
         }
@@ -222,7 +220,7 @@ $dadosUsuario = $usuario->buscarUsuario($_SESSION['Logado']);
 
         <div class="flex-1 p-4 md:ml-64">
             <div class="max-w-5xl mx-auto">
-                <h1 class="text-3xl font-bold mb-6 text-white">Níveis</h1>
+                <h1 class="text-3xl font-bold mb-6 text-white text-center">Níveis</h1>
 
                 <div class="progress-panel">
                     <div class="flex items-center gap-4">

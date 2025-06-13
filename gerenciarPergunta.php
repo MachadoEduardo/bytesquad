@@ -180,7 +180,7 @@ if (!isset($_SESSION['Logado'])) {
         </div>
     </div>
 
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#gerarIaModal">
+    <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#gerarIaModal">
         Gerar com IA
     </button>
 
@@ -250,8 +250,12 @@ if (!isset($_SESSION['Logado'])) {
                 }
                 document.getElementById('iaPerguntaGerada').innerHTML = `<b>Pergunta:</b> ${data.pergunta}<br>
         <b>Alternativas:</b><br>
-        <ul>${data.alternativas.map((alt, i) => `<li>${String.fromCharCode(65+i)}) ${alt}</li>`).join('')}</ul>
-        <b>Correta:</b> ${data.correta}`;
+        <ul>${
+    Object.entries(data.alternativas)
+        .map(([letra, alt]) => `<li>${letra}) ${alt}</li>`)
+        .join('')
+}</ul>
+<b>Correta:</b> ${data.correta}`;
                 document.getElementById('btnAddPerguntaBanco').classList.remove('d-none');
             })
             .catch((err) => {
@@ -285,7 +289,11 @@ if (!isset($_SESSION['Logado'])) {
                     document.getElementById('iaLoading').classList.add('d-none');
                     document.getElementById('iaPerguntaGerada').innerHTML = `<b>Pergunta:</b> ${data.pergunta}<br>
             <b>Alternativas:</b><br>
-            <ul>${data.alternativas.map((alt, i) => `<li>${String.fromCharCode(65+i)}) ${alt}</li>`).join('')}</ul>
+            <ul>${
+    Object.entries(data.alternativas)
+        .map(([letra, alt]) => `<li>${letra}) ${alt}</li>`)
+        .join('')
+}</ul>
             <b>Correta:</b> ${data.correta}`;
                     document.getElementById('btnAddPerguntaBanco').classList.remove('d-none');
                 })
