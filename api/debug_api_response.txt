@@ -1,0 +1,36 @@
+{
+  "id": "chatcmpl-BhmyETsSlYmz9O5qxzg5qE4Jx2HJY",
+  "object": "chat.completion",
+  "created": 1749776046,
+  "model": "gpt-4o-2024-08-06",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n    \"pergunta\": \"Qual é a principal função do CSS em desenvolvimento web?\",\n    \"alternativas\": {\n        \"A\": \"Definir a estrutura de uma página web\",\n        \"B\": \"Gerenciar o comportamento dinâmico de uma página web\",\n        \"C\": \"Estilizar e formatar o layout de uma página web\",\n        \"D\": \"Armazenar dados do usuário no servidor\"\n    },\n    \"correta\": \"C\"\n}",
+        "refusal": null,
+        "annotations": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 141,
+    "completion_tokens": 99,
+    "total_tokens": 240,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "audio_tokens": 0,
+      "accepted_prediction_tokens": 0,
+      "rejected_prediction_tokens": 0
+    }
+  },
+  "service_tier": "default",
+  "system_fingerprint": "fp_07871e2ad8"
+}

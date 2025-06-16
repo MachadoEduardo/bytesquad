@@ -1,3 +1,14 @@
+
+<button id="sidebarToggle" class="2xl:hidden fixed top-4 left-4 z-50 p-2 rounded bg-gray-800 text-white focus:outline-none">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+</button>
+<div class="w-96 h-screen text-gray-700 p-4 fixed left-0 top-0 font-[Poppins]">
+    <aside id="default-sidebar"
+    class="fixed top-0 left-0 z-40 w-96 h-screen transition-transform -translate-x-full 2xl:translate-x-0 bg-gray-50 dark:bg-gray-800"
+    aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-100 dark:bg-gray-800 border-r-2 shadow-lg w-full">
 <div class="w-64 h-screen bg-white text-gray-700 p-4 fixed left-0 top-0 border-r-2 font-[Poppins] shadow-lg">
     <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -99,4 +110,31 @@ document.addEventListener('DOMContentLoaded', function() {
         dropdownMenu.classList.toggle('hidden');
     });
 });
+
+document.getElementById('sidebarToggle').addEventListener('click', function() {
+    const sidebar = document.getElementById('default-sidebar');
+    if (sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+    } else {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+    }
+});
+
+// fechar ao clicar fora em mobile
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('default-sidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    if (
+        window.innerWidth < 640 &&
+        !sidebar.contains(e.target) &&
+        !toggle.contains(e.target) &&
+        !sidebar.classList.contains('-translate-x-full')
+    ) {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+    }
+});
+
 </script>

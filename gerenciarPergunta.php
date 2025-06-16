@@ -178,10 +178,158 @@ if (!isset($_SESSION['Logado'])) {
             </div>
         </div>
     </div>
+
+    <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#gerarIaModal">
+        Gerar com IA
+    </button>
+
+    <div class="modal fade" id="gerarIaModal" tabindex="-1" aria-labelledby="gerarIaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="formGerarIa" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gerarIaModalLabel">Gerar Pergunta com IA</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="temaIa" class="form-label">Tema</label>
+                        <input type="text" class="form-control" id="temaIa" name="tema" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nivelIa" class="form-label">Nível/Dificuldade</label>
+                        <input type="text" class="form-control" id="nivelIa" name="nivel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="promptIa" class="form-label">Prompt (opcional)</label>
+                        <label for="" class="text-secondary">Ex: Crie uma pergunta de múltipla escolha sobre [tema] para alunos do [nível].</label>
+                        <textarea class="form-control" id="promptIa" name="prompt" rows="2" placeholder=""></textarea>
+                    </div>
+                    <div id="iaLoading" class="text-center text-muted d-none">Gerando pergunta...</div>
+                    <div id="iaPerguntaGerada" class="mt-3">
+                    </div>
+                    <button id="btnAddPerguntaBanco" class="btn btn-success mt-2 d-none">Adicionar ao Banco</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Gerar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </main>
 
 <?php include 'assets/inc/footer.inc.php'; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('formGerarIa').addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.getElementById('iaLoading').classList.remove('d-none');
+        document.getElementById('iaPerguntaGerada').innerHTML = '';
+
+        const tema = document.getElementById('temaIa').value;
+        const nivel = document.getElementById('nivelIa').value;
+        const promptCustom = document.getElementById('promptIa').value;
+
+        console.log('Enviando para IA:', tema, nivel, promptCustom);
+        fetch('api/gerar_pergunta_ia.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `tema=${encodeURIComponent(tema)}&nivel=${encodeURIComponent(nivel)}&prompt=${encodeURIComponent(promptCustom)}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('JSON recebido:', data);
+                document.getElementById('iaLoading').classList.add('d-none');
+                if (!data.pergunta) {
+                    document.getElementById('iaPerguntaGerada').innerHTML = 'A IA não conseguiu gerar uma pergunta. Tente novamente ou ajuste o prompt.';
+                    return;
+                }
+                document.getElementById('iaPerguntaGerada').innerHTML = `<b>Pergunta:</b> ${data.pergunta}<br>
+        <b>Alternativas:</b><br>
+        <ul>${
+    Object.entries(data.alternativas)
+        .map(([letra, alt]) => `<li>${letra}) ${alt}</li>`)
+        .join('')
+}</ul>
+<b>Correta:</b> ${data.correta}`;
+                document.getElementById('btnAddPerguntaBanco').classList.remove('d-none');
+            })
+            .catch((err) => {
+                console.error('Erro na requisição:', err);
+                document.getElementById('iaLoading').classList.add('d-none');
+                document.getElementById('iaPerguntaGerada').innerHTML = 'Erro ao gerar pergunta.';
+            });
+
+        let perguntaGerada = {};
+
+        document.getElementById('formGerarIa').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('iaLoading').classList.remove('d-none');
+            document.getElementById('iaPerguntaGerada').innerHTML = '';
+            document.getElementById('btnAddPerguntaBanco').classList.add('d-none');
+
+            const tema = document.getElementById('temaIa').value;
+            const nivel = document.getElementById('nivelIa').value;
+            const promptCustom = document.getElementById('promptIa').value;
+
+            fetch('api/gerar_pergunta_ia.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `tema=${encodeURIComponent(tema)}&nivel=${encodeURIComponent(nivel)}&prompt=${encodeURIComponent(promptCustom)}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    perguntaGerada = data;
+                    document.getElementById('iaLoading').classList.add('d-none');
+                    document.getElementById('iaPerguntaGerada').innerHTML = `<b>Pergunta:</b> ${data.pergunta}<br>
+            <b>Alternativas:</b><br>
+            <ul>${
+    Object.entries(data.alternativas)
+        .map(([letra, alt]) => `<li>${letra}) ${alt}</li>`)
+        .join('')
+}</ul>
+            <b>Correta:</b> ${data.correta}`;
+                    document.getElementById('btnAddPerguntaBanco').classList.remove('d-none');
+                })
+                .catch(() => {
+                    document.getElementById('iaLoading').classList.add('d-none');
+                    document.getElementById('iaPerguntaGerada').innerHTML = 'Erro ao gerar pergunta.';
+                });
+        });
+
+        // Adicionar ao banco
+        document.getElementById('btnAddPerguntaBanco').addEventListener('click', function() {
+            const id_nivel = document.getElementById('nivelIa').value;
+            fetch('api/adicionar_pergunta_ia.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id_nivel: id_nivel,
+                        pergunta: perguntaGerada.pergunta,
+                        alternativas: perguntaGerada.alternativas,
+                        correta: perguntaGerada.correta
+                    })
+                })
+                .then(res => res.json())
+                .then(resp => {
+                    if (resp.sucesso) {
+                        alert('Pergunta adicionada com sucesso!');
+                        document.getElementById('btnAddPerguntaBanco').classList.add('d-none');
+                    } else {
+                        alert('Erro ao adicionar pergunta!');
+                    }
+                });
+        });
+    });
+</script>
+</body>
+
 </body>
 </html>

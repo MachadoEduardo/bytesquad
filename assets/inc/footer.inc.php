@@ -1,4 +1,4 @@
-<footer class="footer bg-dark text-white text-center py-4 mt-5">
+<footer class="footer bg-dark text-white text-center py-4 mt-3">
     <div class="container">
         <p>&copy; <?php echo date('Y'); ?> ByteSquad. Todos os direitos reservados.</p>
         <ul class="nav justify-content-center">
