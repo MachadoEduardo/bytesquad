@@ -1,3 +1,4 @@
+
 <button id="sidebarToggle" class="2xl:hidden fixed top-4 left-4 z-50 p-2 rounded bg-gray-800 text-white focus:outline-none">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -8,6 +9,9 @@
     class="fixed top-0 left-0 z-40 w-96 h-screen transition-transform -translate-x-full 2xl:translate-x-0 bg-gray-50 dark:bg-gray-800"
     aria-label="Sidebar">
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-100 dark:bg-gray-800 border-r-2 shadow-lg w-full">
+<div class="w-64 h-screen bg-white text-gray-700 p-4 fixed left-0 top-0 border-r-2 font-[Poppins] shadow-lg">
+    <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <div class="flex items-center justify-center mb-6 pb-3 border-b border-gray-200 dark:border-gray-700">
                 <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -132,4 +136,5 @@ document.addEventListener('click', function(e) {
         sidebar.classList.remove('translate-x-0');
     }
 });
+
 </script>

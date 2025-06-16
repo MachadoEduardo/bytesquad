@@ -15,7 +15,6 @@ if (!isset($_SESSION['Logado'])) {
 ?>
 <main class="container mt-5">
     <div class="header-content mb-4">
-
         <h1>Gerenciar Perguntas</h1>
         <p>Secção dedicada à criação, edição, leitura e exclusão de perguntas.</p>
     </div>
@@ -332,4 +331,5 @@ if (!isset($_SESSION['Logado'])) {
 </script>
 </body>
 
+</body>
 </html>
